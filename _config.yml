@@ -1,0 +1,21 @@
+title: BorgBase Docs
+description: A Jekyll theme for documentation
+baseurl: ""
+url: "https://docs.borgbase.com"
+
+permalink: pretty
+exclude: ["README.md", "Rakefile"]
+
+search_enabled: true
+
+aux_links:
+  "Borg Repo Hosting from $2/month":
+    - "https://www.borgbase.com"
+
+theme: just-the-docs
+color_scheme: nil
+
+ga_tracking: UA-41046852-10
+
+plugins:
+  - jekyll-seo-tag
