@@ -1,9 +1,8 @@
 ---
-title: Backup Strategy
+title: Strategy
 nav_order: 2
 layout: page
-description: ""
-permalink: /backup-strategy
+description: "How to plan a comprehensive backup strategy by taking an inventory of your data and matching it to storage locations and backup processes."
 ---
 # Practical Steps to a Comprehensive Backup Strategy – With Template
 
@@ -42,7 +41,7 @@ Try to be comprehensive when making this list. Be sure to include items that are
 
 You can use the following template[^2] to make your own data asset inventory. Once you're happy with it continue with step 2.
 
-<a href="https://docs.borgbase.com/wp-content/uploads/2018/12/Screenshot-2018-12-07-at-12.43.34.png"><img src="https://docs.borgbase.com/wp-content/uploads/2018/12/Screenshot-2018-12-07-at-12.43.34-1024x362.png" alt="" width="835" height="295" class="aligncenter size-large wp-image-78" /></a>
+<img src="/img/strategy/Screenshot-2018-12-07-at-12.43.34.png" alt="" width="835" height="295" class="aligncenter size-large wp-image-78" />
 
 ## Step 2 – Selection of Backup Method
 With all your essential data inventoried, you can now continue to select an appropriate backup method for each. Depending on the kind of data, data velocity and your desired RPO, some popular options for backup methods are:
@@ -56,7 +55,7 @@ In addition to the backup method, we will also record the frequency and destinat
 
 Here an expanded version of our template[^2]:
 
-<a href="https://docs.borgbase.com/wp-content/uploads/2018/12/Screenshot-2018-12-07-at-12.43.45.png"><img src="https://docs.borgbase.com/wp-content/uploads/2018/12/Screenshot-2018-12-07-at-12.43.45-1024x213.png" alt="" width="835" height="174" class="aligncenter size-large wp-image-82" /></a>
+<img src="/img/strategy/Screenshot-2018-12-07-at-12.43.45.png" alt="" width="835" height="174" />
 
 
 ## Step 3 – Evaluate Backup Strategy

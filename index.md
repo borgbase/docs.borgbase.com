@@ -6,18 +6,33 @@ description: ""
 permalink: /
 ---
 
-# Focus on writing good documentation
+# BorgBase Documentation Centre
 {: .fs-9 }
 
-Just the Docs gives your documentation a jumpstart with a responsive Jekyll theme that is easily customizable and hosted on GitHub Pages.
+All the resources you need to develop a comprehensive backup strategy with [BorgBase](https://www.borgbase.com) and apply it in your environment.
 {: .fs-6 .fw-300 }
-
-[Get started now](#getting-started){: .btn .btn-primary .fs-5 .mb-4 .mb-md-0 .mr-2 } [View it on GitHub](https://github.com/pmarsceill/just-the-docs){: .btn .fs-5 .mb-4 .mb-md-0 }
 
 ---
 
-## Getting started
+## Steps to Get Started
 
-### Dependencies
+### Your Backup Strategy and Data
+Even the best tools need a sound strategy. Get started by creating an inventory of your important data assets, catalog where they are stored and discover potential issues in backup workflows. [More...](strategy)
 
-Just the Docs is built for [Jekyll](https://jekyllrb.com), a static site generator. View the [quick start guide](https://jekyllrb.com/docs/) for more information. Just the Docs requires no special Jekyll plugins and can run on GitHub Pages' standard Jekyll compiler.
+### Sign up with BorgBase
+BorgBase is a dedicated hosting service for Borg backup repositories. It allows you to manage all your backups in one place and use powerful Borg features, like append-only mode in a simple way. 
+
+### Local Borg Setup
+Borg Backup works with most operating systems, like Linux, macOS and Windows WSL. For servers and headless systems, look into our [Command Line Setup Guide]. For desktops, we recommend using our desktop client, [Vorta](setup/vorta).
+
+### Automation
+Use our GraphQL API or Ansible role to automate repeated setup steps on client endpoints. [More...](automation)
+
+### Restore Data from a Backup
+How to restore files from a Borg Backup. [More...](restore)
+
+---
+
+## Contribute and Customize
+
+Borg and most other tools we provide are fully open source. You can customize and improve them to a degree that wouldn't be possible with commercial products. Look at our [Github page](https://github.com/borgbase) for ongoing open source development.

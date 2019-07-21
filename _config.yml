@@ -4,6 +4,7 @@ baseurl: ""
 url: "https://docs.borgbase.com"
 
 permalink: pretty
+include: ["_redirects"]
 exclude: ["README.md", "Rakefile"]
 
 search_enabled: true
