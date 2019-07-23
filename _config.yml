@@ -10,7 +10,7 @@ exclude: ["README.md", "Rakefile"]
 search_enabled: true
 
 aux_links:
-  "Borg Repo Hosting from $2/month":
+  "Borg Backup Hosting from $2/month":
     - "https://www.borgbase.com"
 
 theme: just-the-docs
