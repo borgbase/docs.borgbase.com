@@ -16,7 +16,5 @@ aux_links:
 theme: just-the-docs
 color_scheme: nil
 
-ga_tracking: UA-41046852-10
-
 plugins:
   - jekyll-seo-tag
