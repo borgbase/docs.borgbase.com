@@ -2,7 +2,7 @@
 layout: default
 title: Home
 nav_order: 1
-description: ""
+description: "All the resources you need to develop a comprehensive backup strategy with BorgBase and apply it in your environment."
 permalink: /
 ---
 

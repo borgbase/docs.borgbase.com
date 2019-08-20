@@ -1,29 +1,50 @@
 ---
-title: Automation
+title: API and Automation
 nav_order: 4
 layout: page
-description: ""
+description: "Introduction to the BorgBase API and Ansible role for full backup automation."
 ---
 # How to Incorporate BorgBase into your Automated Deployment Workflow
-Modern IT would be impossible without automation. We provide the tools to make reliable backups a part of your deployment workflow.
-
-## Ansible Role for Borg Backup Client
-
-This role will install Borg Borgmatic and a cron job on a Linux (tested on Ubuntu/Debian/CentOS/Fedora) client. Learn more on the [Github page of the project](https://github.com/borgbase/ansible-role-borgbackup).
-
-## Ansible Module to set up BorgBase Repo
-
-BorgBase user [@adhawkinsgh](https://twitter.com/adhawkinsgh/) created a range of Ansible modules that interact with the BorgBase API for a fully automated setup. These roles will also set up new repos and SSH keys with BorgBase.
-
-For details see the [Github repo](https://github.com/adhawkins/ansible-borgbase) or the [in-file documentation](https://github.com/adhawkins/ansible-borgbase/blob/master/borgbase_repo.py).
+You can fully automate your backup management using our GraphQL API. For quick client setup, an Ansible role is provided.
 
 ## API
 
-The GraphQL API used by the web interface is also available to automate tasks, like adding keys and repos.
+The GraphQL API used by the web interface is also available to automate tasks, like adding keys and repos. Before using the API, create a new API token in your BorgBase Control Panel under [*Account > API*](https://www.borgbase.com/account?tab=2). Here you can choose between different permission levels and specify an expiration date for short-lived keys.
 
-You can use the Python sample client to communicate with this API or implement your own. The full documentation can be accessed via the GraphiQL interface at [https://api.borgbase.com/graphql](https://api.borgbase.com/graphql).
+Once you have your key, you can make requests against our [GraphQL API](https://api.borgbase.com/graphql). The token should be passed as HTTP header:
 
-Interfacing with GraphQL is relatively easy and can be done with any tool or library that can do POST requests. To get you started we provide the following [Python client](https://github.com/borgbase/borgbase-api-client) as example. It simply wraps the Python `requests` package and provides sample GraphQL queries.
+`Authorization: Bearer <YOUR TOKEN>`
+
+An example request using cURL:
+
+```
+$ curl \
+    -X POST \
+    -H 'Content-Type: application/json' \
+    -H "Authorization: Bearer <YOUR TOKEN>" \
+    -d '{"query": "{ sshList {id, name}}" }' \
+    https://api.borgbase.com/graphql
+```
+
+Example using Python requests:
+
+```
+import requests
+TOKEN = '<YOUR TOKEN>'
+
+headers = {"Authorization": "Bearer " + TOKEN}
+query = "{ sshList {id, name}}" 
+
+response = requests.post('https://api.borgbase.com/graphql',
+                         json={'query': query}, 
+                         headers=headers)
+
+print(response.json())
+```
+
+The full documentation with all available operations can be accessed via the GraphiQL interface at [https://api.borgbase.com/graphql](https://api.borgbase.com/graphql).
+
+Interfacing with GraphQL is relatively easy and can be done with any tool or library that can do JSON POST requests. To get you started, we provide the following [Python client](https://github.com/borgbase/borgbase-api-client) as an example. It simply wraps the Python `requests` package and provides sample GraphQL queries.
 
 Example usage:
 
@@ -51,3 +72,16 @@ res = client.execute(REPO_ADD, new_repo_vars)
 new_repo_path = res['data']['repoAdd']['repoAdded']['repoPath']
 print('Added new repo with path:', new_repo_path)
 ```
+
+## Ansible
+
+### Setting Up a Backup Client using Ansible
+
+This role will install Borg Borgmatic and a cron job on a Linux (tested on Ubuntu/Debian/CentOS/Fedora) client. Learn more on the [Github page of the project](https://github.com/borgbase/ansible-role-borgbackup).
+
+### Interacting with the BorgBase API via Ansible
+
+BorgBase user [@adhawkinsgh](https://twitter.com/adhawkinsgh/) created a range of Ansible modules that interact with the BorgBase API for a fully automated setup. These roles will also set up new repos and SSH keys with BorgBase.
+
+For details see the [Github repo](https://github.com/adhawkins/ansible-borgbase) or the [in-file documentation](https://github.com/adhawkins/ansible-borgbase/blob/master/borgbase_repo.py).
+

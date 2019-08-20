@@ -3,7 +3,6 @@ title: Setup
 nav_order: 3
 layout: page
 description: ""
-permalink: /setup
 has_children: true
 ---
 # Setting up Borg for Backups to BorgBase

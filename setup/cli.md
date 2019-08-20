@@ -3,7 +3,7 @@ title: Command Line
 nav_order: 2
 layout: page
 parent: Setup
-description: ""
+description: "Instructions on how to set up Borg Backup from the command line on Linux and macOS."
 ---
 # How to Set Up Borg Backups from the Command Line on Linux and macOS
 
