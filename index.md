@@ -26,10 +26,10 @@ Even the best tools need a sound strategy. Get started by creating an inventory 
 Borg Backup works with most operating systems, like Linux, macOS and Windows WSL. For servers and headless systems, look into our [Command Line Setup Guide](setup/cli). For desktops, we recommend using our desktop client, [Vorta](setup/vorta).
 
 ### Automation
-Use our GraphQL API or Ansible role to automate repeated setup steps on client endpoints. [More...](automation)
+Use our [GraphQL API](api) or [Ansible role](setup/ansible) to automate repeated setup steps on client endpoints.
 
 ### Restore Data from a Backup
-How to restore files from a Borg Backup. [More...](restore)
+The most important step: How to restore files from a Borg Backup. [More...](restore)
 
 ---
 
