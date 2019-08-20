@@ -1,5 +1,5 @@
 ---
-title: API and Automation
+title: Automation
 nav_order: 4
 layout: page
 description: "Introduction to the BorgBase API and Ansible role for full backup automation."
@@ -46,14 +46,15 @@ The full documentation with all available operations can be accessed via the Gra
 
 Interfacing with GraphQL is relatively easy and can be done with any tool or library that can do JSON POST requests. To get you started, we provide the following [Python client](https://github.com/borgbase/borgbase-api-client) as an example. It simply wraps the Python `requests` package and provides sample GraphQL queries.
 
-Example usage:
+Here a more complex example that adds a new SSH key and backup repository.
 
-```
+
+```python
 from borgbase_api_client.client import GraphQLClient
 from borgbase_api_client.mutations import *
 
-client = GraphQLClient()
-client.login(email='xxx', password='xxx')
+TOKEN = os.environ.get("TOKEN")
+client = GraphQLClient(TOKEN)
 
 new_key_vars = {
     'name': 'Key for VM-004',
