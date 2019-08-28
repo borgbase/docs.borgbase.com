@@ -6,3 +6,61 @@ description: ""
 has_children: true
 ---
 # Frequently Asked Questions
+
+## I can't connect to the backup repo and get the error message `Connection closed by remote host. Is borg working on the server?`
+
+This is almost always a problem with SSH keys. Double check the following to debug further:
+
+- Have you already assigned a SSH key to the repo on [BorgBase.com](https://www.borgbase.com)?
+- Is SSH using the key you assigned? By default only `~/.ssh/id_[rsa | ed25519 | ecdsa]` are used. When using a custom key name, you can add `IdentityFile ~/.ssh/id_custom` to `~/.ssh/config`. Or to only use this key with BorgBase:
+
+```
+Host *.repo.borgbase.com
+    IdentityFile ~/.ssh/id_custom
+```
+
+- Are the key permissions OK? Private keys need to have a permission of `0600`. To change the permission:
+
+```
+$ chmod 0600 ~/.ssh/id_custom
+```
+
+- If you still get errors, try to connect to your repo using the `ssh` command with verbose logging enabled:
+
+```
+$ ssh -v xxxx@xxxx.repo.borgbase.com
+```
+
+This will print a list of keys being tried and potential problems. You won't get a shell at the end, as BorgBase only support access via `borg`. Once you see `Remote: Key is restricted.` or `PTY allocation request failed on channel 0` then the login step still worked.
+
+## My SSH key is set to append-only access, but I can still prune or delete old archives. Why is append-only mode not working?
+
+The Borg developers made the [decision](https://github.com/borgbackup/borg/issues/3504#issuecomment-354764028) to fail delete commands "silently". This means that prune- and delete commands will still succeed from a client perspective, but no data will be deleted on the server.
+
+With append-only mode enabled, the repository will have a timestamped transaction log. This [allows going back](https://borgbackup.readthedocs.io/en/stable/usage/notes.html#append-only-mode) to previous states, even if prune- or delete-commands were issued by the backup client.
+
+If you need to restore an older repo version, please contact support. We will make a full copy of the repo and do the restore there.
+
+
+## Doing a backup with `borg` takes too long. How can I make it faster?
+
+Depending on the bottleneck (mainly CPU, disk IO, network) you are encountering, there are some things you can do to speed up backups:
+
+- Make sure you choose an appropriate [compression level](https://borgbackup.readthedocs.io/en/stable/usage/help.html?highlight=compression#borg-help-compression) for your data. In general `lz4` (fast, but low compression) `zstd,3` (medium compression) and `zstd,8` (high compression) will work well.
+- If you don't need additional file flags, you can disable them with [`--nobsdflags`](https://borgbackup.readthedocs.io/en/stable/usage/notes.html#nobsdflags) or `bsd_flags: false` in Borgmatic. In a future version this flag may be [renamed](https://github.com/borgbackup/borg/issues/4489) to `--noflags`.
+- Avoid excessive archive checking: `borg check` can read all backup segments and confirm their consistency. For large repos this can take a long time. BorgBase already uses different techniques to avoid bitrot in the storage backend, so `borg check` is not strictly necessary for this purpose. In Borgmatic set `checks` to `disabled` in the `consistency` section.
+
+## Which storage backend are you using? Is it safe?
+
+For the EU region, your data is saved on a Ceph storage cluster. The US region runs on several RAID-6 backed storage servers. Both technologies protect against hardware failure and bit rot. For a list of the providers we work with, you can also see our [GDPR page](https://www.borgbase.com/gdpr).
+
+## I have an existing Borg Backup repo on my own server or with another provider. How can I move it to BorgBase?
+
+We offer free migration services for both, incoming and outgoing transfers. Currently this is done manually. To start a transfer follow these steps:
+
+1. For incoming transfers, create an empty repo in your BorgBase account.
+2. Make sure your old repo data is accessible from the internet somehow, e.g. via SSH, FTP or HTTP. For SSH we will provide you with a one-time public key to use.
+3. Contact our support and provide the BorgBase repo ID and the login details of the transfer source or target.
+
+
+## Have any other questions? [Email Us!](mailto:hello@borgbase.com).

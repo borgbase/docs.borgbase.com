@@ -1,9 +1,9 @@
 ---
-title: New SSH Key
+title: Create SSH Key
 nav_order: 1
 layout: page
 parent: FAQ
-description: ""
+description: "How to create a new SSH key for secure connections."
 ---
 # How to Create a SSH Key on macOS or Ubuntu/Debian
 
