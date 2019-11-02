@@ -95,4 +95,4 @@ For an in-depth discussion, also see Borg issues [#636](https://github.com/borgb
 
 If you still encounter issues, you may be using a VPN or mobile network that aggressively terminates idle connections.
 
-## Have any other questions? [Email Us!](mailto:hello@borgbase.com).
+## Have any other questions? [Email Us!](mailto:hello@borgbase.com)
