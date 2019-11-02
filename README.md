@@ -9,6 +9,15 @@ Has the content of [docs.borgbase.com](https://docs.borgbase.com). Feel free to 
 ## Run
 - `bundle exec jekyll serve`
 
+## Build/Deploy
+Workaround for Netlify Ruby issue. In `Gemfile.lock`:
+
+```
+ BUNDLED WITH
+-   2.0.1
++   1.16.0
+```
+
 ## Update
 - `bundle update`
 
