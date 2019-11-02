@@ -62,5 +62,37 @@ We offer free migration services for both, incoming and outgoing transfers. Curr
 2. Make sure your old repo data is accessible from the internet somehow, e.g. via SSH, FTP or HTTP. For SSH we will provide you with a one-time public key to use.
 3. Contact our support and provide the BorgBase repo ID and the login details of the transfer source or target.
 
+## My SSH connection breaks after a long backup or prune operation.
+
+If Borg happens to be busy on the client- or server side, it may not send data over the SSH connection for a while. In this case, some ISPs will terminate the connection after a period of inactivity. You would then see an error like this:
+
+```
+Remote: packet_write_wait: Connection to xxx.xxx.xxx.xxx: Broken pipe
+Connection closed by remote host
+```
+
+or
+
+```
+Remote: client_loop: send disconnect: Broken pipe
+RemoteRepository: 2.61 kB bytes sent, 1.01 MB bytes received, 52 messages sent
+Connection closed by remote host
+```
+
+Which means the SSH connection has been terminated and Borg is unable to send data to the server-side process. The [solution](https://github.com/borgbackup/borg/issues/3988#issuecomment-478807213) is to have the client regular keepalive packages while no data is sent. On the client machine, you can add the below configuration to `~/.ssh/config` or `/etc/ssh/ssh_config`:
+
+```
+Host *.repo.borgbase.com
+        ServerAliveInterval 10
+        ServerAliveCountMax 30
+```
+
+This configuration means that the client will send a null packet every 10 seconds to keep the connection alive. If it doesn't get a response 30 times, the connection will be closed.
+
+BorgBase already has the appropriate `ClientAliveInterval` configuration server-side.
+
+For an in-depth discussion, also see Borg issues [#636](https://github.com/borgbackup/borg/issues/636) and [#3988](https://github.com/borgbackup/borg/issues/3988). Or [this](https://askubuntu.com/a/354245) and [this](https://unix.stackexchange.com/questions/3026/what-options-serveraliveinterval-and-clientaliveinterval-in-sshd-config-exac) StackExchange question.
+
+If you still encounter issues, you may be using a VPN or mobile network that aggressively terminates idle connections.
 
 ## Have any other questions? [Email Us!](mailto:hello@borgbase.com).
