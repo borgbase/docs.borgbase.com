@@ -8,6 +8,7 @@ include: ["_redirects"]
 exclude: ["README.md", "Rakefile"]
 
 search_enabled: true
+heading_anchors: true
 
 aux_links:
   "Borg Backup Hosting from $2/month":
