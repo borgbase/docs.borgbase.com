@@ -9,6 +9,9 @@ Has the content of [docs.borgbase.com](https://docs.borgbase.com). Feel free to 
 ## Run
 - `bundle exec jekyll serve`
 
+## Update
+- `bundle update`
+
 ## Credits
 - Theme: [https://github.com/pmarsceill/just-the-docs]
 - Colors: [https://vuetifyjs.com/en/framework/colors#colors]
