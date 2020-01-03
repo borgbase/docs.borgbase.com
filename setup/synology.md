@@ -43,7 +43,7 @@ You will end up with two files: The private key, `id_synology` and the public ke
 
 ## Step 4 - Adjust Backup Script
 
-With a shared folder to place our files and authentication set up, we are ready to customize out backup script. This script will run daily, call Borg Backup and possibly prune old archives. You can find a sample script below. Your NAS setup may be different, so be sure to adjust the paths, repokey and exclusions.
+With a shared folder to place our files and authentication set up, we are ready to customize our backup script. This script will run daily, call Borg Backup and possibly prune old archives. You can find a sample script below. Your NAS setup may be different, so be sure to adjust the paths, repokey and exclusions.
 
 This script will also log any added or deleted file to a log and give a summary at the end. This is useful if you need to keep this data for compliance or just to keep an eye on file changes.
 
