@@ -42,17 +42,25 @@ With append-only mode enabled, the repository will have a timestamped transactio
 If you need to restore an older repo version, please contact support. We will make a full copy of the repo and do the restore there.
 
 
-## Doing a backup with `borg` takes too long. How can I make it faster?
+## Why is my backup process so slow?
 
-Depending on the bottleneck (mainly CPU, disk IO, network) you are encountering, there are some things you can do to speed up backups:
+First it helps to understand the steps `borg` follows when creating an initial or new backup:
+
+1. First it will do some housekeeping, like getting the index from the repo repo, if there is no local copy.
+2. Next it will compare all the inode ID and other attributes of all files to determine changed files. If you move your files to a new file system, the first backup run can take a bit longer, but no new data will be copied.
+3. If new data is found, Borg will checksum, compress and encrypt the files as segments of 1-5 MB, skipping any known segments. So if part of a large file changes, only new parts will be uploaded.
+4. Last, it will upload new segments to *BorgBase*.
+
+So the upload speed is not always the main bottleneck. Depending on your setup, you should also watch out for CPU usage or disk IO. It's generally difficult to improve uplink speed, but if you are CPU- or IO-limited, there are a few settings you can tune. Just be aware of the trade-offs. Maybe you are OK with a slower initial backup in order to have a smaller well-compressed backup in the future.
 
 - Make sure you choose an appropriate [compression level](https://borgbackup.readthedocs.io/en/stable/usage/help.html?highlight=compression#borg-help-compression) for your data. In general `lz4` (fast, but low compression) `zstd,3` (medium compression) and `zstd,8` (high compression) will work well.
 - If you don't need additional file flags, you can disable them with [`--nobsdflags`](https://borgbackup.readthedocs.io/en/stable/usage/notes.html#nobsdflags) or `bsd_flags: false` in Borgmatic. In a future version this flag may be [renamed](https://github.com/borgbackup/borg/issues/4489) to `--noflags`.
 - Avoid excessive archive checking: `borg check` can read all backup segments and confirm their consistency. For large repos this can take a long time. BorgBase already uses different techniques to avoid bitrot in the storage backend, so `borg check` is not strictly necessary for this purpose. In Borgmatic set `checks` to `disabled` in the `consistency` section.
+- If you suspect a slow or unstable network connection, we can temporarily enable `iperf3` for you server-side.
 
-## Which storage backend are you using? Is it safe?
+## Which storage backend are you using?
 
-For the EU region, your data is saved on a Ceph storage cluster. The US region runs on several RAID-6 backed storage servers. Both technologies protect against hardware failure and bit rot. For a list of the providers we work with, you can also see our [GDPR page](https://www.borgbase.com/gdpr).
+Both regions are currently using hardware RAID-6 backed storage servers. This protects against hardware failure and a degree of bit rot. For a list of the providers we work with, you can also see our [GDPR page](https://www.borgbase.com/gdpr).
 
 ## I have an existing Borg Backup repo on my own server or with another provider. How can I move it to BorgBase?
 
