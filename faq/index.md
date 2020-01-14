@@ -103,4 +103,17 @@ For an in-depth discussion, also see Borg issues [#636](https://github.com/borgb
 
 If you still encounter issues, you may be using a VPN or mobile network that aggressively terminates idle connections.
 
+## Why is the repository size shown in the web interface different from `borg info`?
+
+BorgBase always displays the actual disk usage, as measured on the file system. This includes some metadata and index files and slight variations from the space usage reported via `borg info` under *All Archives > Deduplicated Size* are expected.
+
+If you see larger variations, you are probably running your repo in *append-only mode*. This means `borg` never really deletes old segments. So the actual disk usage will be higher than what `borg` thinks over time. From the [docs](https://borgbackup.readthedocs.io/en/stable/usage/notes.html#append-only-mode):
+
+> As data is only appended, and nothing removed, commands like prune or delete won’t free disk space, they merely tag data as deleted in a new transaction.
+
+If you are OK to fully remove those old segments, then just write to the repo with a full-access key. This will clean up old segments:
+
+> Be aware that as soon as you write to the repo in non-append-only mode (e.g. prune, delete or create archives from an admin machine), it will remove the deleted objects permanently
+
+
 ## Have any other questions? [Email Us!](mailto:hello@borgbase.com)
