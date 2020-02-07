@@ -1,6 +1,6 @@
 ---
 title: API
-nav_order: 6
+nav_order: 7
 layout: page
 description: "Introduction to the BorgBase API and Ansible role for full backup automation."
 ---
