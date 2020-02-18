@@ -58,6 +58,7 @@ You now have a full list of your data assets, where they live, how they change a
 
 Evaluating these issues takes some experience and technical know-how. If you are doing this a company, you may need to ask colleagues for more information.
 
+
 ### Unwanted Correlations
 Probabilities of failure are usually not independent. This is frequently overlooked. Some examples of risk correlations:
 
@@ -70,6 +71,7 @@ With this in mind, have another look at the template. Specifically the *Location
 
 Once your data- and backup locations are all noted down, look for unwanted correlations in each row. If you discover correlated locations, you may need to add another backup.
 
+
 ### Insufficient Backup Processes and Permissions
 Users often assume that a file sync (Dropbox, Nextcloud) is the same as having a backup. In many cases this is not the case. Especially if the remote side doesn't keep different old versions. To be safe against threats like cryptolockers and compromised servers, you need to ensure that the current backup process is in fact producing a data copy that is independent of the original. If a threat in one data location can easily affect the backup, then you don't have a backup. Some examples:
 
@@ -77,10 +79,21 @@ Users often assume that a file sync (Dropbox, Nextcloud) is the same as having a
 - For sync-based data, like contact, calendards, Dropbox and others: These are NOT backups. If you accidentially delete an important contact, the deletion will be synced.
 - Your employees are required to save all documents to a central file server. If there are no further snapshots or backups of those files, then this practice will only protect agains some threats (failed desktop hard drive), but not others (rogue employee deleting files on the server).
 
+
 ### Backup Frequency Mismatch
 You probably noticed this while writing up your inventory. In some cases the velocity of the data (how often it changes) will not match your current backup frequency. That means you can expect to lose more data than specified in the RPO. So for each row make sure that the backup frequency is higher or the same as the specified RPO. If it's not, either find a way to increase it or change your RPO. Here an example:
 
 An employee works on a file the whole day, but backups only happen once a day at night. If the file is damaged in the afternoon you lose one day's work. In this case you may need to consider local snapshots or do more frequent backups.
+
+The next concept to be aware of is Recovery Time Objective (RTO). It describes the time it takes to restore the data and have a service up and running again. Restoring backup from a local hard drive would be very fast, while restoring it from slower storage, like AWS glacier would take days.[^5]
+
+<figure class="image">
+  <img src="/img/strategy/RPO_RTO_example_converted.png" alt="RPO and RTO explained" width="650">
+  <figcaption>
+    Image credit:
+    <a href="//en.wikipedia.org/wiki/File:RPO_RTO_example.svg" title="File:RPO RTO example.svg">File:RPO RTO example.svg</a>, <a href="http://creativecommons.org/licenses/by/4.0/" title="Creative Commons Attribution 4.0">CC BY 4.0</a>, <a href="https://en.wikipedia.org/w/index.php?curid=57829860">Link</a></figcaption>
+</figure>
+
 
 ### Security Issues
 The data you handle will have value to other people. A competitior could be interested in documents and client lists. An employee could be interested in salary data. At the same time the fines for data breaches have been increasing. So it should be in your interest to keep *all* data locations save. This includes backup locations.
@@ -110,3 +123,4 @@ After half a year of beta testing, [BorgBase.com](https://www.borgbase.com) is g
 [^2]: [Backup Strategy Template on Google Drive](https://docs.google.com/spreadsheets/d/1cuTM849Fu6palPUG5SgUJrzw2J4z_hq71g-jZPY4hcw/edit?usp=sharing)
 [^3]: [3-2-1 Backup Strategy Paper (2012)](https://www.us-cert.gov/sites/default/files/publications/data_backup_options.pdf)
 [^4]: See discussion on [Reddit](https://www.reddit.com/r/DataHoarder/comments/a3xrem/steps_to_produce_a_bulletproof_backup_strategy/).
+[^5]: See Wikipedia on [Business Continuity](https://en.wikipedia.org/wiki/Disaster_recovery)
