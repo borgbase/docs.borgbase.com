@@ -7,6 +7,7 @@ description: "Restoring files with borg extract"
 ---
 
 # Using `borg extract` to Bulk Restore Files
+
 FUSE can be slow for a large number of files and it can't restore metadata. For this reason, Borg includes a second command for fast bulk-restoring – `borg extract`.
 
 To use it, you will need to know the precise path and archive name to restore. The [`borg mount`](https://borgbackup.readthedocs.io/en/stable/usage/extract.html) command can be helpful for this.

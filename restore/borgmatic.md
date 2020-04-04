@@ -7,6 +7,7 @@ description: "Restoring files with Borgmatic"
 ---
 
 # Restoring with Borgmatic
+
 If you use Borgmatic for your regular backups, it may be easier to use the Borgmatic syntax, provided you have a correctly configured configuration file.
 
 Assuming that you have Borgmatic correctly configured and making backups, you would first need to find the backup you need to restore by listing the archives.
