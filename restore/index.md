@@ -10,7 +10,7 @@ has_children: true
 
 There are a variety of ways to restore your backups using Borg.  A few of these methods include:
 * **Mounting and Browsing** - Mounting the backup archive from a specific date, and copying the files you need from it
-* **Extracting** - Extracting the compete or partial backup directly from the Borg backup
+* **Extracting** - Extracting the complete or partial backup directly from the Borg backup
 * **Extracting with Borgmatic** - Similar to the `borg extract` command, this uses the CLI [borgmatic](https://torsion.org/borgmatic/) wrapper rather than using borg directly
 * **Extracting with Vorta** - Also similar to the `borg extract` command, this uses the graphical Borg client [Vorta](https://vorta.borgbase.com/) to restore your backups.
 
