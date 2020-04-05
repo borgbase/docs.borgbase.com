@@ -42,4 +42,4 @@ $ borg extract \
     w66xh7lj@w66xh7lj.repo.borgbase.com:repo::nyx2-test-repo-2019-02-16T12:04:06
 ```
 
-For more information on extracting, check out [the official Borg docuementation](https://borgbackup.readthedocs.io/en/stable/usage/extract.html).
+For more information on extracting, check out [the official Borg documentation](https://borgbackup.readthedocs.io/en/stable/usage/extract.html).

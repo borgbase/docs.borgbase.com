@@ -123,4 +123,4 @@ drwxr-xr-x  1 manu  staff  0 Mar 27 09:21 nyx2-test-repo-2019-03-27T09:21:42
 
 You can now browse this folder structure and copy the files you need.
 
-For more information on mounting, check out [the official Borg docuementation](https://borgbackup.readthedocs.io/en/stable/usage/mount.html).
+For more information on mounting, check out [the official Borg documentation](https://borgbackup.readthedocs.io/en/stable/usage/mount.html).
