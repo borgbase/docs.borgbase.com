@@ -1,12 +1,12 @@
 ---
-title: Mounting
+title: Mount and Browse Archive
 nav_order: 2
 layout: page
 parent: Restore
-description: "Restoring files with borg mount"
+description: "Mount and Browse Archive"
 ---
 
-# How to browse and restore using `borg mount`
+# Restoring by Mounting and Browsing a Borg archive
 
 Note: You should be comfortable using the command line. If you prefer a graphical, client, look into our [Vorta Tutorial](/macos/how-to-backup-your-mac-using-the-vorta-backup-gui/) instead. These instructions should work on macOS and popular Linux flavors, like Debian, Ubuntu, as well as Red Hat, Fedora and CentOS.
 
@@ -89,7 +89,7 @@ $ pip freeze | grep llfuse
 $ pip freeze | grep borgbackup
 ```
 
-## Step 4 - Using `borg mount` to Browse and Restore Files
+## Step 4 - Mounting the Backup
 The `borg mount` command allows for simple browsing and restoring individual files without their complete metadata. This is great to restore a few documents or images.
 
 First create a new folder as mount point. Since we're not working with root permissions, we won't use `/mnt`. Instead any empty folder in your home directory will suffice.
@@ -122,3 +122,5 @@ drwxr-xr-x  1 manu  staff  0 Mar 27 09:21 nyx2-test-repo-2019-03-27T09:21:42
 ```
 
 You can now browse this folder structure and copy the files you need.
+
+For more information on mounting, check out [the official Borg docuementation](https://borgbackup.readthedocs.io/en/stable/usage/mount.html).
