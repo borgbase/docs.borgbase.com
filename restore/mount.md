@@ -1,12 +1,12 @@
 ---
-title: Mount and Browse Archive
+title: Mount and Browse Archives
 nav_order: 2
 layout: page
 parent: Restore
 description: "Mount and Browse Archive"
 ---
 
-# Restoring by Mounting and Browsing a Borg archive
+# Restoring Files by Mounting and Browsing a Borg Archive
 
 Note: You should be comfortable using the command line. If you prefer a graphical, client, look into our [Vorta Tutorial](/macos/how-to-backup-your-mac-using-the-vorta-backup-gui/) instead. These instructions should work on macOS and popular Linux flavors, like Debian, Ubuntu, as well as Red Hat, Fedora and CentOS.
 

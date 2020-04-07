@@ -1,12 +1,12 @@
 ---
-title: Restore with Borgmatic CLI
+title: Restore with Borgmatic
 nav_order: 4
 layout: page
 parent: Restore
-description: "Restoring files with the Borgmatic CLI"
+description: "Restoring files with the Borgmatic from the Command Line"
 ---
 
-# Restoring with Borgmatic via the command line
+# Restoring Files with Borgmatic
 
 If you use Borgmatic for your regular backups, it may be easier to use the Borgmatic syntax, provided you have a correctly configured configuration file.
 
@@ -39,3 +39,7 @@ $ borgmatic -x server-2020-04-01T12:11:41 --restore-path 'mnt/catpics'
 ```
 
 This will restore the full path of that particular directory, but will only include that directory.
+
+### Conclusion
+
+If you already keep your Borg settings in Borgmatic, you should also use it to extract backups. For more details also see [their own documentation](https://torsion.org/borgmatic/docs/how-to/extract-a-backup/).

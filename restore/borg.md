@@ -1,12 +1,12 @@
 ---
-title: Restore with Borg CLI
+title: Restore with Borg
 nav_order: 3
 layout: page
 parent: Restore
-description: "Restoring files with the Borg CLI"
+description: "Restoring Files with the Borg from the Command Line"
 ---
 
-# Restoring Files with Borg via the command line
+# Restoring Files with Borg
 
 FUSE can be slow for a large number of files and it can't restore metadata. For this reason, Borg includes a second command for fast bulk-restoring – `borg extract`.
 
