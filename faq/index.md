@@ -44,6 +44,8 @@ If you need to restore an older repo version, please contact support. We will ma
 
 ## Why is my backup process so slow?
 
+All our servers are connected with 1Gbit connections at a minimum and located in professional data centers. We rarely get reports of slow backup speeds. If you do encounter slower-than-expected backups or slow upload speeds, you can follow the steps below to find the bottleneck.
+
 First it helps to understand the steps `borg` follows when creating an initial or new backup:
 
 1. First it will do some housekeeping, like getting the index from the repo repo, if there is no local copy.
@@ -51,12 +53,12 @@ First it helps to understand the steps `borg` follows when creating an initial o
 3. If new data is found, Borg will checksum, compress and encrypt the files as segments of 1-5 MB, skipping any known segments. So if part of a large file changes, only new parts will be uploaded.
 4. Last, it will upload new segments to *BorgBase*.
 
-So the upload speed is not always the main bottleneck. Depending on your setup, you should also watch out for CPU usage or disk IO. It's generally difficult to improve uplink speed, but if you are CPU- or IO-limited, there are a few settings you can tune. Just be aware of the trade-offs. Maybe you are OK with a slower initial backup in order to have a smaller well-compressed backup in the future.
+So the upload speed is not always the main bottleneck. Depending on your setup, you should also watch out for CPU usage or disk IO. It's usually difficult to improve uplink speed, but if you are CPU- or IO-limited, there are a few settings you can tune. Just be aware of the trade-offs. Maybe you are OK with a slower initial backup in order to have a smaller well-compressed backup in the future.
 
 - Make sure you choose an appropriate [compression level](https://borgbackup.readthedocs.io/en/stable/usage/help.html?highlight=compression#borg-help-compression) for your data. In general `lz4` (fast, but low compression) `zstd,3` (medium compression) and `zstd,8` (high compression) will work well.
 - If you don't need additional file flags, you can disable them with [`--nobsdflags`](https://borgbackup.readthedocs.io/en/stable/usage/notes.html#nobsdflags) or `bsd_flags: false` in Borgmatic. In a future version this flag may be [renamed](https://github.com/borgbackup/borg/issues/4489) to `--noflags`.
 - Avoid excessive archive checking: `borg check` can read all backup segments and confirm their consistency. For large repos this can take a long time. BorgBase already uses different techniques to avoid bitrot in the storage backend, so `borg check` is not strictly necessary for this purpose. In Borgmatic set `checks` to `disabled` in the `consistency` section.
-- If you suspect a slow or unstable network connection, we can temporarily enable `iperf3` for you server-side.
+- If you suspect a slow (certain residential internet connections come with restricted upload speed) or unstable network connection, we can temporarily enable `iperf3` for you server-side.
 
 ## Which storage backend are you using?
 
