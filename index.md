@@ -20,7 +20,7 @@ All the resources you need to develop a comprehensive backup strategy with [Borg
 Even the best tools need a sound strategy. Get started by creating an inventory of your important data assets, catalog where they are stored and discover potential issues in backup workflows. [More...](strategy)
 
 ### Sign up with BorgBase
-[BorgBase](https://www.borgbase.com) is a dedicated hosting service for Borg backup repositories. It allows you to manage all your backups in one place and use powerful Borg features, like append-only mode in a simple way. You get 5 GB free backup space after [signing up](https://www.borgbase.com/register) (no credit card required).
+[BorgBase](https://www.borgbase.com) is a dedicated hosting service for Borg backup repositories. It allows you to manage all your backups in one place and use powerful Borg features, like append-only mode in a simple way. You get 10 GB free backup space after [signing up](https://www.borgbase.com/register) (no credit card required).
 
 ### Local Borg Setup
 Borg Backup works with most operating systems, like Linux, macOS and Windows WSL. For servers and headless systems, look into our [Command Line Setup Guide](setup/cli). For desktops, we recommend using our desktop client, [Vorta](setup/vorta).
