@@ -35,11 +35,12 @@ This will print a list of keys being tried and potential problems. You won't get
 
 ## My SSH key is set to append-only access, but I can still prune or delete old archives. Why is append-only mode not working?
 
-The Borg developers made the [decision](https://github.com/borgbackup/borg/issues/3504#issuecomment-354764028) to fail delete commands "silently". This means that prune- and delete commands will still succeed from a client perspective, but no data will be deleted on the server.
+The Borg developers made the [decision](https://github.com/borgbackup/borg/issues/3504#issuecomment-354764028) to fail delete commands "silently". Effectively this means that while running backups with append-only ssh keys, no disk space will be recovered in your BorgBase repo with pruning. But you can run a prune with an all access ssh key when your free quota is running low, which will then clear pruned backups and free up disk space.
 
 With append-only mode enabled, the repository will have a timestamped transaction log. This [allows going back](https://borgbackup.readthedocs.io/en/stable/usage/notes.html#append-only-mode) to previous states, even if prune- or delete-commands were issued by the backup client.
 
-If you need to restore an older repo version, please contact support. We will make a full copy of the repo and do the restore there.
+If you need to restore an older repo version, you can export the whole repo using `rsync` and roll back to a previous transaction.
+
 
 
 ## Why is my backup process so slow?
