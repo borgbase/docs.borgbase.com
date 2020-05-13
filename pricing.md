@@ -28,14 +28,9 @@ Additional data is calculated on a daily basis and you can view your daily usage
 
 ### Custom Plans
 
-If none of our pre-set plans is right for you, we are happy to create a custom plan for you. To do so, just send a short email to [hello@borgbase.com](mailto:hello@borgbase.com).
+If our pre-set plans are too small for you, we are happy to create a custom plan for you. To do so, just send a short email to [hello@borgbase.com](mailto:hello@borgbase.com).
 
 ## Changing Plans
 
-If you find that your current plan is not a good fit, despite the flexible quota, you can always change your plan. To do so, just choose a different plan during checkout. The new plan will start after your old plan expires, so you can extend or change your plan any time.
+If you find that your current plan is not a good fit, despite the flexible quota, you can always change your plan. To do so, just choose a different plan during checkout. The new plan will replace your current plan right away and unusued time will be pro-rated.
 
-### Changing Plans Immediately
-
-If you prefer to use your new plan right away, we will pro-rate the remaining time. To do so, first buy your new plan and then respond to the confirmation email with a short note about starting the new plan right away.
-
-We will start your new plan right away and convert your old plan to additional time on the new one.
