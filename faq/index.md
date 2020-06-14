@@ -2,16 +2,21 @@
 title: FAQ
 nav_order: 9
 layout: page
-description: ""
+description: "Common errors and frequently asked questions"
 has_children: true
+has_toc: false
 ---
 # Frequently Asked Questions
+{: .no_toc }
+
+1. TOC
+{:toc}
 
 ## Troubleshooting
 
-### I can't connect to the backup repo and get the error message `Connection closed by remote host. Is borg working on the server?`
+### All connections to a BorgBase repo fail with an error.
 
-This is almost always a problem with SSH keys. Double check the following to debug further:
+If you get `Connection closed by remote host. Is borg working on the server?`, it is almost always a problem with SSH keys. Double-check the following to debug further:
 
 - Have you already assigned a SSH key to the repo on [BorgBase.com](https://www.borgbase.com)?
 - Is SSH using the key you assigned? By default only `~/.ssh/id_[rsa | ed25519 | ecdsa]` are used. When using a custom key name, you can add `IdentityFile ~/.ssh/id_custom` to `~/.ssh/config`. Or to only use this key with BorgBase:
@@ -94,7 +99,7 @@ If you still encounter issues, you may be using a VPN or mobile network that agg
 In this mode, Borg will never remove old segments and instead add a new transaction for any change in a transaction log. The result is that no data is ever deleted and unwanted operations (like archive prunes- or deletions) can be undone. Thi is useful if the client machine shouldn't get full access to its own backups to e.g. prevent a hacker from deleting backups after taking over a client machine. For full details and instruction on how to roll back, see the official [Borg docs](https://borgbackup.readthedocs.io/en/stable/usage/notes.html#append-only-mode).
 
 
-### My SSH key is set to append-only access, but I can still prune or delete old archives. Why is append-only mode not working?
+### Why can I still prune or delete archives with active append-only mode?
 
 The Borg developers made the [decision](https://github.com/borgbackup/borg/issues/3504#issuecomment-354764028) to fail delete commands "silently". Effectively this means that while running backups with append-only ssh keys, no disk space will be recovered in your BorgBase repo with pruning. But you can run a prune with an all access ssh key when your free quota is running low, which will then clear pruned backups and free up disk space.
 
@@ -119,7 +124,7 @@ When using append-only mode, old transactions and segments are never cleaned fro
 Both regions are currently using hardware RAID-6 backed storage servers. This protects against hardware failure and a degree of bit rot. For a list of the providers we work with, you can also see our [GDPR page](https://www.borgbase.com/gdpr).
 
 
-### I have an existing Borg Backup repo on my own server or with another provider. How can I move it to BorgBase?
+### How can I migrate an existing repo including archives to or from BorgBase?
 
 We offer free migration services for both, incoming and outgoing transfers. Currently this is done manually. To start a transfer follow these steps:
 
@@ -150,3 +155,4 @@ If you have found another backup service and prefer to remove your account, you 
 
 
 ### Have any other questions? [Email Us!](mailto:hello@borgbase.com)
+{: .no_toc }
