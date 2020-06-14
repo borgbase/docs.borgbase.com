@@ -91,6 +91,9 @@ If you still encounter issues, you may be using a VPN or mobile network that agg
 
 ## Append-Only Mode
 
+In this mode, Borg will never remove old segments and instead add a new transaction for any change in a transaction log. The result is that no data is ever deleted and unwanted operations (like archive prunes- or deletions) can be undone. Thi is useful if the client machine shouldn't get full access to its own backups to e.g. prevent a hacker from deleting backups after taking over a client machine. For full details and instruction on how to roll back, see the official [Borg docs](https://borgbackup.readthedocs.io/en/stable/usage/notes.html#append-only-mode).
+
+
 ### My SSH key is set to append-only access, but I can still prune or delete old archives. Why is append-only mode not working?
 
 The Borg developers made the [decision](https://github.com/borgbackup/borg/issues/3504#issuecomment-354764028) to fail delete commands "silently". Effectively this means that while running backups with append-only ssh keys, no disk space will be recovered in your BorgBase repo with pruning. But you can run a prune with an all access ssh key when your free quota is running low, which will then clear pruned backups and free up disk space.
@@ -106,6 +109,7 @@ When using append-only mode, old transactions and segments are never cleaned fro
 
 1. Temporarily set your main key to full access mode. This will remove old transactions during the next operation.
 2. Use a trusted admin machine wiht a full access key to prune. This will also clear old transactions.
+
 
 
 ## Other Questions
