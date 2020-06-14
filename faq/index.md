@@ -36,7 +36,7 @@ $ ssh -v xxxx@xxxx.repo.borgbase.com
 This will print a list of keys being tried and potential problems. You won't get a shell at the end, as BorgBase only support access via `borg`. Once you see `Remote: Key is restricted.` or `PTY allocation request failed on channel 0` then the login step still worked.
 
 
-## Why is my backup process so slow?
+### Why is my backup process so slow?
 
 All our servers are connected with 1Gbit connections at a minimum and located in professional data centers. We rarely get reports of slow backup speeds. If you do encounter slower-than-expected backups or slow upload speeds, you can follow the steps below to find the bottleneck.
 
@@ -55,7 +55,7 @@ So the upload speed is not always the main bottleneck. Depending on your setup, 
 - If you suspect a slow (certain residential internet connections come with restricted upload speed) or unstable network connection, we can temporarily enable `iperf3` for you server-side.
 
 
-## My SSH connection breaks after a long backup or prune operation.
+### My SSH connection breaks after a long backup or prune operation.
 
 If Borg happens to be busy on the client- or server side, it may not send data over the SSH connection for a while. In this case, some ISPs will terminate the connection after a period of inactivity. You would then see an error like this:
 
