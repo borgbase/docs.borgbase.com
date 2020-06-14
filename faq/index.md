@@ -7,7 +7,9 @@ has_children: true
 ---
 # Frequently Asked Questions
 
-## I can't connect to the backup repo and get the error message `Connection closed by remote host. Is borg working on the server?`
+## Troubleshooting
+
+### I can't connect to the backup repo and get the error message `Connection closed by remote host. Is borg working on the server?`
 
 This is almost always a problem with SSH keys. Double check the following to debug further:
 
@@ -33,15 +35,6 @@ $ ssh -v xxxx@xxxx.repo.borgbase.com
 
 This will print a list of keys being tried and potential problems. You won't get a shell at the end, as BorgBase only support access via `borg`. Once you see `Remote: Key is restricted.` or `PTY allocation request failed on channel 0` then the login step still worked.
 
-## My SSH key is set to append-only access, but I can still prune or delete old archives. Why is append-only mode not working?
-
-The Borg developers made the [decision](https://github.com/borgbackup/borg/issues/3504#issuecomment-354764028) to fail delete commands "silently". Effectively this means that while running backups with append-only ssh keys, no disk space will be recovered in your BorgBase repo with pruning. But you can run a prune with an all access ssh key when your free quota is running low, which will then clear pruned backups and free up disk space.
-
-With append-only mode enabled, the repository will have a timestamped transaction log. This [allows going back](https://borgbackup.readthedocs.io/en/stable/usage/notes.html#append-only-mode) to previous states, even if prune- or delete-commands were issued by the backup client.
-
-If you need to restore an older repo version, you can export the whole repo using `rsync` and roll back to a previous transaction.
-
-
 
 ## Why is my backup process so slow?
 
@@ -61,17 +54,6 @@ So the upload speed is not always the main bottleneck. Depending on your setup, 
 - Avoid excessive archive checking: `borg check` can read all backup segments and confirm their consistency. For large repos this can take a long time. BorgBase already uses different techniques to avoid bitrot in the storage backend, so `borg check` is not strictly necessary for this purpose. In Borgmatic set `checks` to `disabled` in the `consistency` section.
 - If you suspect a slow (certain residential internet connections come with restricted upload speed) or unstable network connection, we can temporarily enable `iperf3` for you server-side.
 
-## Which storage backend are you using?
-
-Both regions are currently using hardware RAID-6 backed storage servers. This protects against hardware failure and a degree of bit rot. For a list of the providers we work with, you can also see our [GDPR page](https://www.borgbase.com/gdpr).
-
-## I have an existing Borg Backup repo on my own server or with another provider. How can I move it to BorgBase?
-
-We offer free migration services for both, incoming and outgoing transfers. Currently this is done manually. To start a transfer follow these steps:
-
-1. For incoming transfers, create an empty repo in your BorgBase account.
-2. Make sure your old repo data is accessible from the internet somehow, e.g. via SSH, FTP or HTTP. For SSH we will provide you with a one-time public key to use.
-3. Contact our support and provide the BorgBase repo ID and the login details of the transfer source or target.
 
 ## My SSH connection breaks after a long backup or prune operation.
 
@@ -106,7 +88,43 @@ For an in-depth discussion, also see Borg issues [#636](https://github.com/borgb
 
 If you still encounter issues, you may be using a VPN or mobile network that aggressively terminates idle connections.
 
-## Why is the repository size shown in the web interface different from `borg info`?
+
+## Append-Only Mode
+
+### My SSH key is set to append-only access, but I can still prune or delete old archives. Why is append-only mode not working?
+
+The Borg developers made the [decision](https://github.com/borgbackup/borg/issues/3504#issuecomment-354764028) to fail delete commands "silently". Effectively this means that while running backups with append-only ssh keys, no disk space will be recovered in your BorgBase repo with pruning. But you can run a prune with an all access ssh key when your free quota is running low, which will then clear pruned backups and free up disk space.
+
+With append-only mode enabled, the repository will have a timestamped transaction log. This [allows going back](https://borgbackup.readthedocs.io/en/stable/usage/notes.html#append-only-mode) to previous states, even if prune- or delete-commands were issued by the backup client.
+
+If you need to restore an older repo version, you can export the whole repo using `rsync` and roll back to a previous transaction.
+
+
+### How can I prune append-only repositories?
+
+When using append-only mode, old transactions and segments are never cleaned from the repo and the size can grow over time. To really prune append-only repos and reduce their space usage, you have two options:
+
+1. Temporarily set your main key to full access mode. This will remove old transactions during the next operation.
+2. Use a trusted admin machine wiht a full access key to prune. This will also clear old transactions.
+
+
+## Other Questions
+
+### Which storage backend are you using?
+
+Both regions are currently using hardware RAID-6 backed storage servers. This protects against hardware failure and a degree of bit rot. For a list of the providers we work with, you can also see our [GDPR page](https://www.borgbase.com/gdpr).
+
+
+### I have an existing Borg Backup repo on my own server or with another provider. How can I move it to BorgBase?
+
+We offer free migration services for both, incoming and outgoing transfers. Currently this is done manually. To start a transfer follow these steps:
+
+1. For incoming transfers, create an empty repo in your BorgBase account.
+2. Make sure your old repo data is accessible from the internet somehow, e.g. via SSH, FTP or HTTP. For SSH we will provide you with a one-time public key to use.
+3. Contact our support and provide the BorgBase repo ID and the login details of the transfer source or target.
+
+
+### Why is the repository size shown in the web interface different from `borg info`?
 
 BorgBase always displays the actual disk usage, as measured on the file system. This includes some metadata and index files and slight variations from the space usage reported via `borg info` under *All Archives > Deduplicated Size* are expected.
 
@@ -119,11 +137,12 @@ If you are OK to fully remove those old segments, then just write to the repo wi
 > Be aware that as soon as you write to the repo in non-append-only mode (e.g. prune, delete or create archives from an admin machine), it will remove the deleted objects permanently
 
 
-## How do I fully remove my account?
+### How do I fully remove my account?
 
 If you have found another backup service and prefer to remove your account, you can do so any time. Doing so will remove your account data permanently. If you ever choose to start using BorgBase again, you will have to open a new account. If you ever had a paid subscription, we will still keep some invoicing data, as required by law. To remove your account:
 
 1. Remove all your repositories and make sure the data is saved elsewhere. You can also transfer your whole archive via `rsync`, as described [here](import).
 2. Log into your account and navigate to [*Account > Profile*](https://www.borgbase.com/account?tab=6). Then click *Remove Account*
 
-## Have any other questions? [Email Us!](mailto:hello@borgbase.com)
+
+### Have any other questions? [Email Us!](mailto:hello@borgbase.com)
