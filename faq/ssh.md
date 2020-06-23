@@ -34,7 +34,7 @@ $ apt-get install openssh-client
 ```
 
 ## Step 2 – Create Keypair
-As computers get faster, encryption needs to adjust. That's why the recommended key algorithm and key length has changed over the years. As of 2018 the recommended key setting[^1] [^2] is:
+As computers get faster, encryption needs to adjust. That's why the recommended key algorithm and key length has changed over the years. The recommended key generation setting[^1] [^2] is:
 
 ```
 $ ssh-keygen -t ed25519 -a 100
