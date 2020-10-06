@@ -18,25 +18,26 @@ has_toc: false
 
 If you get `Connection closed by remote host. Is borg working on the server?`, it is almost always a problem with SSH keys. Double-check the following to debug further:
 
-- Have you already assigned a SSH key to the repo on [BorgBase.com](https://www.borgbase.com)?
-- Is SSH using the key you assigned? By default only `~/.ssh/id_[rsa | ed25519 | ecdsa]` are used. When using a custom key name, you can add `IdentityFile ~/.ssh/id_custom` to `~/.ssh/config`. Or to only use this key with BorgBase:
+1. Have you already assigned a SSH key to the repo on [BorgBase.com](https://www.borgbase.com)?
+2. Is SSH using the key you assigned? By default only `~/.ssh/id_[rsa | ed25519 | ecdsa]` are used. When using a custom key name, you can add `IdentityFile ~/.ssh/id_custom` to `~/.ssh/config`. Or to only use this key with BorgBase:
 
-```
-Host *.repo.borgbase.com
-    IdentityFile ~/.ssh/id_custom
-```
+    ```
+    Host *.repo.borgbase.com
+        IdentityFile ~/.ssh/id_custom
+    ```
 
-- Are the key permissions OK? Private keys need to have a permission of `0600`. To change the permission:
+3. Is SSH trying too many keys? The maximum number of keys (`MaxAuthTries`) that can be tried per connection is 6. If you have more keys, specify the key to use, as shown above.
+4. Are the key permissions OK? Private keys need to have a permission of `0600`. To change the permission:
 
-```
-$ chmod 0600 ~/.ssh/id_custom
-```
+    ```
+    $ chmod 0600 ~/.ssh/id_custom
+    ```
 
-- If you still get errors, try to connect to your repo using the `ssh` command with verbose logging enabled:
+5. If you still get errors, try to connect to your repo using the `ssh` command with verbose logging enabled:
 
-```
-$ ssh -v xxxx@xxxx.repo.borgbase.com
-```
+    ```
+    $ ssh -v xxxx@xxxx.repo.borgbase.com
+    ```
 
 This will print a list of keys being tried and potential problems. You won't get a shell at the end, as BorgBase only support access via `borg`. Once you see `Remote: Key is restricted.` or `PTY allocation request failed on channel 0` then the login step still worked.
 
