@@ -64,7 +64,9 @@ location:
     repositories:
         - xxxxx@xxxxx.repo.borgbase.com:repo
 
-ssh_command: ssh -i /path/to/private/key
+storage:
+    # Point to your private key
+    ssh_command: ssh -i /path/to/private/key
 
 retention:
     # Retention policy for how many backups to keep.
@@ -78,13 +80,13 @@ consistency:
         - repository
 ```
 
-You will need to adjust at a minimum:
+See [here](https://torsion.org/borgmatic/docs/reference/configuration/) for all available options. You will need to adjust at a minimum:
 
 - Folders to back up under `source_directories`
 - Path to private SSH key under `ssh_command`
 - BorgBase repository URL to use under `repositories`. It's also possible to use multiple repos to achieve additional redundancy.
 
-Last, save the contents of the above file as e.g. `borgmatic.yml`. 
+Last, save the contents of the above file as e.g. `borgmatic.yml`.
 
 
 ## Step 5 - Add Backup Task
