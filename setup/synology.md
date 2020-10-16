@@ -89,7 +89,7 @@ See [here](https://torsion.org/borgmatic/docs/reference/configuration/) for all 
 Last, save the contents of the above file as e.g. `borgmatic.yml`.
 
 
-## Step 5 - Add Backup Task
+## Step 6 - Add Backup Task
 
 In this step we will add a daily task to create a new Borg archive. This is all done in the web interface and you can choose all kinds of daily, weekly or monthly backup frequencies.
 
@@ -113,6 +113,11 @@ To regularly verify the integrity of your backups, you can add a monthly task fo
 ```
 
 <img src="/img/synology/task-scheduler-2.png" alt="" width="800" />
+
+> **Initialize Repository:** If you are using a brand new repository, you need to initialize it first. This can be done via Borgmatic and it will use the config you added above. Simply run the below command either from the command line or as one-off task under *Scheduled Tasks*
+
+> `/usr/local/bin/borgmatic init -e repokey-blake2 -c /path/to/borgmatic.yml`
+
 
 That's it. Now you are ready to run the backup script. To trigger a manual test run, select the new task and click the *Run* button. You should see increased CPU usage and some upload activity in the resource monitor widget. If there are any errors, you will find them in the shared folder in a log file.
 
