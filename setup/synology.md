@@ -68,6 +68,9 @@ storage:
     # Point to your private key
     ssh_command: ssh -i /path/to/private/key
 
+    # Add passphrase used during repo init
+    encryption_passphrase: "my-secret-passphrase-8859849"
+
 retention:
     # Retention policy for how many backups to keep.
     keep_daily: 7
@@ -85,6 +88,7 @@ See [here](https://torsion.org/borgmatic/docs/reference/configuration/) for all 
 - Folders to back up under `source_directories`
 - Path to private SSH key under `ssh_command`
 - BorgBase repository URL to use under `repositories`. It's also possible to use multiple repos to achieve additional redundancy.
+- Add the encryption passphrase used during repo initilization under `encryption_passphrase`
 
 Last, save the contents of the above file as e.g. `borgmatic.yml`.
 
