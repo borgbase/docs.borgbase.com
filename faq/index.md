@@ -147,6 +147,17 @@ If you are OK to fully remove those old segments, then just write to the repo wi
 > Be aware that as soon as you write to the repo in non-append-only mode (e.g. prune, delete or create archives from an admin machine), it will remove the deleted objects permanently
 
 
+### How often should I run `borg check`?
+
+The `borg check` command can detect issues with your repository, but running it on large repos will make your backups much slower and cause higher load on our storage servers. It's not really necessary to run it more often, since the underlying RAID controller already does weekly data scrubs to verify the data. As a result we strongly recommend running `borg check` once a month only. When using Borgmatic, this can be done like this:
+
+- Run this cron task every day to create a new backup: `borgmatic --create --prune`
+- And this once a month (some random day a few hours after the backup): `borgmatic --check`
+
+Our [Ansible role](https://github.com/borgbase/ansible-role-borgbackup) also supports monthly checks, when `borgmatic_large_repo` is set to `True` (the default).
+
+**If we notice excessive repo checks on your account, we may contact you or interrupt those processes in order to guarantee the best speed for all users.**
+
 ### How do I fully remove my account?
 
 If you have found another backup service and prefer to remove your account, you can do so any time. Doing so will remove your account data permanently. If you ever choose to start using BorgBase again, you will have to open a new account. If you ever had a paid subscription, we will still keep some invoicing data, as required by law. To remove your account:
