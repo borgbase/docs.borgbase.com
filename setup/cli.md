@@ -7,26 +7,15 @@ description: "Instructions on how to set up Borg Backup from the command line on
 ---
 # How to Set Up Borg Backups from the Command Line on Linux and macOS
 
-Note: You should be comfortable using the command line. If you prefer a graphical, client, look into our [Vorta Tutorial](/macos/how-to-backup-your-mac-using-the-vorta-backup-gui/) instead. These instructions should work on macOS and popular Linux flavors, like Debian, Ubuntu, as well as Red Hat, Fedora and CentOS.
+**Note**: You should be comfortable using the command line. If you prefer a graphical, client, look into our [Vorta Desktop Client](/setup/vorta) instead. These instructions should work on macOS and popular Linux flavors, like Debian, Ubuntu, as well as Red Hat, Fedora and CentOS.
 
 ### Introduction
-We all rely on data to help us get our job done and enhance our life. Think of business documents, personal pictures, source code for software projects, tax receipts or health records. Some of this data now lives in the cloud. You can sync your pictures or keep your source code on Github. This has left many of us with the impression that someone else is responsible for keeping our data safe.
-
-Since you are reading this, you probably know better. Cloud accounts can be blocked or compromised, syncing something is not a backup, because deletions are synced as well. That's why backups are still important if you have any kind of data that's important. Just consider this: if file or folder X was gone. Would it bother you? Could you still do your job effectively? If the answer is yes for any data you keep on your Macbook, then read on.
-
-## Goals
-In this article we will set up a backup software called Borg Backup (or Borg for short). There are other backup solutions for Linux or macOS, but Borg has all the features we would expect from a proper backup. In detail we are looking to set up a backup solution that fulfills the following requirements:
-
-- Networked: The backup should work over the internet from any location. It should still work from a café, shared office or hotel room. This excludes external hard drives and most local NAS setups.
-- Encrypted: Most data we use every day is not top-secret, but it could still be sensitive. Anything you wouldn't post on Facebook is sensitive. This could be a mailing list, invoices, password lists or any other data that shouldn't be public. Especially when you handle the personal data of other people, they put their trust in you to keep it private. For that reason our backup needs to be encrypted in full.
-- Compressed: Compression is used to make files smaller and transmit them faster over a slow internet connection. Some kinds of files are very easy to compress and there is no reason not to do it. It also saves money if you are paying for your backup space.
-- Deduplication: This is similar to compression. Often we will move files or keep the same file multiple times. A smart backup solution should find those duplicates and only save them once.
-- Reliable: Often someone sets up a backup and never looks at it again. Then – often years later – a file needs to be restored and it turns out that the backup didn't work. So only a working backup is a usable backup. We need to know if our macOS backup failed or didn't run for more than X days.
+In this article we will set up a backup software called Borg Backup (or Borg for short). There are other backup solutions for Linux or macOS, but Borg has all the features we would expect from a proper backup, like encryption, compression and deduplication.
 
 ## Prerequisites
 This tutorial assumes you are using a recent Linux, *BSD or macOS machine. You don't need to be a command line expert. All commands can be copy & pasted.
 
-It also assumes that you have server-based version of Borg available. The easiest option is to sign up for [BorgBase.com](https://www.borgbase.com), which offers a free tier of 5GB. Other options are your own server with SSH access or one of the providers linked [here](https://www.borgbackup.org/support/commercial.html).
+It also assumes that you have server-based version of Borg available. The easiest option is to sign up for [BorgBase.com](https://www.borgbase.com), which offers a free tier of 10 GB. Other options are your own server with SSH access or one of the providers linked [here](https://www.borgbackup.org/support/commercial.html).
 
 ##  Step 1 - Install Borg
 In this step we will install Borg Backup and later a helper-tool to manage configuration files. There are [many ways to install Borg](https://borgbackup.readthedocs.io/en/stable/installation.html). Here just the most common ones. For more details, just look at the [Borg installation guide](https://borgbackup.readthedocs.io/en/stable/installation.html).

@@ -4,3 +4,5 @@
 /linux/how-to-create-a-ssh-key-on-macos-or-ubuntu-debian/   /faq/ssh
 /linux/setup-borg-command-line/ /setup/cli
 /automation /api
+/faq/databases /setup/databases
+/faq/import /setup/import

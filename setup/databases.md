@@ -1,8 +1,8 @@
 ---
 title: Backup Databases
-nav_order: 3
+nav_order: 7
 layout: page
-parent: FAQ
+parent: Setup
 description: "How to back up MySQL, MariaDB or Postgres using Borg Backup?"
 ---
 # How to back up MySQL, MariaDB or Postgres

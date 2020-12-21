@@ -7,7 +7,11 @@ description: "How to plan a comprehensive backup strategy by taking an inventory
 # Practical Steps to a Comprehensive Backup Strategy – With Template
 
 ### Introduction
-Data is an essential part of your business and personal life. Having a structured backup strategy will not just save your precious family pictures, but also ensure business continuity. This article has a list of practical steps and generic templates you can use to make this task as simple as possible.
+We all rely on data to help us get our job done and enhance our life. Think of business documents, personal pictures, source code for software projects, tax receipts or health records. Some of this data now lives in the cloud. You can sync your pictures or keep your source code on Github. This has left many of us with the impression that someone else is responsible for keeping our data safe.
+
+Since you are reading this, you probably know better. Cloud accounts can be blocked or compromised, syncing something is not a backup, because deletions are synced as well. That’s why backups are still important if you have any kind of data that’s important. Just consider this: if file or folder X was gone. Would it bother you? Could you still do your job effectively? If the answer is yes for any data you keep on your Macbook, then read on.
+
+Having a structured backup strategy will not just save your precious family pictures, but also ensure business continuity. This article has a list of practical steps and generic templates you can use to make this task as simple as possible.
 
 ## Goals
 After completing the steps in this article, you will have the following:

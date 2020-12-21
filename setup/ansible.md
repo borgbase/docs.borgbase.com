@@ -7,8 +7,6 @@ description: "Use Ansible for automatically setting up clients and repositories.
 ---
 # Ansible
 
-## Client Setup Role
-
 We provide a ready-to-use Ansible role to install Borg, Borgmatic and a cron job on a Linux client (tested on Ubuntu/Debian/CentOS/Fedora) client. Example usage in a playbook:
 
 ```yaml
