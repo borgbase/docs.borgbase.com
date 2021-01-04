@@ -48,7 +48,7 @@ All our servers are connected with 1Gbit connections at a minimum and located in
 
 First it helps to understand the steps `borg` follows when creating an initial or new backup:
 
-1. First it will do some housekeeping, like getting the index from the repo repo, if there is no local copy.
+1. First it will do some housekeeping, like getting the index from the repo, if there is no local copy.
 2. Next it will compare all the inode ID and other attributes of all files to determine changed files. If you move your files to a new file system, the first backup run can take a bit longer, but no new data will be copied.
 3. If new data is found, Borg will checksum, compress and encrypt the files as segments of 1-5 MB, skipping any known segments. So if part of a large file changes, only new parts will be uploaded.
 4. Last, it will upload new segments to *BorgBase*.
@@ -97,7 +97,7 @@ If you still encounter issues, you may be using a VPN or mobile network that agg
 
 ## Append-Only Mode
 
-In this mode, Borg will never remove old segments and instead add a new transaction for any change in a transaction log. The result is that no data is ever deleted and unwanted operations (like archive prunes- or deletions) can be undone. Thi is useful if the client machine shouldn't get full access to its own backups to e.g. prevent a hacker from deleting backups after taking over a client machine. For full details and instruction on how to roll back, see the official [Borg docs](https://borgbackup.readthedocs.io/en/stable/usage/notes.html#append-only-mode).
+In this mode, Borg will never remove old segments and instead add a new transaction for any change in a transaction log. The result is that no data is ever deleted and unwanted operations (like archive prunes- or deletions) can be undone. This is useful if the client machine shouldn't get full access to its own backups to e.g. prevent a hacker from deleting backups after taking over a client machine. For full details and instruction on how to roll back, see the official [Borg docs](https://borgbackup.readthedocs.io/en/stable/usage/notes.html#append-only-mode).
 
 
 ### Why can I still prune or delete archives with active append-only mode?

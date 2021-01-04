@@ -16,7 +16,7 @@ description: "How we invoice our backup services to you."
 - Medium plan: Includes 1 TB backup space
 - Large plan: Includes 2 TB backup space
 
-For full details on current plans, see the [fronpage](https://www.borgbase.com/) or checkout page.
+For full details on current plans, see the [frontpage](https://www.borgbase.com/) or checkout page.
 
 ### Flexible Ex-Post Billing
 

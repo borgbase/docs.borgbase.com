@@ -60,7 +60,7 @@ You now have a full list of your data assets, where they live, how they change a
 3. Find mismatches between RPO and backup frequency.
 4. Find Security exposures (e.g. exposed backups of confidential files)
 
-Evaluating these issues takes some experience and technical know-how. If you are doing this a company, you may need to ask colleagues for more information.
+Evaluating these issues takes some experience and technical know-how. In a corporate environment, you may need to ask colleagues for more information.
 
 
 ### Unwanted Correlations
@@ -120,7 +120,7 @@ For a backup solution that alleviates many of the discussed issues, consider tes
 - Encryption: Offsite backups are secure.
 - 2-Factor Authentication: Protect backup repositories and settings with more than just a password.
 
-After half a year of beta testing, [BorgBase.com](https://www.borgbase.com) is generally available and new users get 5 GB for free for testing. We also offer custom solutions to enterprise customers. This includes setting up local backup agents or evaluating your whole backup strategy. Contact [hello@borgbase.com](mailto:hello@borgbase.com) for more.
+After half a year of beta testing, [BorgBase.com](https://www.borgbase.com) is generally available and new users get 10 GB for free for testing. We also offer custom solutions to enterprise customers. This includes setting up local backup agents or evaluating your whole backup strategy. Contact [hello@borgbase.com](mailto:hello@borgbase.com) for more.
 
 ### Resources
 [^1]: [Are you ABSOLUTELY clear on your Disaster, Backup & Recovery RTO, RPO and MTO?](https://www.asianjournal.ca/are-you-absolutley-clear-on-your-disaster-backup-recovery-rto-rpo-and-mto-by-bob-milliken/)
