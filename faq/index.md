@@ -14,7 +14,7 @@ has_toc: false
 
 ## Troubleshooting
 
-### All connections to a BorgBase repo fail with an error.
+### All connections to a BorgBase repo fail with an error immediately.
 
 If you get `Connection closed by remote host. Is borg working on the server?`, it is almost always a problem with SSH keys. Double-check the following to debug further:
 
@@ -63,7 +63,7 @@ So the upload speed is not always the main bottleneck. Depending on your setup, 
 
 ### My SSH connection breaks after a long backup or prune operation.
 
-If Borg happens to be busy on the client- or server side, it may not send data over the SSH connection for a while. In this case, some ISPs will terminate the connection after a period of inactivity. You would then see an error like this:
+If Borg happens to be busy on the client- or server side, it may not send data over the SSH connection for a while. In this case, some ISPs will [terminate](https://anderstrier.dk/2021/01/11/my-isp-is-killing-my-idle-ssh-sessions-yours-might-be-too/) the connection after a period of inactivity, especially if a NAT is involved. You would then see an error like this:
 
 ```
 Remote: packet_write_wait: Connection to xxx.xxx.xxx.xxx: Broken pipe
@@ -78,7 +78,7 @@ RemoteRepository: 2.61 kB bytes sent, 1.01 MB bytes received, 52 messages sent
 Connection closed by remote host
 ```
 
-Which means the SSH connection has been terminated and Borg is unable to send data to the server-side process. The [solution](https://github.com/borgbackup/borg/issues/3988#issuecomment-478807213) is to have the client regular keepalive packages while no data is sent. On the client machine, you can add the below configuration to `~/.ssh/config` or `/etc/ssh/ssh_config`:
+Which means the SSH connection has been terminated and Borg is unable to send data to the server-side process. One possible [solution](https://github.com/borgbackup/borg/issues/3988#issuecomment-478807213) is to have the client send regular keep-alive packages while no data is sent by Borg. On the client machine, you can add the below configuration to `~/.ssh/config` or `/etc/ssh/ssh_config`:
 
 ```
 Host *.repo.borgbase.com
