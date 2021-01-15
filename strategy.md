@@ -112,7 +112,7 @@ For a full security review, one would also record the confidentiality and integr
 A recommended strategy is 3-2-1[^3], meaning 3 copies of important data – two local, one remote. In most cases this is a good number, but can't be applied 1:1 to e.g. servers. Be aware that a RAID setup would not count as two copies[^4], as they are too closely related and prone to simultaneous deletion by e.g. the same logical error or malfunctioning hardware.
 
 ## Conclusion
-Hopefully this article was able to change your perspective on backups and the main aspects surrounding them. If you followed all the steps, you are in a good place now. Knowing one's data assets, where they are located and how they are backed up is an excellent first step. Be sure to regularly update this document, as new assets are added or processes change.
+Hopefully this article was able to change your perspective[^6] on backups and the main aspects surrounding them. If you followed all the steps, you are in a good place now. Knowing one's data assets, where they are located and how they are backed up is an excellent first step. Be sure to regularly update this document, as new assets are added or processes change.
 
 For a backup solution that alleviates many of the discussed issues, consider testing [BorgBase.com](https://www.borgbase.com). It was built to solve many common backup problems:
 
@@ -120,7 +120,7 @@ For a backup solution that alleviates many of the discussed issues, consider tes
 - Encryption: Offsite backups are secure.
 - 2-Factor Authentication: Protect backup repositories and settings with more than just a password.
 
-After half a year of beta testing, [BorgBase.com](https://www.borgbase.com) is generally available and new users get 10 GB for free for testing. We also offer custom solutions to enterprise customers. This includes setting up local backup agents or evaluating your whole backup strategy. Contact [hello@borgbase.com](mailto:hello@borgbase.com) for more.
+It comes with 10 GB of backup space for free forever and is still affordable beyond that. We also offer custom solutions to enterprise customers. This includes setting up local backup agents or evaluating your whole backup strategy. Contact [hello@borgbase.com](mailto:hello@borgbase.com) for more.
 
 ### Resources
 [^1]: [Are you ABSOLUTELY clear on your Disaster, Backup & Recovery RTO, RPO and MTO?](https://www.asianjournal.ca/are-you-absolutley-clear-on-your-disaster-backup-recovery-rto-rpo-and-mto-by-bob-milliken/)
@@ -128,3 +128,4 @@ After half a year of beta testing, [BorgBase.com](https://www.borgbase.com) is g
 [^3]: [3-2-1 Backup Strategy Paper (2012)](https://www.us-cert.gov/sites/default/files/publications/data_backup_options.pdf)
 [^4]: See discussion on [Reddit](https://www.reddit.com/r/DataHoarder/comments/a3xrem/steps_to_produce_a_bulletproof_backup_strategy/).
 [^5]: See Wikipedia on [Business Continuity](https://en.wikipedia.org/wiki/Disaster_recovery)
+[^6]: Some principles are well explained in [Tao of Backup](http://taobackup.com/index.html)
