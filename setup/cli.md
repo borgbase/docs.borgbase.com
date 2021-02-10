@@ -6,6 +6,10 @@ parent: Setup
 description: "Instructions on how to set up Borg Backup from the command line on Linux and macOS."
 ---
 # How to Set Up Borg Backups from the Command Line on Linux and macOS
+{: .no_toc }
+
+1. TOC
+{:toc}
 
 **Note**: You should be comfortable using the command line. If you prefer a graphical, client, look into our [Vorta Desktop Client](/setup/vorta) instead. These instructions should work on macOS and popular Linux flavors, like Debian, Ubuntu, as well as Red Hat, Fedora and CentOS.
 
@@ -77,7 +81,7 @@ $ pip3 install --user borgmatic
 
 There are many other considerations in installing Python packages. If you get an error, make sure you know which Python installation you are using and what permissions are needed.
 
-## Step 3 – Connect to Remote Borg Repository
+## Step 3 – Create and Assign SSH Key for Authentication
 In this step we will securely connect your machine to the remote repository using a SSH key. If you manage your own server or have already set SSH up, you can skip this step.
 
 Let's start by generating a public-private key pair based on the (currently) most secure Ed25519 standard.
@@ -93,37 +97,41 @@ $ cat ~/.ssh/id_ed25519.pub
 ```
 
 This will display your public key as single line. Now just copy it and provide it to your repository provider. When using [BorgBase.com](https://www.borgbase.com), you can add public keys under **Account > SSH Keys**.
-<div class="code-label">Example of ed25519 public SSH key</div>
-```
-ssh-ed25519 AAAAC3NzaC1RJNzaC1RJNzaC1RJw+dl/E+2BJ manu@nyx
-```
 
-After adding your public key, you are ready to set up a remote repository. Different providers have different ways for this. When using BorgBase, add a new repository under **Repositories**. It will ask for a repo name, quota and which SSH key to use. You can also choose between US and EU server locations. After adding the repo, you can copy the repository location using the icon in the first **Name** column. It will look like this:
-<div class="code-label">Example of Repository Location</div>
-```
-mmvz9gp4@mmvz9gp4.repo.borgbase.com:repo
-```
+
+## Step 4 – Connect to Remote Borg Repository
+After adding your public key, you are ready to set up a remote repository. Different providers have different ways for this. When using BorgBase, add a new repository under **Repositories**. It will ask for a repo name, quota and which SSH key to use. You can also choose between US and EU server locations.
+
+After adding the repo, you can copy the repository location using the icon in the first **Name** column.
+
+<img src="/img/setup/screenshot-repo-url.jpg" width="350" />
 
 This will tell Borg where to connect to for storing backups and it will use your public SSH key to authenticate itself. There are no passwords to remember and it's very difficult to crack a key due to its length.
 
-## Step 4 – Initialize Borg Repository
+## Step 5 – Initialize Borg Repository
 Now that we have a secure connection to our repository, we can start using it. The first step is to **initialize** it. This involves setting an encryption mode and password.
 
 Borg supports different encryption modes with `repokey-blake2` being the recommended one. `repokey` means that the encryption key is protected by a password and stored in the remote backup repo. There is also `keyfile-blake2` which stores the keyfile in your home-folder. It's important to know that *both* the keyfile and the password are required to access a repo. So if you lose your Macbook with the keyfile on it, you can't access the backup. That's why it's important to either use repokey mode or keep a copy of the keyfile somewhere else.
 
 To initialize the remote repo using the `repokey-blake2` option run this commend. Replace the last part with your actual repository location.
 ```
-$ borg init -e repokey-blake2 REPO_LOCATION
+$ borg init -e repokey-blake2 $REPO_LOCATION
+$ borg init -e repokey-blake2 mmvz9gp4@mmvz9gp4.repo.borgbase.com:repo  #example repo URL
 ```
 
-This will run Borg and then ask you for a password. Make it nice and long and keep it somewhere for later. After the command is done, you have your remote backup repository set up and ready to accept files. You can add some test files from your *Documents* folder with this command:
+This will run Borg and then ask you for a password. Make it nice and long and keep it somewhere for later. If you already set up Borgmatic, you can also use that to initialize the repo. It will already know the repository URL and password from your config file. So only the encryption mode is required:
+```
+$ borgmatic init -e repokey-blake2
+```
+
+After the command is done, you have your remote backup repository set up and ready to accept files. You can add some test files from your *Documents* folder with this command:
 ```
 $ borg create REPO_LOCATION::SNAPSHOT_NAME ~/Documents
 ```
 
 Again, replace the `REPO_LOCATION` with your actual repo and maybe change the folder to backup. `SNAPSHOT_NAME` is the name of the snapshot. It can be anything, but mostly people use the hostname and a timestamp. E.g. `tim-macbook-2018-10-10`. Snapshots allow you to access different versions of your files. This can be useful if a file was deleted by accident or encrypted by a cryptolocker.
 
-## Step 5 – Set up Borgmatic for Regular Backups
+## Step 6 – Set up Borgmatic for Regular Backups
 It would be quite cumbersome to manually run Borg every few hours and keep coming up with new Snapshot names. That's why we will use Borgmatic to do this job for us.
 
 Let's start by creating a default Borgmatic folder:
@@ -138,8 +146,8 @@ $ nano ~/.config/borgmatic/config.yaml
 
 If you keep your repos with BorgBase you can copy a pre-made Borgmatic confirguration from the **Setup** page. Or start with this version and fill in the blanks:
 
-<div class="code-label">Updated ~/.config/borgmatic/config.yaml</div>
 ```
+# Updated ~/.config/borgmatic/config.yaml
 location:
     source_directories:
         - ~/Desktop
@@ -211,7 +219,7 @@ Chunk index:                   25309               349526
 You can see that there are 2 snapshots in this repository with a total of 134 GB of data. After compression the files were 92 GB and after deduplication only 7 GB. The reason for this difference is that every snapshot includes the same data, so there is a lot of potential for deduplication.
 
 
-## Step 6 – Put your Backups on Auto-Pilot
+## Step 7 – Put your Backups on Auto-Pilot
 With Borgmatic working, we can set up Cron to do regular backups in the future. Cron is an old Unix tool to run *repeated* tasks. It's usually included in all Unix-like systems.
 
 ```
