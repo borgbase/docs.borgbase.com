@@ -16,17 +16,16 @@ This article assumes that you have set up a backup workflow to a local or remote
 ## Prerequisites
 You should already have Borg installed and know how to use the command line. If you didn't install Borg yet, have a look at [this previous guide](https://docs.borgbase.com/linux/setup-borg-command-line/).
 
+
 ## Step 1 - Set up FUSE
 The FUSE library allows mounting arbitrary file systems into user space. It's available for all popular systems. The [official Borg docs](https://borgbackup.readthedocs.io/en/stable/installation.html) have a detailed overview for each system. You will need two parts: the actual FUSE library and Python wrappers for it.
 
-**For macOS**: First install the FUSE library from Homebrew.
-
+**For macOS**: Install the FUSE library from Homebrew.
 ```
-$ brew cask install osxfuse
+$ brew cask install macfuse
 ```
 
 **For Debian/Ubuntu**: The FUSE library is available from the main package repository.
-
 ```
 $ sudo apt-get install libfuse-dev fuse pkg-config
 ```
@@ -36,27 +35,16 @@ $ sudo apt-get install libfuse-dev fuse pkg-config
 $ yum install fuse-devel fuse pkgconfig
 ```
 
-## Step 2 - Install Python FUSE Bindings (optional)
-The `llfuse` [package](https://pypi.org/project/llfuse/) provides Python bindings for FUSE. If you are using the standalone binary of Borg, it already includes FUSE bindings and you can proceed to the next step. If you installed Borg from PyPi, you can install it as follows:
 
-### Install Python FUSE library
-Be sure to install it into the same Python environment as Borg itself.
+## Step 2 - Install Borg with FUSE support
+FUSE support is an optional add-on for Borg. Install it like this:
 
 ```
-$ pip install llfuse
+$ pip3 install 'borgbackup[fuse]'
 ```
 
-If you installed Borg as user-package using the system Python:
+On macOS, you could also use Borg's [FUSE-enabled Tap](https://github.com/borgbackup/homebrew-tap).
 
-```
-$ pip install --user llfuse
-```
-
-Or you could install it together with Borg
-
-```
-$ pip install borgbackup[fuse]
-```
 
 ## Step 3 - Validate Installation and Repository
 Next make sure everything is installed properly and you have access to the backup repo.
