@@ -16,7 +16,7 @@ description: "How we invoice our backup services to you."
 - Medium plan: Includes 1 TB backup space
 - Large plan: Includes 2 TB backup space
 
-For full details on current plans, see the [frontpage](https://www.borgbase.com/) or checkout page.
+For the current price of our plans, see the [frontpage](https://www.borgbase.com/) or checkout page.
 
 ### Flexible Ex-Post Billing
 
@@ -34,3 +34,6 @@ If our pre-set plans are too small for you, we are happy to create a custom plan
 
 If you find that your current plan is not a good fit, despite the flexible quota, you can always change your plan. To do so, just choose a different plan during checkout. The new plan will replace your current plan right away and unusued time will be pro-rated.
 
+## Other Fees
+
+There are no other fees outside of paying for the initial plan storage and any additional flesible storage you may use. We don't charge upload, download or API calls. **Please don't abuse this.** If we notice unusually high traffic, connections or disk activity for your repo, we will contact you to make you aware of the issue. This would e.g. happen for a CRON job that accidentially runs every minute.
