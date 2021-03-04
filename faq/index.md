@@ -114,10 +114,16 @@ If you need to restore an older repo version, you can export the whole repo usin
 
 When using append-only mode, old transactions and segments are never cleaned from the repo and the size can grow over time. To really prune append-only repos and reduce their space usage, you have two options:
 
-1. Temporarily set your main key to full access mode. This will remove old transactions during the next operation.
-2. Use a trusted admin machine wiht a full access key to prune. This will also clear old transactions.
+1. Temporarily set your main key to full access mode. This will remove all old transactions during the next **write** operation.
+2. Use a trusted admin machine with a full access key to prune. This will also clear old transactions.
 
+Note that old data is only deleted, if a full access key makes a **write operation** (create, delete, prune). If you prune, but no archive is actually deleted, it's not a write operation.
 
+If the repo size still doesn't decrease, the repo config may have been created with an append-only key. In that case, you can clear the setting with
+```
+$ borg config $REPO_URL append_only 0
+```
+(The repo will still be append-only for append-only keys after this.)
 
 ## Other Questions
 
