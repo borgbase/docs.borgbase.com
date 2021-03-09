@@ -163,7 +163,7 @@ location:
 
 storage:
     compression: auto,zstd
-    encryption_passphrase: CHANGE ME
+    encryption_passphrase: CHANGE ME!!
     archive_name_format: '{hostname}-{now}'
 
 retention:
@@ -175,10 +175,10 @@ retention:
 
 consistency:
     checks:
-        - repository
-        - archives
+        # uncomment to always do integrity checks. (takes long time for large repos)
+        #- repository
+        - disabled
 
-    check_last: 3
     prefix: '{hostname}-'
 ```
 
