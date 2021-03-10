@@ -9,7 +9,7 @@ description: "How to plan a comprehensive backup strategy by taking an inventory
 ### Introduction
 We all rely on data to help us get our job done and enhance our life. Think of business documents, personal pictures, source code for software projects, tax receipts or health records. Some of this data now lives in the cloud. You can sync your pictures or keep your source code on Github. This has left many of us with the impression that someone else is responsible for keeping our data safe.
 
-Since you are reading this, you probably know better. Cloud accounts can be blocked or compromised, syncing something is not a backup, because deletions are synced as well. That’s why backups are still important if you have any kind of data that’s important. Just consider this: if file or folder X was gone. Would it bother you? Could you still do your job effectively? If the answer is yes for any data you keep on your Macbook, then read on.
+Since you are reading this, you probably know better. Cloud accounts can be blocked or compromised. Syncing something is not a backup, because deletions are synced as well. Even well-run data centers can burn down.[^7] That’s why backups are still important if you have any kind of data that’s important. Just consider this: if file or folder X was gone. Would it bother you? Could you still do your job effectively? If the answer is yes for any data you keep on your Macbook, then read on.
 
 Having a structured backup strategy will not just save your precious family pictures, but also ensure business continuity. This article has a list of practical steps and generic templates you can use to make this task as simple as possible.
 
@@ -19,6 +19,12 @@ After completing the steps in this article, you will have the following:
 1. A list of your data assets.
 2. Where they are located and how they are backed up.
 3. Identified common errors regarding backup correlations, security and frequency.
+
+### Backups vs. Archives
+This article will mainly discuss **Backups**, rather than **Archives**. The main difference between the two:
+
+- **Backups** are a copy of production data that's frequently updated without changing the source data. Main challenge is to keep up with changing source data and restore quickly if needed.
+- **Archives** are generally accessed less frequently and the source data is deleted after creating the archive. E.g. tape storage with old accounting data. Main challenge is longevity of the data medium.
 
 ## Step 1 – Inventory of Data Assets
 A data asset is anything that's digital and that has value to you. This includes individual files, as well as data stored in databases or some other means. Data assets will have different value to you. Losing baby pictures and your client database will be more severe than losing your WhatsApp chat history.
@@ -129,3 +135,4 @@ It comes with 10 GB of backup space for free forever and is still affordable bey
 [^4]: See discussion on [Reddit](https://www.reddit.com/r/DataHoarder/comments/a3xrem/steps_to_produce_a_bulletproof_backup_strategy/).
 [^5]: See Wikipedia on [Business Continuity](https://en.wikipedia.org/wiki/Disaster_recovery)
 [^6]: Some principles are well explained in [Tao of Backup](http://taobackup.com/index.html)
+[^7]: OVH, a major French cloud provider had a [fire in 2021](https://www.theregister.com/2021/03/10/ovh_strasbourg_fire/).
