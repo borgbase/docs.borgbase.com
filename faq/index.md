@@ -39,7 +39,7 @@ If you get `Connection closed by remote host. Is borg working on the server?`, i
     $ ssh -v xxxx@xxxx.repo.borgbase.com
     ```
 
-This will print a list of keys being tried and potential problems. You won't get a shell at the end, as BorgBase only support access via `borg`. Once you see `Remote: Key is restricted.` or `PTY allocation request failed on channel 0` then the login step still worked.
+This will print a list of keys being tried and potential problems. You won't get a shell at the end, as BorgBase only supports access via `borg`. Once you see `Remote: Key is restricted.` or `PTY allocation request failed on channel 0` then the login step still worked.
 
 
 ### Why is my backup process so slow?
