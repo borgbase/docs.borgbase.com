@@ -129,7 +129,11 @@ $ borg config $REPO_URL append_only 0
 
 ### Which storage backend are you using?
 
-Both regions are currently using hardware RAID-6 backed storage servers. This protects against hardware failure and a degree of bit rot. For a list of the providers we work with, you can also see our [GDPR page](https://www.borgbase.com/gdpr).
+Both regions are currently using hardware RAID-6 backed storage servers with enterprise drives and replacement drives ready on-site. This protects against hardware failure and a degree of bit rot. For a list of the providers we work with, you can also see our [GDPR page](https://www.borgbase.com/gdpr).
+
+While this provides good durability against hard drive failure, BorgBase doesn't offer geographical redundancy or redundancy across multiple data centers for single repos. It's thus not recommended to use our service for archiving purposes, where there is no other copy of the data.
+
+If you want geographic redundancy, you can add two repos in different regions and do parallel backup to both of them. This case is, e.g. well supported by Borgmatic, which allows adding a list of repositories.
 
 
 ### How can I migrate an existing repo including archives to or from BorgBase?
@@ -165,12 +169,23 @@ Our [Ansible role](https://github.com/borgbase/ansible-role-borgbackup) also sup
 
 **If we notice excessive repo checks on your account, we may contact you or interrupt those processes in order to guarantee the best speed for all users.**
 
+
 ### How do I fully remove my account?
 
 If you have found another backup service and prefer to remove your account, you can do so any time. Doing so will remove your account data permanently. If you ever choose to start using BorgBase again, you will have to open a new account. If you ever had a paid subscription, we will still keep some invoicing data, as required by law. To remove your account:
 
 1. Remove all your repositories and make sure the data is saved elsewhere. You can also transfer your whole archive via `rsync`, as described [here](import).
 2. Log into your account and navigate to [*Account > Profile*](https://www.borgbase.com/account?tab=6). Then click *Remove Account*
+
+
+### Is there a maintenance window?
+
+Sometimes it's necessary to restart services and servers to apply security- and maintenance updates. Usually such updates are not urgent, so we schedule them in a way to minimize any service disruption, while doing them. So the maintenance window for each region is as follows:
+
+- **EU Region**: Monday, 09:20 to 09:40 UTC
+- **US Region**: Monday, 17:20 to 17:40 UTC
+
+Usually there won't be any downtime during this maintenance window. But if restarts or maintenance are required, it will be done during that time, unless more urgent action is needed.
 
 
 ### Have any other questions? [Email Us!](mailto:hello@borgbase.com)
