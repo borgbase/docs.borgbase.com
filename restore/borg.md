@@ -17,7 +17,7 @@ You should already have Borg installed and know how to use the command line. If 
 
 ## Step 1 - Listing the Archives
 
-To use it, you will need to know the precise path and archive name to restore. The [`borg mount`](https://borgbackup.readthedocs.io/en/stable/usage/extract.html) command can be helpful for this.
+To use it, you will need to know the precise path and archive name to restore. The [`borg list`](https://borgbackup.readthedocs.io/en/stable/usage/list.html) command can be helpful for this.
 
 Assuming we got the archive name and path from the previous step, a possible `borg extract` command could be
 
