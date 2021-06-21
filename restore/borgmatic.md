@@ -10,32 +10,44 @@ description: "Restoring files with the Borgmatic from the Command Line"
 
 If you use Borgmatic for your regular backups, it may be easier to use the Borgmatic syntax, provided you have a correctly configured configuration file.
 
-Note: You should be comfortable using the command line. If you prefer a graphical, client, look into our [Vorta Tutorial](/macos/how-to-backup-your-mac-using-the-vorta-backup-gui/) instead. These instructions should work on macOS and popular Linux flavors, like Debian, Ubuntu, as well as Red Hat, Fedora and CentOS.
+Note: You should be comfortable using the command line. If you prefer a graphical, client, look into our [Vorta Tutorial](/setup/vorta/) instead. These instructions should work on macOS and popular Linux flavors, like Debian, Ubuntu, as well as Red Hat, Fedora and CentOS.
 
 ## Prerequisites
-You should already have Borg, as well as Borgmatic installed and know how to use the command line. If you didn't install Borg yet, have a look at [this previous guide](https://docs.borgbase.com/linux/setup-borg-command-line/).  Please refer to the official [borgmatic documentation](https://torsion.org/borgmatic/docs/how-to/set-up-backups/) for setting up Borgmatic.  If your repository is hosted on BorgBase, your config file can be automatically generated for you using the [Configuration Assistant](https://www.borgbase.com/setup).
+You should already have Borg, as well as Borgmatic installed and know how to use the command line. If you didn't install Borg yet, have a look at [this previous guide](https://docs.borgbase.com/linux/setup-borg-command-line/).  Please refer to the official [borgmatic documentation](https://torsion.org/borgmatic/docs/how-to/set-up-backups/) for setting up Borgmatic. If your repository is hosted on BorgBase, your config file can be automatically generated for you using the [Configuration Assistant](https://www.borgbase.com/setup).
 
-## Step 1 - Listing the Archives
+Borgmatic will automatically use the repo and passphrase defined in the config file. So this doesn't need to be specified again.
 
-Assuming that you have Borgmatic correctly configured and making backups, you would first need to find the backup you need to restore by listing the archives.
-```
-$ borgmatic -l
-```
+## Step 1 - Listing Archives and Files
 
-After choosing the backup, you would then add it to the `borgmatic -x` command
+Assuming that you have Borgmatic correctly configured and making backups, you would first need to find the correct archive (often called snapshot or version) to restore by listing them.
 ```
-$ borgmatic -x server-2020-04-01T12:11:41
+$ borgmatic list
 ```
 
-## Step 2 - Extracting the Archives
+After choosing the right archive, you can view files contained in it:
+```
+$ borgmatic list --archive server-2020-04-01
+```
+
+Or only look at files in a specific archive and folder:
+```
+$ borgmatic list \
+    --archive server-2020-04-01
+    --path var/www/example.com
+```
+
+## Step 2 - Extracting Files
 
 Make sure you are in the directory you would like to restore to, as it will extract the files into it.
 
-If you would only like restore a particular directory from a backup, its as easy as adding `--restore path` to the command, along with the directory or file you would like to restore (minus the first `/`).
+If you would only like restore a particular directory from a backup, its as easy as adding `--destination $SOME_FOLDER` to the command, along with the directory or file you would like to restore (minus the first `/`).
 
 For example, if you would like to only restore `/mnt/catpics` from the same archive, the full command would be:
 ```
-$ borgmatic -x server-2020-04-01T12:11:41 --restore-path 'mnt/catpics'
+$ borgmatic extract \
+    --archive server-2020-04-01 \
+    --path mnt/catpics
+    --destination /mnt/new-directory
 ```
 
 This will restore the full path of that particular directory, but will only include that directory.
