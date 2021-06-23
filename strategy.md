@@ -101,7 +101,7 @@ The next concept to be aware of is Recovery Time Objective (RTO). It describes t
   <img src="/img/strategy/RPO_RTO_example_converted.png" alt="RPO and RTO explained" width="650">
   <figcaption>
     Image credit:
-    <a href="//en.wikipedia.org/wiki/File:RPO_RTO_example.svg" title="File:RPO RTO example.svg">File:RPO RTO example.svg</a>, <a href="http://creativecommons.org/licenses/by/4.0/" title="Creative Commons Attribution 4.0">CC BY 4.0</a>, <a href="https://en.wikipedia.org/w/index.php?curid=57829860">Link</a></figcaption>
+    <a href="//en.wikipedia.org/wiki/File:RPO_RTO_example.svg" title="File:RPO RTO example.svg">File:RPO RTO example.svg</a>, <a href="http://creativecommons.org/licenses/by/4.0/" title="Creative Commons Attribution 4.0">CC BY 4.0</a></figcaption>
 </figure>
 
 

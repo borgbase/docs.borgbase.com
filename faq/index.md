@@ -87,13 +87,11 @@ Host *.repo.borgbase.com
         ServerAliveCountMax 30
 ```
 
-This configuration means that the client will send a null packet every 10 seconds to keep the connection alive. If it doesn't get a response 30 times, the connection will be closed.
+This configuration means that the client will send a null packet every 10 seconds to keep the connection alive. If it doesn't get a response 30 times, the connection will be closed. BorgBase already has the appropriate `ClientAliveInterval` configuration applied server-side.
 
-BorgBase already has the appropriate `ClientAliveInterval` configuration server-side.
+If you still encounter issues, you may be using a VPN, a mobile network that aggressively terminates idle connections or a residential internet connection with short outages. In that case, you can use a simple [retry script](https://github.com/kadwanev/retry) during the initial upload. It will retry the command if it exits with an error. Borg also adds *checkpoint archives* every 30 minutes, so data is only uploaded once, even if the backup run is interrupted. 
 
-For an in-depth discussion, also see Borg issues [#636](https://github.com/borgbackup/borg/issues/636) and [#3988](https://github.com/borgbackup/borg/issues/3988). Or [this](https://askubuntu.com/a/354245) and [this](https://unix.stackexchange.com/questions/3026/what-options-serveraliveinterval-and-clientaliveinterval-in-sshd-config-exac) StackExchange question.
-
-If you still encounter issues, you may be using a VPN or mobile network that aggressively terminates idle connections.
+For an in-depth discussion on network interruptions, also see Borg issues [#636](https://github.com/borgbackup/borg/issues/636) and [#3988](https://github.com/borgbackup/borg/issues/3988). Or [this](https://askubuntu.com/a/354245) and [this](https://unix.stackexchange.com/questions/3026/what-options-serveraliveinterval-and-clientaliveinterval-in-sshd-config-exac) StackExchange question.
 
 
 ## Append-Only Mode
