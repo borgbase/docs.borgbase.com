@@ -18,7 +18,12 @@ has_toc: false
 
 If you get `Connection closed by remote host. Is borg working on the server?`, it is almost always a problem with SSH keys. Double-check the following to debug further:
 
-1. Have you already assigned a SSH key to the repo on [BorgBase.com](https://www.borgbase.com)?
+1. Have you already assigned a SSH key to the repo on [BorgBase.com](https://www.borgbase.com) and is this the same key you are using locally? *BorgBase* will show the key's SHA256 fingerprint in *Account > SSH Keys*. You can compare this to your local fingerprint like this:
+
+    ```
+    $ ssh-keygen -lf ~/.ssh/id_ed25519
+    ```
+
 2. Is SSH using the key you assigned? By default only `~/.ssh/id_[rsa | ed25519 | ecdsa]` are used. When using a custom key name, you can add `IdentityFile ~/.ssh/id_custom` to `~/.ssh/config`. Or to only use this key with BorgBase:
 
     ```
@@ -27,10 +32,10 @@ If you get `Connection closed by remote host. Is borg working on the server?`, i
     ```
 
 3. Is SSH trying too many keys? The maximum number of keys (`MaxAuthTries`) that can be tried per connection is 6. If you have more keys, specify the key to use, as shown above.
-4. Are the key permissions OK? Private keys need to have a permission of `0600`. To change the permission:
+4. Are the key permissions OK? Private keys and important config files (if in use) need to have a permission of `0600`. To change the permission:
 
     ```
-    $ chmod 0600 ~/.ssh/id_custom
+    $ chmod 0600 ~/.ssh/id_custom ~/.ssh/config
     ```
 
 5. If you still get errors, try to connect to your repo using the `ssh` command with verbose logging enabled:
