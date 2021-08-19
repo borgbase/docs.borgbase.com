@@ -106,7 +106,9 @@ In this mode, Borg will never remove old segments and instead add a new transact
 
 ### Why can I still prune or delete archives with active append-only mode?
 
-The Borg developers made the [decision](https://github.com/borgbackup/borg/issues/3504#issuecomment-354764028) to fail delete commands "silently". Effectively this means that while running backups with append-only ssh keys, no disk space will be recovered in your BorgBase repo with pruning. But you can run a prune with an all access ssh key when your free quota is running low, which will then clear pruned backups and free up disk space.
+The server-side Borg process [doesn't know](https://github.com/borgbackup/borg/issues/3504#issuecomment-354765228) about the high-level commands (`borg delete`, `borg prune`) you run. It only knows about adding chunks, removing chunks and so on. So with the current architecture, it's not possible to reject e.g. a `borg delete` command right away.
+
+As a result, Borg developers made the [decision](https://github.com/borgbackup/borg/issues/3504#issuecomment-354764028) to fail delete commands "silently". Effectively this means that while running backups with append-only ssh keys, no disk space will be recovered in your BorgBase repo with pruning. But you can run a prune with an all access ssh key when your free quota is running low, which will then clear pruned backups and free up disk space.
 
 With append-only mode enabled, the repository will have a timestamped transaction log. This [allows going back](https://borgbackup.readthedocs.io/en/stable/usage/notes.html#append-only-mode) to previous states, even if prune- or delete-commands were issued by the backup client.
 
