@@ -187,8 +187,8 @@ If you have found another backup service and prefer to remove your account, you 
 
 Sometimes it's necessary to restart services and servers to apply security- and maintenance updates. Usually such updates are not urgent, so we schedule them in a way to minimize any service disruption, while doing them. So the maintenance window for each region is as follows:
 
-- **EU Region**: Sunday and Monday, 09:20 to 09:40 UTC [🕙](https://www.timeanddate.com/worldclock/converter.html?iso=20200415T092000&p1=1440)
-- **US Region**: Sunday and Monday, 15:20 to 15:40 UTC [🕙](https://www.timeanddate.com/worldclock/converter.html?iso=20200415T152000&p1=1440)
+- **EU Region**: 09:20 to 09:40 UTC [🌍](https://www.timeanddate.com/worldclock/converter.html?iso=20200415T092000&p1=1440)
+- **US Region**: 15:20 to 15:40 UTC [🌎](https://www.timeanddate.com/worldclock/converter.html?iso=20200415T152000&p1=1440)
 
 Usually there won't be any downtime during this maintenance window. But if restarts or maintenance are required, it will be done during that time, unless more urgent action is needed.
 
