@@ -124,12 +124,6 @@ When using append-only mode, old transactions and segments are never cleaned fro
 
 Note that old data is only deleted, if a full access key makes a **write operation** (create, delete, prune). If you prune, but no archive is actually deleted, it's not a write operation.
 
-If the repo size still doesn't decrease, the repo config may have been created with an append-only key. In that case, you can clear the setting with
-```
-$ borg config $REPO_URL append_only 0
-```
-(The repo will still be append-only for append-only keys after this.)
-
 ## Other Questions
 
 ### Which storage backend are you using?
