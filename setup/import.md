@@ -1,6 +1,6 @@
 ---
 title: Import and Export Repositories
-nav_order: 6
+nav_order: 7
 layout: page
 parent: Setup
 description: "How can I import or export existing repository data into BorgBase?"
