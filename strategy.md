@@ -53,7 +53,7 @@ With all your essential data inventoried, you can now continue to select an appr
 
 In addition to the backup method, we will also record the frequency and destination. For automated backup processes, it's common to do them whenever data is changed, daily or hourly. For manual data exports, you will probably do it monthly or every quarter.
 
-Here an expanded version of our template[^2]:
+Here's an expanded version of our template[^2]:
 
 <img src="/img/strategy/Screenshot-2018-12-07-at-12.43.45.png" alt="" width="835" height="174" />
 
@@ -91,7 +91,7 @@ Users often assume that a file sync (Dropbox, Nextcloud) is the same as having a
 
 
 ### Backup Frequency Mismatch
-You probably noticed this while writing up your inventory. In some cases the velocity of the data (how often it changes) will not match your current backup frequency. That means you can expect to lose more data than specified in the RPO. So for each row make sure that the backup frequency is higher or the same as the specified RPO. If it's not, either find a way to increase it or change your RPO. Here an example:
+You probably noticed this while writing up your inventory. In some cases the velocity of the data (how often it changes) will not match your current backup frequency. That means you can expect to lose more data than specified in the RPO. So for each row make sure that the backup frequency is higher or the same as the specified RPO. If it's not, either find a way to increase it or change your RPO. Here's an example:
 
 An employee works on a file the whole day, but backups only happen once a day at night. If the file is damaged in the afternoon you lose one day's work. In this case you may need to consider local snapshots or do more frequent backups.
 
@@ -106,7 +106,7 @@ The next concept to be aware of is Recovery Time Objective (RTO). It describes t
 
 
 ### Security Issues
-The data you handle will have value to other people. A competitior could be interested in documents and client lists. An employee could be interested in salary data. At the same time the fines for data breaches have been increasing. So it should be in your interest to keep *all* data locations save. This includes backup locations.
+The data you handle will have value to other people. A competitior could be interested in documents and client lists. An employee could be interested in salary data. At the same time the fines for data breaches have been increasing. So it should be in your interest to keep *all* data locations safe. This includes backup locations.
 
 For a full security review, one would also record the confidentiality and integrity requirements for each data asset. This is outside our scope. We will do a more general check for each asset to see if the locations are secure enough. For each inventory row consider the following:
 
