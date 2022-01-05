@@ -40,3 +40,5 @@ Borg and most other tools used around our service are fully open source. This is
 By using *BorgBase* for your backups, you help us maintain our own open source offerings, like [Vorta](https://vorta.borgbase.com/), for the benefit of the whole community. See our [Github profile](https://github.com/borgbase) for current projects.
 
 In addition, you can choose to add a donation to the [Borg Backup project](https://github.com/borgbackup/borg) during checkout. All proceeds will go directly to [Thomas](https://github.com/ThomasWaldmann), the current lead maintainer to help him and others spend more time improving Borg Backup.
+
+<span class="label label-green">Double Your Donation</span> **During all of January 2022, we will also match and thus double every single donation made through our website up to a total amount of $5000.**
