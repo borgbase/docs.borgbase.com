@@ -33,6 +33,10 @@ The most important step: How to restore files from a Borg Backup. [More...](rest
 
 ---
 
-## Contribute and Customize
+## Open Source Sustainability
 
-Borg and most other tools we provide are fully open source. You can customize and improve them to a degree that wouldn't be possible with commercial products. Look at our [Github page](https://github.com/borgbase) for ongoing open source development.
+Borg and most other tools used around our service are fully open source. This is great because everyone can audit the source code and add improvements. But it also makes all of us responsible for keeping the ecosystem in good shape.
+
+By using *BorgBase* for your backups, you help us maintain our own open source offerings, like [Vorta](https://vorta.borgbase.com/), for the benefit of the whole community. See our [Github profile](https://github.com/borgbase) for current projects.
+
+In addition, you can choose to add a donation to the [Borg Backup project](https://github.com/borgbackup/borg) during checkout. All proceeds will go directly to [Thomas](https://github.com/ThomasWaldmann), the current lead maintainer to help him and others spend more time improving Borg Backup.
