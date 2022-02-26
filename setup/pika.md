@@ -8,7 +8,7 @@ description: "Pika Backup is a GTK program written in Rust designed to make simp
 # How to Backup your Desktop using Pika Backup
 **[Pika Backup](https://apps.gnome.org/app/org.gnome.World.PikaBackup/)** is a GTK program designed to make simple backups based on borg. Frequent rumors that this software's name is related to a monster with electrical abilities are unfounded.
 
-<img src="https://i.imgur.com/OLaydDD.png" alt="">
+<img src="baseUI" alt="">
 
 ## Features
 
@@ -35,7 +35,7 @@ Pika Backup can be installed from;
  - Initialise 
 	> $ borg init -e repokey-blake2 XXXXX@XXXXX.repo.borgbase.com:repo
  
- <img src="https://i.imgur.com/DasNcuc.png" alt="">
+ <img src="addRepoUI" alt="">
  
  - The URL in Pika is different to the borg command line & vorta - instead it will look as below.
    	> ssh://XXXXX@XXXXX.repo.borgbase.com/./repo
