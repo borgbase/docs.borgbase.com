@@ -1,0 +1,42 @@
+---
+title: Pika Backup
+nav_order: 3
+layout: page
+parent: Setup
+description: "Pika Backup is a GTK program written in Rust designed to make simple backups based on borg."
+---
+# How to Backup your Desktop using Pika Backup
+**[Pika Backup](https://apps.gnome.org/app/org.gnome.World.PikaBackup/)** is a GTK program designed to make simple backups based on borg. Frequent rumors that this software's name is related to a monster with electrical abilities are unfounded.
+
+<img src="https://i.imgur.com/OLaydDD.png" alt="">
+
+## Features
+
+ - Set up new backup repositories or uses existing ones
+ - Create backups locally and remote
+ - Save time and disk space because Pika Backup does not need to copy known data again
+ - Encrypt your backups
+ - List created archives and browse through their contents
+ - Recover files or folders via your file browser
+ - Source can be found [here](https://gitlab.gnome.org/World/pika-backup)
+
+## Install
+
+Pika Backup can be installed from;
+ - [Flathub](https://flathub.org/apps/details/org.gnome.World.PikaBackup) 
+ 	> $ flatpak install flathub org.gnome.World.PikaBackup
+ - On Arch though the [AUR repo](https://aur.archlinux.org/packages/pika-backup)
+ - Built from [Source](https://gitlab.gnome.org/World/pika-backup) using Gnome-Builder
+ 
+## Setup repository
+
+ - Create a SSH key - add it to your .ssh/config - see [here](https://docs.borgbase.com/setup/cli/#step-3-create-and-assign-ssh-key-for-authentication) for futher information
+ - Create a repository on borgbase 
+ 
+ <img src="https://i.imgur.com/DasNcuc.png" alt="">
+ 
+ - The URL in Pika is different to the borg command line & vorta - instead it will look as below.
+   	> ssh://XXXXX@XXXXX.repo.borgbase.com/./repo
+ - (Recommended) Add a password. 
+ - Additional flags can be utilised via the advanced options box.
+ - Choose whick files & folder to backup & which to exclude. 
