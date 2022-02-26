@@ -32,6 +32,8 @@ Pika Backup can be installed from;
 
  - Create a SSH key - add it to your .ssh/config - see [here](https://docs.borgbase.com/setup/cli/#step-3-create-and-assign-ssh-key-for-authentication) for futher information
  - Create a repository on borgbase 
+ - Initialise 
+	> $ borg init -e repokey-blake2 XXXXX@XXXXX.repo.borgbase.com:repo
  
  <img src="https://i.imgur.com/DasNcuc.png" alt="">
  
