@@ -7,39 +7,54 @@ description: "How can I import or export existing repository data into BorgBase?
 ---
 # How to Import or Export Existing Repositories
 
-If you already have an existing Borg repository with data and archives you would like to keep, you can import it into BorgBase using `rsync`. Naturally you can use the same technique to *export* an existing repository to e.g. use it locally or with another provider.
+If you have an existing Borg repository, you can import it into *BorgBase* using SFTP. Naturally you can use the same technique to *export* an existing repository.
 
-You could also store arbitrary data *instead* of a Borg repository, though this is not supported or recommended.
 
 ## Import Existing Repository
 
-First create a new BorgBase repository in your account under **[Repositories](https://www.borgbase.com/repositories) > New Repo**. Choose the name and region. Then open the **Advanced Options** section and select one or more keys under **Keys with Rsync Access**. Note that you can't use the same key for multiple roles. So if you want to use the same key for Borg access later, you need to remove it from the **Rsync** list first. Finally, click **Add Repository** to actually create the repository.
+First, create a new and empty *BorgBase* repository in your account under **[Repositories](https://www.borgbase.com/repositories) > New Repo**. Choose the name, region and assign a SSH key for access. Then open the **Advanced Options** section and set the access mode to *SFTP*. Finally, click **Add Repository** to actually create the repository.
 
-Next you will run the `rsync` command locally to copy your existing repository to BorgBase. In this step it's important to pay attention to the folder structure. You will want to copy the *content* of the repo folder, but not the folder itself:
+Next click the *Copy repo URL* button on the left of the table row. This will add the address of your new repo to the clipboard.
+
+Then on your local system, navigate into the existing repository to be uploaded. The folder should have files called `config` and `data`. After ensuring you are in the correct folder, connect to your new *BorgBase* repository with `sftp`:
 
 ```
-$ rsync -Paz --dry-run --stats MY-EXISTING-REPO/ xxxyyy@xxxyyy.repo.borgbase.com:
+$ sftp xxxxxxx@xxxxxxx.repo.borgbase.com:repo
 ```
 
-Note the `/` at the end of the source folder. It means rsync will copy the contents, but not the folder.
+If the connection succeeds, you will see a new prompt starting with `sftp>`. Now you can upload all existing data with `put -Rp .`:
 
-Another thing to note is that there is no `repo` at the end of the repo URL, since rsync will automatically point to that path. So you need to remove it when copying the repo URL from the web interface.
+```
+sftp> put -Rp .
+```
 
-After verifying that the command is correct, remove the `--dry-run` parameter and wait until all the data is copied.
+After the copy operation is finished, you can change your repo's access mode back to *Borg* and use `borg info` to verify the new repo.
 
 
 ## Export Existing Repository
 
 Exporting works similar to importing, but assumes that you already have the repository set up in BorgBase. To export it, open the [Repositories](https://www.borgbase.com/repositories) page in the web interface and choose the **Edit** icon in the right column. This will open the repository settings.
 
-Then open the **Advanced Options** section and select one or more keys under **Keys with Rsync Access**. Note that you can't use the same key for multiple roles. So you may have to deselect some full- or append-only keys first. When done, **Save Changes** and copy the repo URL to the clipboard (icon on the left side)
+Then open the **Advanced Options** section and set the access mode to *SFTP*. When done, click **Save Changes** and copy the repo URL to the clipboard (icon on the left side)
 
-Next you will run the `rsync` command locally to copy your repository data out of BorgBase. Since the URL for `rsync` is slightly different from Borg, you need to remove the final `repo` part, but keep the colon. An example `rsync` command would be:
+Next connect to your existing repo using `sftp`:
+```
+$ sftp xxxxxxx@xxxxxxx.repo.borgbase.com:repo
+```
+
+And download the repo folder:
+```
+sftp> get -Rp .
+```
+
+
+## Using LFTP instead of SFTP
+
+If you should need more advanced features, you can also use the more complex `lftp` tool for the data transfer. Uploading an existing repo would work like this. Note that you need to adjust the repo URL slightly.
 
 ```
-$ rsync -Paz --dry-run --stats xxxyyy@xxxyyy.repo.borgbase.com: LOCAL-REPO-DATA
+ lftp -e "mirror -eRv my-local-repo repo; quit;"  sftp://xxxxxx:@xxxxxx.repo.borgbase.com
 ```
 
-After verifying that the command is correct, remove the `--dry-run` parameter and wait until all the data is copied.
 
 ## Have any other questions? [Email Us!](mailto:hello@borgbase.com)
