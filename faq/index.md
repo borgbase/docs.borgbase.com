@@ -47,26 +47,6 @@ If you get `Connection closed by remote host. Is borg working on the server?`, i
 This will print a list of keys being tried and potential problems. You won't get a shell at the end, as BorgBase only supports access via `borg`. Once you see `Remote: Key is restricted.` or `PTY allocation request failed on channel 0` then the login step still worked.
 
 
-### Why is my backup process so slow?
-
-All our servers are connected with 1Gbit connections at a minimum and located in professional data centers. We rarely get reports of slow backup speeds. If you do encounter slower-than-expected backups or slow upload speeds, you can follow the steps below to find the bottleneck.
-
-First it helps to understand the steps `borg` follows when creating an initial or new backup:
-
-1. First it will do some housekeeping, like getting the index from the repo, if there is no local copy.
-2. Next it will compare all the inode ID and other attributes of all files to determine changed files. If you move your files to a new file system, the first backup run can take a bit longer, but no new data will be copied.
-3. If new data is found, Borg will checksum, compress and encrypt the files as segments of 1-5 MB, skipping any known segments. So if part of a large file changes, only new parts will be uploaded.
-4. Last, it will upload new segments to *BorgBase*.
-
-So the upload speed is not always the main bottleneck. Depending on your setup, you should also watch out for CPU usage or disk IO. It's usually difficult to improve uplink speed, but if you are CPU- or IO-limited, there are a few settings you can tune. Just be aware of the trade-offs. Maybe you are OK with a slower initial backup in order to have a smaller well-compressed backup in the future.
-
-- Make sure you choose an appropriate [compression level](https://borgbackup.readthedocs.io/en/stable/usage/help.html?highlight=compression#borg-help-compression) for your data. In general `lz4` (fast, but low compression) `zstd,3` (medium compression) and `zstd,8` (high compression) will work well.
-- If you don't need additional file flags, you can disable them with [`--nobsdflags`](https://borgbackup.readthedocs.io/en/stable/usage/notes.html#nobsdflags), [`--noacls`](https://borgbackup.readthedocs.io/en/stable/changes.html#version-1-1-16-2021-03-23), [`--noxattrs`](https://borgbackup.readthedocs.io/en/stable/changes.html#version-1-1-16-2021-03-23) or `bsd_flags: false` in Borgmatic. This can lead to dramatic performance [improvements](https://github.com/borgbackup/borg/issues/5295#issuecomment-805048888) when your backup consists of many small files. (With Borg >1.2, use `--noflags` instead of `--nobsdflags`)
-- Ensure the local [files cache](https://borgbackup.readthedocs.io/en/stable/usage/create.html#description) is working correctly. By default Borg will compare `ctime,size,inode` and process the file if either changes. If you have e.g. a network file system with unstable inodes, try using `--files-cache ctime,size`
-- Avoid excessive archive checking: `borg check` can read all backup segments and confirm their consistency. For large repos this can take a long time. BorgBase already uses different techniques to avoid bitrot in the storage backend, so `borg check` is not strictly necessary for this purpose. In Borgmatic set `checks` to `disabled` in the `consistency` section. If you still need consistency checks, consider using the `repository` option to limit the check to the repository. Checking all archive metadata is done on the client and very time consuming. See the official [Borg docs](https://borgbackup.readthedocs.io/en/stable/usage/check.html) for details.
-- If you suspect a slow (certain residential internet connections come with restricted upload speed) or unstable network connection, we can temporarily enable `iperf3` for you server-side.
-
-
 ### My SSH connection breaks after a long backup or prune operation.
 
 If Borg happens to be busy on the client- or server side, it may not send data over the SSH connection for a while. In this case, some ISPs will [terminate](https://anderstrier.dk/2021/01/11/my-isp-is-killing-my-idle-ssh-sessions-yours-might-be-too/) the connection after a period of inactivity, especially if a NAT is involved. You would then see an error like this:
@@ -94,9 +74,44 @@ Host *.repo.borgbase.com
 
 This configuration means that the client will send a null packet every 10 seconds to keep the connection alive. If it doesn't get a response 30 times, the connection will be closed. BorgBase already has the appropriate `ClientAliveInterval` configuration applied server-side.
 
-If you still encounter issues, you may be using a VPN, a mobile network that aggressively terminates idle connections or a residential internet connection with short outages. In that case, you can use a simple [retry script](https://github.com/kadwanev/retry) during the initial upload. It will retry the command if it exits with an error. Borg also adds *checkpoint archives* every 30 minutes, so data is only uploaded once, even if the backup run is interrupted. 
+If you still encounter issues, you may be using a VPN, a mobile network that aggressively terminates idle connections or a residential internet connection with short outages. In that case, you can use a simple [retry script](https://github.com/kadwanev/retry) during the initial upload. It will retry the command if it exits with an error. Borg also adds *checkpoint archives* every 30 minutes, so data is only uploaded once, even if the backup run is interrupted.
+
+
+#### Debug Network Issues
+
+If you suspect routing issues or an unstable network connection (certain residential internet connections come with restricted upload speed), you can run the below network tests: a `mtr` traceroute test to uncover packet loss or `iperf3` for excessive retransmits:
+
+Traceroute to uncover routing issues and packet loss: (takes about 15 min to complete)
+```
+$ mtr -s 1000 -r -c 1000 xxxxx.repo.borgbase.com
+```
+
+Network performance test to uncover excessive retransmits and measure bandwidth: (contact support to enable this first)
+```
+$ iperf3 -c xxxxx.repo.borgbase.com
+```
 
 For an in-depth discussion on network interruptions, also see Borg issues [#636](https://github.com/borgbackup/borg/issues/636) and [#3988](https://github.com/borgbackup/borg/issues/3988). Or [this](https://askubuntu.com/a/354245) and [this](https://unix.stackexchange.com/questions/3026/what-options-serveraliveinterval-and-clientaliveinterval-in-sshd-config-exac) StackExchange question.
+
+
+
+### Why is my backup process so slow?
+
+All our servers are connected with 1Gbit connections at a minimum and located in professional data centers. We rarely get reports of slow backup speeds. If you do encounter slower-than-expected backups or slow upload speeds, you can follow the steps below to find the bottleneck.
+
+First it helps to understand the steps `borg` follows when creating an initial or new backup:
+
+1. First it will do some housekeeping, like getting the index from the repo, if there is no local copy.
+2. Next it will compare all the inode ID and other attributes of all files to determine changed files. If you move your files to a new file system, the first backup run can take a bit longer, but no new data will be copied.
+3. If new data is found, Borg will checksum, compress and encrypt the files as segments of 1-5 MB, skipping any known segments. So if part of a large file changes, only new parts will be uploaded.
+4. Last, it will upload new segments to *BorgBase*.
+
+So the upload speed is not always the main bottleneck. Depending on your setup, you should also watch out for CPU usage or disk IO. It's usually difficult to improve uplink speed, but if you are CPU- or IO-limited, there are a few settings you can tune. Just be aware of the trade-offs. Maybe you are OK with a slower initial backup in order to have a smaller well-compressed backup in the future.
+
+- Make sure you choose an appropriate [compression level](https://borgbackup.readthedocs.io/en/stable/usage/help.html?highlight=compression#borg-help-compression) for your data. In general `lz4` (fast, but low compression) `zstd,3` (medium compression) and `zstd,8` (high compression) will work well.
+- If you don't need additional file flags, you can disable them with [`--nobsdflags`](https://borgbackup.readthedocs.io/en/stable/usage/notes.html#nobsdflags), [`--noacls`](https://borgbackup.readthedocs.io/en/stable/changes.html#version-1-1-16-2021-03-23), [`--noxattrs`](https://borgbackup.readthedocs.io/en/stable/changes.html#version-1-1-16-2021-03-23) or `bsd_flags: false` in Borgmatic. This can lead to dramatic performance [improvements](https://github.com/borgbackup/borg/issues/5295#issuecomment-805048888) when your backup consists of many small files. (With Borg >1.2, use `--noflags` instead of `--nobsdflags`)
+- Ensure the local [files cache](https://borgbackup.readthedocs.io/en/stable/usage/create.html#description) is working correctly. By default Borg will compare `ctime,size,inode` and process the file if either changes. If you have e.g. a network file system with unstable inodes, try using `--files-cache ctime,size`
+- Avoid excessive archive checking: `borg check` can read all backup segments and confirm their consistency. For large repos this can take a long time. BorgBase already uses different techniques to avoid bitrot in the storage backend, so `borg check` is not strictly necessary for this purpose. In Borgmatic set `checks` to `disabled` in the `consistency` section. If you still need consistency checks, consider using the `repository` option to limit the check to the repository. Checking all archive metadata is done on the client and very time consuming. See the official [Borg docs](https://borgbackup.readthedocs.io/en/stable/usage/check.html) for details.
 
 
 ## Append-Only Mode
