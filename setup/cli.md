@@ -115,11 +115,10 @@ Borg supports different encryption modes with `repokey-blake2` being the recomme
 
 To initialize the remote repo using the `repokey-blake2` option run this commend. Replace the last part with your actual repository location.
 ```
-$ borg init -e repokey-blake2 $REPO_LOCATION
-$ borg init -e repokey-blake2 mmvz9gp4@mmvz9gp4.repo.borgbase.com:repo  #example repo URL
+$ borg init -e repokey-blake2 $REPO_URL
 ```
 
-This will run Borg and then ask you for a password. Make it nice and long and keep it somewhere for later. If you already set up Borgmatic, you can also use that to initialize the repo. It will already know the repository URL and password from your config file. So only the encryption mode is required:
+This will run Borg and then ask you for a password. Make it nice and long and keep it somewhere safe. If you already set up Borgmatic, you can also use that to initialize the repo. It will already know the repository URL and password from your config file. So only the encryption mode is required:
 ```
 $ borgmatic init -e repokey-blake2
 ```
