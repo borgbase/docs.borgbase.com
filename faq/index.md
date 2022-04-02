@@ -64,7 +64,10 @@ RemoteRepository: 2.61 kB bytes sent, 1.01 MB bytes received, 52 messages sent
 Connection closed by remote host
 ```
 
-Which means the SSH connection has been terminated and Borg is unable to send data to the server-side process. One possible [solution](https://github.com/borgbackup/borg/issues/3988#issuecomment-478807213) is to have the client send regular keep-alive packages while no data is sent by Borg. On the client machine, you can add the below configuration to `~/.ssh/config` or `/etc/ssh/ssh_config`:
+Which means the SSH connection has been terminated and Borg is unable to send data to the server-side process. Some possible solutions are:
+
+
+**Frequent keepalive packets**: Mostly helpful for long `borg prune` or `borg check` operations running server-side. Have the client send regular keep-alive packets while no data is sent by Borg. On the client machine, you can add the below configuration to `~/.ssh/config` or `/etc/ssh/ssh_config`:
 
 ```
 Host *.repo.borgbase.com
@@ -74,12 +77,22 @@ Host *.repo.borgbase.com
 
 This configuration means that the client will send a null packet every 10 seconds to keep the connection alive. If it doesn't get a response 30 times, the connection will be closed. BorgBase already has the appropriate `ClientAliveInterval` configuration applied server-side.
 
-If you still encounter issues, you may be using a VPN, a mobile network that aggressively terminates idle connections or a residential internet connection with short outages. In that case, you can use a simple [retry script](https://github.com/kadwanev/retry) during the initial upload. It will retry the command if it exits with an error. Borg also adds *checkpoint archives* every 30 minutes, so data is only uploaded once, even if the backup run is interrupted.
+
+**Enable automatic retries in Borgmatic**: Newer versions of Borgmatic can automatically retry a failed command. To benefit from this feature add this to your Borgmatic config:
+
+```
+storage:
+    retries: 5
+    retry_wait: 5
+```
 
 
-#### Debug Network Issues
+**Use external retry script**: When running Borg directly, you can use a general [retry script](https://github.com/kadwanev/retry). It will retry the command if it exits with an error.
 
-If you suspect routing issues or an unstable network connection (certain residential internet connections come with restricted upload speed), you can run the below network tests: a `mtr` traceroute test to uncover packet loss or `iperf3` for excessive retransmits:
+Borg also adds *checkpoint archives* every 30 minutes, so your progress is preserved if a retry is needed.
+
+
+**Debug packet loss and unstable connections**: If you suspect routing issues or an unstable network connection (certain residential internet connections come with restricted upload speed), you can run the below network tests: a `mtr` traceroute test to uncover packet loss or `iperf3` for excessive retransmits:
 
 Traceroute to uncover routing issues and packet loss: (takes about 15 min to complete)
 ```
