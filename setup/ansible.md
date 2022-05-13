@@ -33,7 +33,11 @@ Learn more on the [Github page of the project](https://github.com/borgbase/ansib
 
 ## Interacting with the BorgBase API via Ansible
 
-BorgBase user [@adhawkinsgh](https://twitter.com/adhawkinsgh/) has created a range of Ansible modules that interact with the BorgBase API for a fully automated setup. These roles will also set up new repos and SSH keys with BorgBase.
+[Andy Hawkins](https://github.com/adhawkins/) has created a range of Ansible modules that interact with the BorgBase API for a fully automated setup. They allow adding a repository or SSH key to BorgBase. Install it from [Ansible Galaxy](https://galaxy.ansible.com/adhawkins/borgbase):
 
-For details see the [Github repo](https://github.com/adhawkins/ansible-borgbase) or the [in-file documentation](https://github.com/adhawkins/ansible-borgbase/blob/master/borgbase_repo.py).
+```
+$ ansible-galaxy collection install adhawkins.borgbase
+```
+
+For more details see the [Github repo](https://github.com/adhawkins/ansible-borgbase) or the [module documentation](https://adhawkins.github.io/ansible-borgbase/collections/adhawkins/borgbase/index.html).
 
