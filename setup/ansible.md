@@ -12,7 +12,7 @@ We provide a ready-to-use Ansible role to install Borg, Borgmatic and a cron job
 ```yaml
 - hosts: webservers
   roles:
-  - role: borgbackup
+  - role: m3nu.ansible_role_borgbackup
     borg_encryption_passphrase: CHANGEME
     borg_repository: m5vz9gp4@m5vz9gp4.repo.borgbase.com:repo
     borg_source_directories:
