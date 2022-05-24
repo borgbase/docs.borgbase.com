@@ -67,7 +67,8 @@ Connection closed by remote host
 Which means the SSH connection has been terminated and Borg is unable to send data to the server-side process. Some possible solutions are:
 
 
-**Frequent keepalive packets**: Mostly helpful for long `borg prune` or `borg check` operations running server-side. Have the client send regular keep-alive packets while no data is sent by Borg. On the client machine, you can add the below configuration to `~/.ssh/config` or `/etc/ssh/ssh_config`:
+#### Frequent keepalive packets
+Mostly helpful for long `borg prune` or `borg check` operations running server-side. Have the client send regular keep-alive packets while no data is sent by Borg. On the client machine, you can add the below configuration to `~/.ssh/config` or `/etc/ssh/ssh_config`:
 
 ```
 Host *.repo.borgbase.com
@@ -78,7 +79,8 @@ Host *.repo.borgbase.com
 This configuration means that the client will send a null packet every 10 seconds to keep the connection alive. If it doesn't get a response 30 times, the connection will be closed. BorgBase already has the appropriate `ClientAliveInterval` configuration applied server-side.
 
 
-**Enable automatic retries in Borgmatic**: Newer versions of Borgmatic can automatically retry a failed command. To benefit from this feature add this to your Borgmatic config:
+#### Enable automatic retries in Borgmatic
+Newer versions of Borgmatic can automatically retry a failed command. To benefit from this feature add this to your Borgmatic config:
 
 ```
 storage:
@@ -87,12 +89,14 @@ storage:
 ```
 
 
-**Use external retry script**: When running Borg directly, you can use a general [retry script](https://github.com/kadwanev/retry). It will retry the command if it exits with an error.
+#### Use external retry script
+When running Borg directly, you can use a general [retry script](https://github.com/kadwanev/retry). It will retry the command if it exits with an error.
 
 Borg also adds *checkpoint archives* every 30 minutes, so your progress is preserved if a retry is needed.
 
 
-**Debug packet loss and unstable connections**: If you suspect routing issues or an unstable network connection (certain residential internet connections come with restricted upload speed), you can run the below network tests: a `mtr` traceroute test to uncover packet loss or `iperf3` for excessive retransmits:
+#### Debug packet loss and unstable connections
+If you suspect routing issues or an unstable network connection (certain residential internet connections come with restricted upload speed), you can run the below network tests: a `mtr` traceroute test to uncover packet loss or `iperf3` for excessive retransmits:
 
 Traceroute to uncover routing issues and packet loss: (takes about 15 min to complete)
 ```
