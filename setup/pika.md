@@ -18,6 +18,7 @@ description: "Pika Backup is a GTK program written in Rust designed to make simp
  - Encrypt your backups
  - List created archives and browse through their contents
  - Recover files or folders via your file browser
+ - Supports automatic scheduled backups and clean up of old archives [version 0.4.0-beta-1 or newer] 
  - Source can be found [here](https://gitlab.gnome.org/World/pika-backup)
 
 ## Install
@@ -42,3 +43,16 @@ Pika Backup can be installed from;
  - (Recommended) Add a password. 
  - Additional flags can be utilised via the advanced options box.
  - Choose whick files & folder to backup & which to exclude. 
+
+## Setup repository [0.4.0-beta-1 or newer]
+ - Create a SSH key - add it to your .ssh/config
+ - Create a repository on BorgBase
+ - Version 0.4.0 supports user@host:path syntax
+<img src="userHostSupportBeta" alt="">
+
+## Auto-Backups [requires 0.4.0-beta-1 or newer]
+ - Click scheduled backups
+ - Toggle 'Regularly Create Backups'
+ - Choose a frequency (Daily, Weekly, Monthly etc)
+ - There is an option to 'Regualrly Delete Old Archives' which may be useful if you have storage constraints
+<img src="backupScheduleBeta" alt="">
