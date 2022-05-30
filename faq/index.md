@@ -153,12 +153,24 @@ With append-only mode enabled, the repository will have a timestamped transactio
 If you need to restore an older repo version, you can use [SFTP mode](/setup/import) to make the necessary edits or, preferably, download a backup copy of the whole repo before doing any edits.
 
 
+### Why is BorgBase showing the same storage use after deleting or prunging archives?
+
+There are situations where removing an archive doesn't automatically delete the data associated with it. This can have multiple reasons:
+
+- The same data segment is still associated with another archive. E.g. if you have two archives referencing the same files and you delete one of them, the data usage will stay the same.
+- You are using an append-only key. In this case the server-side Borg process will ignore all requests to actually delete any data and transactions can be rolled back. See the whole [append-only section](#append-only-mode) for more.
+- When using Borg `1.1.x`, old data is cleaned up only during a *write operation* to the repository. So if you changed key permissions recently, there can be a delay before the data is cleaned up.
+- When using Borg `1.2.x` or higher, old data is only deleted when running `borg compact` or running the *Compact Repo* action from the BorgBase Control Panel. Before that, no disk space is released.
+
+
 ### How can I prune append-only repositories?
 
 When using append-only mode, old transactions and segments are never cleaned from the repo and the size can grow over time. The timing and conditions of when old segments are cleaned up depends on the Borg version in use:
 
 - Borg 1.1.x: In this version, old segments are deleted *implicitely* when a write operation (e.g. `borg create`, `borg delete`) is done with a full access key.
 - Borg 1.2.x: This version added a new `borg compact` command to *explicitely* clean up old segments at a suitable time. You can trigger this command from our control panel under *More > Compact repo* from the repo table. Or run `borg compact` with a full access key directly.
+
+
 
 
 ## Other Questions
