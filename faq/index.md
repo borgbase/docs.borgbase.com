@@ -116,17 +116,12 @@ For an in-depth discussion on network interruptions, also see Borg issues [#636]
 
 All our servers are connected with 1Gbit connections at a minimum and located in professional data centers. We rarely get reports of slow backup speeds. If you do encounter slower-than-expected backups or slow upload speeds, you can follow the steps below to find the bottleneck.
 
-First it helps to understand the steps `borg` follows when creating an initial or new backup:
-
-1. First it will do some housekeeping, like getting the index from the repo, if there is no local copy.
-2. Next it will compare all the inode ID and other attributes of all files to determine changed files. If you move your files to a new file system, the first backup run can take a bit longer, but no new data will be copied.
-3. If new data is found, Borg will checksum, compress and encrypt the files as segments of 1-5 MB, skipping any known segments. So if part of a large file changes, only new parts will be uploaded.
-4. Last, it will upload new segments to *BorgBase*.
+First it helps to understand that Borg does more than just copy files. It will also chunk them into smaller pieces, calculate hashsums, compress and encrypt each part. See [here](https://borgbackup.readthedocs.io/en/master/faq.html#what-s-the-expected-backup-performance) for the full details.
 
 So the upload speed is not always the main bottleneck. Depending on your setup, you should also watch out for CPU usage or disk IO. It's usually difficult to improve uplink speed, but if you are CPU- or IO-limited, there are a few settings you can tune. Just be aware of the trade-offs. Maybe you are OK with a slower initial backup in order to have a smaller well-compressed backup in the future. So here some steps you can take to speed you backups:
 
+- First see this [official FAQ](https://borgbackup.readthedocs.io/en/master/faq.html#why-is-my-backup-so-slow) on steps to speed up backups.
 - Make sure you choose an appropriate [compression level](https://borgbackup.readthedocs.io/en/stable/usage/help.html?highlight=compression#borg-help-compression) for your data. In general `lz4` (fast, but low compression) `zstd,3` (medium compression) and `zstd,8` (high compression) will work well.
-- If you don't need additional file flags, you can disable them with [`--nobsdflags`](https://borgbackup.readthedocs.io/en/stable/usage/notes.html#nobsdflags), [`--noacls`](https://borgbackup.readthedocs.io/en/stable/changes.html#version-1-1-16-2021-03-23), [`--noxattrs`](https://borgbackup.readthedocs.io/en/stable/changes.html#version-1-1-16-2021-03-23) or `bsd_flags: false` in Borgmatic. This can lead to dramatic performance [improvements](https://github.com/borgbackup/borg/issues/5295#issuecomment-805048888) when your backup consists of many small files. (With Borg >1.2, use `--noflags` instead of `--nobsdflags`)
 - Ensure the local [files cache](https://borgbackup.readthedocs.io/en/stable/usage/create.html#description) is working correctly. By default Borg will compare `ctime,size,inode` and process the file if either changes. If you have e.g. a network file system with unstable inodes, try using `--files-cache ctime,size`
 - On Linux: Use the BBR congestion algorithm, instead of the default cubic. Users have reported a 6x speedup after making this change. This feature needs to be enabled on the *sending* side and works best on **low bandwith connections**. Clients sending from data centers will likely not see an improvement, as reported by [APNIC](https://blog.apnic.net/2019/11/01/bbr-evaluation-at-a-large-cdn/). Add the below lines to `/etc/sysctl.conf` and apply with `sysctl -p`.
   ```
