@@ -48,13 +48,31 @@ sftp> get -Rp .
 ```
 
 
-## Using LFTP instead of SFTP
+## Using Rclone
 
-If you should need more advanced features, you can also use the more complex `lftp` tool for the data transfer. Uploading an existing repo would work like this. Note that you need to adjust the repo URL slightly.
+[`rclone`](https://rclone.org/sftp/) is a bit more complex but offers good sync features. This makes it better suited for larger repos. Example config (find config path via `rclone config file`):
 
 ```
- lftp -e "mirror -eRv my-local-repo repo; quit;"  sftp://xxxxxx:@xxxxxx.repo.borgbase.com
+[borgbase]
+type = sftp
+host = xxx999.repo.borgbase.com
+user = xxx999
+key_file = ~/.ssh/id_ed25519
+shell_type = unix
+md5sum_command = none
+sha1sum_command = none
 ```
 
+To upload a repository to BorgBase:
+
+```
+$ rclone sync -v local-repo borgbase:repo
+```
+
+To download a repository from BorgBase:
+
+```
+$ rclone sync -v borgbase:repo local-repo
+```
 
 ## Have any other questions? [Email Us!](mailto:hello@borgbase.com)
