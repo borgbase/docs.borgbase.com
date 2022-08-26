@@ -231,5 +231,17 @@ Sometimes it's necessary to restart services and servers to apply security- and 
 Usually there won't be any downtime during this maintenance window. But if restarts or maintenance are required, it will be done during that time, unless more urgent action is needed.
 
 
+### How do I get support?
+
+If you have any questions or issues regarding your *BorgBase* account, simply email to [hello@borgbase.com](mailto:hello@borgbase.com) any time. You will generally receive a response within a few hours during working hours and within a day otherwise.
+
+We are also happy to help out with questions around setting up backups using the various projects in the Borg eco system, for example Borgmatic, Vorta and others on a best-effort basis. If you have a specific question, you will usually receive a speedy response. For more general questions (e.g. "How do I restore my backup?") or feedback on open source software, it's better to first read the related documentation, search the project's issue tracker or – for genuine bugs – open an issue on Github. Here some links for specific projects:
+
+- **Borg Backup**: [Documentation](https://borgbackup.readthedocs.io/en/stable/index.html), [Issue Tracker](https://github.com/borgbackup/borg/issues/)
+- **Borgmatic**: [Documentation](https://torsion.org/borgmatic/), [Issue Tracker](https://projects.torsion.org/borgmatic-collective/borgmatic/issues/)
+- **Vorta**: [Documentation](https://vorta.borgbase.com/), [Issue Tracker](https://github.com/borgbase/vorta/issues)
+
+If you require additional support or integration, we can also connect you with a relevant maintainer or our parent company's [Quick Support offering](https://www.peakford.com/support/).
+
 ### Have any other questions? [Email Us!](mailto:hello@borgbase.com)
 {: .no_toc }
