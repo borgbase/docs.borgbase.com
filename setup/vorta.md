@@ -1,5 +1,5 @@
 ---
-title: Vorta Desktop Client
+title: Vorta
 nav_order: 3
 layout: page
 parent: Setup

@@ -1,5 +1,5 @@
 ---
-title: Import and Export Repositories
+title: Import and Export
 nav_order: 7
 layout: page
 parent: Setup

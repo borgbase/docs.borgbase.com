@@ -1,5 +1,5 @@
 ---
-title: Backup Databases
+title: Databases
 nav_order: 8
 layout: page
 parent: Setup
