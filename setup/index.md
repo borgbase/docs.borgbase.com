@@ -19,6 +19,7 @@ If you are new to Vorta and Borg Backup, be sure to start with [this video](http
 - Our [Command Line Tutorial](cli) describes general steps to set up Borg with Borgmatic and should work on most systems. If you run MySQL, MariaDB or Postgres, see [here on how to dump them before the backup](databases).
 - For larger deployments, also consider using our [Ansible role](ansible) to automate the setup process.
 - If you run a [Synology NAS](synology), you can add offsite backups in a simple way using the DSM web interface.
+- JVM Host is offering a paid Borg plugin for use with DirectAdmin. [Tutorial](https://www.jvmhost.com/articles/directadmin-borg-plugin/) and [order page](https://www.jvmhost.com/software.html)
 
 ### Import- and Export Existing Repositories
 If you have an existing Borg repository and would like to keep your existing archive history, you can also [import (and export) repos using Rsync](import).
