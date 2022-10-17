@@ -12,6 +12,9 @@ FUSE can be slow for a large number of files and it can't restore metadata. For 
 
 Note: You should be comfortable using the command line. If you prefer a graphical, client, look into our [Vorta Tutorial](/macos/how-to-backup-your-mac-using-the-vorta-backup-gui/) instead. These instructions should work on macOS and popular Linux flavors, like Debian, Ubuntu, as well as Red Hat, Fedora and CentOS.
 
+{: .note }
+Borg is currently transitioning to the more standards-conform `ssh://` URL format. You may still see the older, deprecated SCP-style format (`xxx@xxx.repo.borgbase.com:repo`) in some places. The *BorgBase* control panel will give you the new format by default.
+
 ## Prerequisites
 You should already have Borg installed and know how to use the command line. If you didn't install Borg yet, have a look at [this previous guide](https://docs.borgbase.com/linux/setup-borg-command-line/).
 
@@ -24,7 +27,7 @@ Assuming we got the archive name and path from the previous step, a possible `bo
 ```
 $ borg extract \
     --dry-run --list \
-    w66xh7lj@w66xh7lj.repo.borgbase.com:repo::nyx2-test-repo-2019-02-16T12:04:06 \
+    ssh://w66xh7lj@w66xh7lj.repo.borgbase.com/./repo::nyx2-test-repo-2019-02-16T12:04:06 \
     /Users/manu/Documents/financial
 ```
 
@@ -39,7 +42,7 @@ Borg will restore your files to the current working directory. So be sure you ar
 ```
 $ borg extract \
     --list \
-    w66xh7lj@w66xh7lj.repo.borgbase.com:repo::nyx2-test-repo-2019-02-16T12:04:06
+    ssh://w66xh7lj@w66xh7lj.repo.borgbase.com/./repo::nyx2-test-repo-2019-02-16T12:04:06
 ```
 
 For more information on extracting, check out [the official Borg documentation](https://borgbackup.readthedocs.io/en/stable/usage/extract.html).

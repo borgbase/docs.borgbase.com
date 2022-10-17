@@ -100,6 +100,10 @@ This will display your public key as single line. Now just copy it and provide i
 
 
 ## Step 4 – Connect to Remote Borg Repository
+
+{: .note }
+Borg is currently transitioning to the more standards-conform `ssh://` URL format. You may still see the older, deprecated SCP-style format (`xxx@xxx.repo.borgbase.com:repo`) in some places. The *BorgBase* control panel will give you the new format by default.
+
 After adding your public key, you are ready to set up a remote repository. Different providers have different ways for this. When using BorgBase, add a new repository under **Repositories**. It will ask for a repo name, quota and which SSH key to use. You can also choose between US and EU server locations.
 
 After adding the repo, you can copy the repository location using the icon in the first **Name** column.

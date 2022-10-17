@@ -16,6 +16,11 @@ aux_links:
 
 theme: just-the-docs
 color_scheme: borgbase
+callouts:
+  note:
+    title: Note
+    color: grey-dk
+
 kramdown:
   toc_levels: 1..3
 
