@@ -11,7 +11,11 @@ description: "Instructions on how to set up Borg Backup from the command line on
 1. TOC
 {:toc}
 
-**Note**: You should be comfortable using the command line. If you prefer a graphical, client, look into our [Vorta Desktop Client](/setup/vorta) instead. These instructions should work on macOS and popular Linux flavors, like Debian, Ubuntu, as well as Red Hat, Fedora and CentOS.
+{: .note }
+You should be comfortable using the command line. If you prefer a graphical, client, look into our [Vorta Desktop Client](/setup/vorta) instead. These instructions should work on macOS and popular Linux flavors, like Debian, Ubuntu, as well as Red Hat, Fedora and CentOS.
+
+{: .note }
+Borg will get a [major upgrade](https://borgbackup.readthedocs.io/en/2.0.0b3/changes.html#change-log-2-x) to version 2 later this year, which brings many improvements and removes legacy code- and features. Most commands stay the same. Where there is a difference, you can choose the right version using the tabs above the code snippet. *BorgBase* itself supports all the latest release of every major branch and you can choose the preferred version for each repository.
 
 ### Introduction
 In this article we will set up a backup software called Borg Backup (or Borg for short). There are other backup solutions for Linux or macOS, but Borg has all the features we would expect from a proper backup, like encryption, compression and deduplication.
@@ -115,24 +119,52 @@ This will tell Borg where to connect to for storing backups and it will use your
 ## Step 5 – Initialize Borg Repository
 Now that we have a secure connection to our repository, we can start using it. The first step is to **initialize** it. This involves setting an encryption mode and password.
 
-Borg supports different encryption modes with `repokey-blake2` being the recommended one. `repokey` means that the encryption key is protected by a password and stored in the remote backup repo. There is also `keyfile-blake2` which stores the keyfile in your home-folder. It's important to know that *both* the keyfile and the password are required to access a repo. So if you lose your Macbook with the keyfile on it, you can't access the backup. That's why it's important to either use repokey mode or keep a copy of the keyfile somewhere else.
+Borg supports different encryption modes with the recommended one depending on the version. `repokey` means that the encryption key is protected by a password and stored in the remote backup repo. There is also `keyfile` mode which stores the keyfile in your home-folder. It's important to know that *both* the keyfile and the password are required to access a repo. So if you lose your laptop with the keyfile on it, you can't access the backup. That's why it's important to either use repokey mode or keep a copy of the keyfile somewhere else.
 
-To initialize the remote repo using the `repokey-blake2` option run this commend. Replace the last part with your actual repository location.
-```
-$ borg init -e repokey-blake2 $REPO_URL
-```
+To initialize the remote repo, use the commands below. Replace the `ssh://` URL with your actual full repository address given in the control panel.
 
-This will run Borg and then ask you for a password. Make it nice and long and keep it somewhere safe. If you already set up Borgmatic, you can also use that to initialize the repo. It will already know the repository URL and password from your config file. So only the encryption mode is required:
-```
-$ borgmatic init -e repokey-blake2
-```
+{% tabs init %}
 
-After the command is done, you have your remote backup repository set up and ready to accept files. You can add some test files from your *Documents* folder with this command:
+{% tab init Borg 1.x %}
+```shell
+$ borg init -e repokey-blake2 ssh://...
 ```
-$ borg create REPO_LOCATION::SNAPSHOT_NAME ~/Documents
-```
+{% endtab %}
 
-Again, replace the `REPO_LOCATION` with your actual repo and maybe change the folder to backup. `SNAPSHOT_NAME` is the name of the snapshot. It can be anything, but mostly people use the hostname and a timestamp. E.g. `tim-macbook-2018-10-10`. Snapshots allow you to access different versions of your files. This can be useful if a file was deleted by accident or encrypted by a cryptolocker.
+{% tab init Borg 2.x %}
+```shell
+# In Borg v2, you usually set the repository URL using the BORG_REPO env var:
+$ export BORG_REPO=ssh://...
+$ borg rcreate --encryption=repokey-blake2-chacha20-poly1305
+```
+{% endtab %}
+
+{% endtabs %}
+
+
+All those commands will ask you for a passphrase to protect the repository key. Make it nice and long and keep it somewhere safe. 
+
+After the command is done, you have your remote backup repository set up and ready to accept files. You can add some test files from your *Documents* folder with this commands:
+
+{% tabs create %}
+
+{% tab create Borg 1.x %}
+```shell
+$ export BORG_REPO=ssh://...
+$ borg create $BORG_REPO::my-archive-1 ~/Documents
+```
+{% endtab %}
+
+{% tab create Borg 2.x %}
+```shell
+$ export BORG_REPO=ssh://...
+$ borg create my-archive-1 ~/Documents
+```
+{% endtab %}
+
+{% endtabs %}
+
+`my-archive-1` is the name of the snapshot. It can be anything, but mostly people use the hostname and a timestamp. E.g. `tim-macbook-2018-10-10`. Archives allow you to access different versions of your files. This can be useful if a file was deleted by accident or encrypted by a cryptolocker.
 
 ## Step 6 – Set up Borgmatic for Regular Backups
 It would be quite cumbersome to manually run Borg every few hours and keep coming up with new Snapshot names. That's why we will use Borgmatic to do this job for us.
@@ -160,7 +192,7 @@ location:
     one_file_system: true
 
     repositories:
-        - mmvz9gp4@mmvz9gp4.repo.borgbase.com:repo
+        - ssh://mmvz9gp4@mmvz9gp4.repo.borgbase.com/./repo
 
     exclude_caches: true
 
@@ -192,7 +224,25 @@ Let's look at the major sections of this file one-by-one. Since the format is YA
 - `encryption_passphrase`: The password to access the repo, as set in step 4.
 - `retention`: Determines how many snapshots Borg will keep.
 
-Once you are happy with the options, save the file and try running your first backup. Simply running `borgmatic` without any options will create a new backup. We will add the `--verbosity` option to see what's going on during the first backup.
+Once you are happy with the options, save the file and initialize your repository, like you would with Borg only:
+
+{% tabs init %}
+
+{% tab init Borg 1.x %}
+```shell
+$ borgmatic init --encryption repokey-blake2
+```
+{% endtab %}
+
+{% tab init Borg 2.x %}
+```shell
+$ borgmatic init --encryption repokey-blake2-chacha20-poly1305
+```
+{% endtab %}
+
+{% endtabs %}
+
+Simply running `borgmatic` without any options will create a new backup. We will add the `--verbosity` option to see what's going on during the first backup.
 ```
 $ borgmatic --verbosity 2
 ```
