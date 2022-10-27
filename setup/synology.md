@@ -9,7 +9,8 @@ description: "Set up Borg Backup on Synology DiskStation"
 
 It's possible to install Borg Backup on a Synology NAS device and use it for offsite backups to [BorgBase.com](https://www.borgbase.com). The following steps don't require terminal access and will set up a new regular task in the DSM web interface.
 
-**Update Sept 2020**: An earlier version of this tutorial described a setup using only Borg. Since this year, Borgmatic is included in the Synology Borg package, which makes setup much easier. To avoid using the command line, this tutorial puts the SSH key and Borgmatic config into a hidden share on the data directory. Alternatively these files could also kept under `/root/.config/borgmatic/config.yaml` and `/root/.ssh`.
+{: .note }
+An earlier version of this tutorial described a setup using only Borg. Since 2020, Borgmatic is included in the Synology Borg package, which makes setup much easier. To avoid using the command line, this tutorial puts the SSH key and Borgmatic config into a hidden share on the data directory. Alternatively these files could also kept under `/root/.config/borgmatic/config.yaml` and `/root/.ssh`.
 
 
 ## Step 1 - Install Borg Backup and Borgmatic
