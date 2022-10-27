@@ -107,13 +107,13 @@ In the next screen, you can enter any name for the task. The user should be `roo
 Add the path of your Borg folder and backup script under *Task Settings*. E.g.
 
 ```
-/usr/local/bin/borgmatic -c /path/to/borgmatic.yml --create --prune
+/usr/local/bin/borgmatic -c /path/to/borgmatic.yml create prune
 ```
 
 To regularly verify the integrity of your backups, you can add a monthly task for repo-checking: (please don't do daily checks, as it puts a lot of load on our servers)
 
 ```
-/usr/local/bin/borgmatic -c /path/to/borgmatic.yml --check
+/usr/local/bin/borgmatic -c /path/to/borgmatic.yml check
 ```
 
 <img src="/img/synology/task-scheduler-2.png" alt="" width="800" />
