@@ -2,7 +2,8 @@
 title: Restore with Borg
 nav_order: 3
 layout: page
-parent: Restore
+parent: Borg
+grand_parent: Restore
 description: "Restoring Files with the Borg from the Command Line"
 ---
 

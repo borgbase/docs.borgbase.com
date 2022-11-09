@@ -7,16 +7,7 @@ description: "How we invoice our backup services to you."
 
 # Pricing and Invoicing
 
-[BorgBase](https://www.borgbase.com) uses a combination of fixed and variable billing. First you would choose a plan, based on your overall backup needs. Currently we offer the following plans:
-
-### Available Plans
-
-- Free plan: Includes 10 GB backup space
-- Small plan: Includes 100 GB backup space
-- Medium plan: Includes 1 TB backup space
-- Large plan: Includes 2 TB backup space
-
-For the current price of our plans, see the [front page](https://www.borgbase.com/) or checkout page.
+[BorgBase](https://www.borgbase.com) uses a combination of fixed and variable billing. First you would choose a plan, based on your overall backup needs. See the [front page](https://www.borgbase.com#pricing) for current plans and pricing.
 
 ### Flexible Ex-Post Billing
 

@@ -2,7 +2,8 @@
 title: TrueNAS
 nav_order: 6
 layout: page
-parent: Setup
+parent: Borg
+grand_parent: Setup
 description: "Set up Borg Backup on TrueNAS"
 ---
 # Set up Borg Backup on TrueNAS

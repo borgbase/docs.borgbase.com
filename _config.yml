@@ -11,7 +11,7 @@ search_enabled: true
 heading_anchors: true
 
 aux_links:
-  "10 GB Free Borg Backup Hosting":
+  "Get 10 GB Free Backup Hosting":
     - "https://www.borgbase.com"
 
 theme: just-the-docs

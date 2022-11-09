@@ -6,3 +6,14 @@
 /automation /api
 /faq/databases /setup/databases
 /faq/import /setup/import
+
+# After adding Restic section
+/setup/ansible /setup/borg/ansible
+/setup/cli /setup/borg/cli
+/setup/databases /setup/borg/databases
+/setup/pika /setup/borg/pika
+/setup/synology /setup/borg/synology
+/setup/vorta /setup/borg/vorta
+/restore/borg /restore/borg/cli
+/restore/borgmatic /restore/borg/borgmatic
+/restore/mount /restore/borg/mount

@@ -2,7 +2,8 @@
 title: Synology
 nav_order: 5
 layout: page
-parent: Setup
+parent: Borg
+grand_parent: Setup
 description: "Set up Borg Backup on Synology DiskStation"
 ---
 # Set up Borg Backup on Synology DiskStation

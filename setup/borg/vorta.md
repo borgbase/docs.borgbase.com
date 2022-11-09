@@ -2,7 +2,8 @@
 title: Vorta
 nav_order: 3
 layout: page
-parent: Setup
+parent: Borg
+grand_parent: Setup
 description: "Vorta is a cross-platform open source backup client. It makes managing Borg backups easy and there is no need to run commands in the Terminal."
 ---
 # How to Backup your Desktop using the Vorta Client for Borg

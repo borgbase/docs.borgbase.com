@@ -20,6 +20,7 @@ Workaround for Netlify Ruby issue. In `Gemfile.lock`:
 
 ## Update
 - `bundle update`
+- For tables: https://www.tablesgenerator.com/markdown_tables
 
 ## Credits
 - Theme: [https://github.com/pmarsceill/just-the-docs]

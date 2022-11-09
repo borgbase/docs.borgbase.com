@@ -2,7 +2,8 @@
 title: Restore with Borgmatic
 nav_order: 4
 layout: page
-parent: Restore
+parent: Borg
+grand_parent: Restore
 description: "Restoring files with the Borgmatic from the Command Line"
 ---
 

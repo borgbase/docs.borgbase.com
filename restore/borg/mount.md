@@ -2,7 +2,8 @@
 title: Mount and Browse Archives
 nav_order: 2
 layout: page
-parent: Restore
+parent: Borg
+grand_parent: Restore
 description: "Mount and Browse Archive"
 ---
 

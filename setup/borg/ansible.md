@@ -2,7 +2,8 @@
 title: Ansible
 nav_order: 4
 layout: page
-parent: Setup
+parent: Borg
+grand_parent: Setup
 description: "Use Ansible for automatically setting up clients and repositories."
 ---
 # Ansible

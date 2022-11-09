@@ -6,25 +6,53 @@ description: ""
 has_children: true
 has_toc: false
 ---
-# Setting up Borg for Backups to BorgBase
+# Setting up Backups to BorgBase
 
-Borg is a lightweight backup client that you install locally to prepare your data before sending it to BorgBase for storage. Borg will deduplicate, compress and encrypt your files before sending them to us. Depending on your environment, there are different ways to set up Borg:
+Time to get real on backups. 💪 The *Setup* section helps you to choose a backup tool and start backing up your files.
+{: .fs-6 .fw-300 }
 
-- Our [Command Line Tutorial](cli) describes general steps to set up Borg with Borgmatic and should work on most systems.
-- The community-maintained [Docker image ](https://github.com/borgmatic-collective/docker-borgmatic) comes with all dependencies to run Borg and Borgmatic.
+---
 
-### Desktop
-For macOS- and Linux desktops we offer [Vorta](vorta), our desktop client. It provides a graphical user interface around Borg and integrates with your desktop environment to make creating, browsing and restoring backups easier.
+## Step 1 - Choosing a Backup Tool
 
-If you are new to Vorta and Borg Backup, be sure to start with [this video](https://www.youtube.com/watch?v=asZX2YbTaNE) by Sun Knudsen. He gives a high level overview Borg's concepts and then walks through doing backups with Vorta step-by-step.
+Currently BorgBase offers support for two backup tools. Choosing the right one depends on your specific situation. Here a quick comparison:
 
-For Gnome desktops there is also the community-maintained [Pika Backup](pika).
+|                            | Borg                                                                              | Restic                                          |
+|----------------------------|-----------------------------------------------------------------------------------|-------------------------------------------------|
+| Initial Release            | 2010                                                                              | 2015                                            |
+| Deduplication              | Yes                                                                               | Yes                                             |
+| Compression                | Yes, different algorithms                                                         | Yes, Zstandard only                             |
+| Encryption                 | Yes, optional                                                                     | Yes, always                                     |
+| Transport protocol         | SSH                                                                               | HTTP/2                                          |
+| Transport authentication             | SSH keypair                                                                       | Username and password              |
+| Programming language       | Python/C/Cython                                                                   | Go                                              |
+| Multi-threaded             | No (planned)                                                                      | Yes                                             |
+| Installation               | Included in many Linux distros, single PyInstaller binary available, or with `pip` | Single Go binaries for many platforms available |
+| Desktop GUIs               | Yes, Vorta and Pika Backup                                                        | No                                              |
+| Related projects and tools | Many community projects with additional tools, e.g. Borgmatic                     | Some, but not as many as Borg                   |
 
-### Servers and NAS
-- Our [Ansible role](ansible) can be used to fully automate the setup process.
-- If you run a NAS, see our [Synology](synology) and [TrueNAS](true-nas) tutorials.
-- JVM Host is offering a paid Borg plugin for use with DirectAdmin. [Tutorial](https://www.jvmhost.com/articles/directadmin-borg-plugin/) and [order page](https://www.jvmhost.com/software.html).
-- If you run a database server, like MySQL, MariaDB or Postgres, see [here](databases) on how to properly dump the data before a backup run.
 
-### Import- and Export Existing Repositories
-If you have an existing Borg repository and would like to keep your existing archive history, you can also [import (and export) repos using SFTP](import).
+As you can see the features of both tools are relatively similar. Speed is also similar and depends on the precise use case. In some cases, Restic may use more memory.
+
+In terms of features and options, Borg is more mature, while Restic focuses on a more basic set of features. Here some rough guidance on which one to choose:
+
+- If Borg comes with your distro and you are comfortable using SSH keys, use Borg.
+- If you don't usually use SSH keys and prefer the simplicity of a username and password, use Restic.
+- If you need a desktop GUI for macOS or Gnome, use Borg.
+
+
+## Step 2 - Create Backup Repository
+
+Next you will create a new "repository" for your backup. A repository groups multiple snapshots (or archives) together and keeps related files. Usually one machine will use one repository. In some cases it can also make sense to share a repository between different machines to benefit from shared deduplication.
+
+To add a new repository on *BorgBase*, log into your account, go to the [Repositories page](https://www.borgbase.com/repositories) and click *Add Repo*. This will ask you to pick a name, region and format. There are also optional settings like limiting the storage quota.
+
+## Step 3 - Initialize Repository and Upload Files
+
+This step will depend on the backup tool you chose previously. We provide you with copy & paste commands to get started quickly. To view them, head to the [Setup page](https://www.borgbase.com/setup) and choose the repository you just created. You will see commands for the chosen backup tool. For more details, see our documentation for each tool:
+
+- [Setting up Backups with Borg](borg)
+- [Setting up Backups with Restic](restic)
+
+If you already have an existing repository, you can also [import](import) it using SFTP.
+

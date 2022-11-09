@@ -2,7 +2,8 @@
 title: Pika Backup
 nav_order: 3
 layout: page
-parent: Setup
+parent: Borg
+grand_parent: Setup
 description: "Pika Backup is a GTK program written in Rust designed to make simple backups based on borg."
 ---
 # How to Backup your Desktop using Pika Backup
