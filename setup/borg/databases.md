@@ -44,6 +44,6 @@ hooks:
 
 ### References
 [^1]: [automysqlbackup](https://sourceforge.net/projects/automysqlbackup/)
-[^2]: [autopostgresqlbackup](https://github.com/exoscale/autopostgresqlbackup)
+[^2]: [autopostgresqlbackup](https://github.com/k0lter/autopostgresqlbackup)
 [^3]: [Borgmatic: How to add preparation and cleanup steps to backups](https://torsion.org/borgmatic/docs/how-to/add-preparation-and-cleanup-steps-to-backups/)
 [^4]: [Borgmatic: Database Backup Hooks](https://torsion.org/borgmatic/docs/how-to/backup-your-databases/)
