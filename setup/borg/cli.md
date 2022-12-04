@@ -1,6 +1,6 @@
 ---
 title: Command Line
-nav_order: 2
+nav_order: 1
 layout: page
 parent: Borg
 grand_parent: Setup
@@ -28,6 +28,9 @@ It also assumes that you have server-based version of Borg available. The easies
 
 ##  Step 1 - Install Borg
 In this step we will install Borg Backup and later a helper-tool to manage configuration files. There are [many ways to install Borg](https://borgbackup.readthedocs.io/en/stable/installation.html). Here just the most common ones. For more details, just look at the [Borg installation guide](https://borgbackup.readthedocs.io/en/stable/installation.html).
+
+{: .note }
+If you use Docker or a similar container tool, you can also use this [Borgmatic Docker image](https://github.com/borgmatic-collective/docker-borgmatic).
 
 ### Install via PIP
 If you already keep some Python tools around, you can just add Borg to it:
@@ -300,4 +303,4 @@ You now have a reliable and secure backup setup. Borg and Borgmatic offer many o
 - View all available Borgmatic [options](https://github.com/witten/borgmatic), like excluding certain files.
 - Set up a local backup repository to backup to a hard drive or thumb drive. This is not a replacement for a cloud backup, but does provider some protection against failed hardware if the size of the data is too large to upload.
 
-If you run into any issues or want to give feedback on this guide, get in touch on [Twitter](https://twitter.com/_m3nu).
+## Have any other questions? [Email Us!](mailto:hello@borgbase.com)

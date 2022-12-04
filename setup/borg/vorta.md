@@ -1,6 +1,6 @@
 ---
 title: Vorta
-nav_order: 3
+nav_order: 2
 layout: page
 parent: Borg
 grand_parent: Setup

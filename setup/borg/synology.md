@@ -1,5 +1,5 @@
 ---
-title: Synology
+title: Synology NAS
 nav_order: 5
 layout: page
 parent: Borg

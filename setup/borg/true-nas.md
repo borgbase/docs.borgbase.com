@@ -1,6 +1,6 @@
 ---
 title: TrueNAS
-nav_order: 6
+nav_order: 5
 layout: page
 parent: Borg
 grand_parent: Setup

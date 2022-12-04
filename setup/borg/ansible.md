@@ -1,6 +1,6 @@
 ---
 title: Ansible
-nav_order: 4
+nav_order: 5
 layout: page
 parent: Borg
 grand_parent: Setup
@@ -42,3 +42,4 @@ $ ansible-galaxy collection install adhawkins.borgbase
 
 For more details see the [Github repo](https://github.com/adhawkins/ansible-borgbase) or the [module documentation](https://adhawkins.github.io/ansible-borgbase/collections/adhawkins/borgbase/index.html).
 
+## Have any other questions? [Email Us!](mailto:hello@borgbase.com)
