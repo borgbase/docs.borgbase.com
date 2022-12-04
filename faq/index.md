@@ -132,6 +132,30 @@ So the upload speed is not always the main bottleneck. Depending on your setup, 
 - Avoid excessive archive checking: `borg check` can read all backup segments and confirm their consistency. For large repos this can take a long time. BorgBase already uses different techniques to avoid bitrot in the storage backend, so `borg check` is not strictly necessary for this purpose. In Borgmatic set `checks` to `disabled` in the `consistency` section. If you still need consistency checks, consider using the `repository` option to limit the check to the repository. Checking all archive metadata is done on the client and very time consuming. See the official [Borg docs](https://borgbackup.readthedocs.io/en/stable/usage/check.html) for details.
 
 
+### Repair Damaged Repositories
+
+There are rare situations, where Borg repositories can be damaged by e.g. interrupted backups, incomplete migrations, hardware failures or other factors. Symptoms include:
+
+- `Object with key XXX not found in repository`
+- `Cache is newer than repository - do you have multiple, independently updated repos with same ID?`
+
+If you don't necessarily need the data right now, but primarily want a working repository, Borg is generally good at fixing those issues and missing data will be added during the next backup run.
+
+Some general fixes for errors on missing data:
+
+- First run `borg check $REPO_URL`. This will first check the repository files and then one or more archives.
+- If the first step reveals errors, you should make a local repo copy, unless the data is non-critical.
+- Next run `borg check --repair` to ask Borg to fix any errors.
+- Finally run `borg create ...` to do a full backup run and add potentially missing data.
+
+Some possible fixes for cache errors (from [here](https://github.com/borgbackup/borg/issues/3428#issuecomment-380399036)):
+
+- First try to the local cache `borg delete --cache-only $REPO_URL`
+- If the first step doesn't resolve the issue, try moving or removing the security folder in `~/.config/borg/security/$REPO_ID`. Where the `REPO_ID` can be found using `borg config $REPO_URL id`
+- Run a repo check with `borg check $REPO_URL`.
+
+
+
 ## Append-Only Mode
 
 Also called "delayed deletion". In this mode, Borg will never remove old segments and instead add a new transaction for any change in a transaction log. The result is that no data is ever deleted and operations (like archive prunes- or deletions) can be undone. This is useful if the client machine shouldn't get full access to its own backups to e.g. prevent a hacker from deleting backups after taking over a client machine. For full details and instruction on how to roll back, see the official [Borg docs](https://borgbackup.readthedocs.io/en/stable/usage/notes.html#append-only-mode).
