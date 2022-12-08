@@ -114,7 +114,7 @@ For an in-depth discussion on network interruptions, also see Borg issues [#636]
 
 ### Why is my backup process so slow?
 
-All our servers are connected with 1Gbit connections at a minimum and located in professional data centers. We rarely get reports of slow backup speeds. If you do encounter slower-than-expected backups or slow upload speeds, you can follow the steps below to find the bottleneck.
+All our servers are connected with 1Gbit connections at a minimum and located in professional data centers. There is no throttline based on account type. We rarely get reports of slow backup speeds. If you do encounter slower-than-expected backups or slow upload speeds, you can follow the steps below to find the bottleneck.
 
 First it helps to understand that Borg does more than just copy files. It will also chunk them into smaller pieces, calculate hashsums, compress and encrypt each part. See [here](https://borgbackup.readthedocs.io/en/master/faq.html#what-s-the-expected-backup-performance) for the full details.
 
