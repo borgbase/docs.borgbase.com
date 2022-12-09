@@ -32,12 +32,14 @@ Currently BorgBase offers support for two backup tools. Choosing the right one d
 | Related projects and tools | Many community projects with additional tools, e.g. Borgmatic                     | Some, but not as many as Borg                   |
 
 
-As you can see the features of both tools are relatively similar. Speed is also similar and depends on the precise use case. In some cases, Restic may use more memory.
+As you can see the features of both tools are relatively similar. For new backups, Borg is more efficient and uses less memory. Restic is faster if little data changed and if there isn't much data to compress. See [here](https://github.com/borgbase/benchmarks) for an in-depth benchmark.
 
-In terms of features and options, Borg is more mature, while Restic focuses on a more basic set of features. Here some rough guidance on which one to choose:
+In terms of tooling and options, Borg is more mature, while Restic focuses on a more basic set of features. Here some rough guidance on which one to choose:
 
 - If Borg comes with your distro and you are comfortable using SSH keys, use Borg.
 - If you don't usually use SSH keys and prefer the simplicity of a username and password, use Restic.
+- If you need low memory consumption (like on a VPS), use Borg.
+- If you have a high-latency connection (over 100ms), Restic may do better.
 - If you need a desktop GUI for macOS or Gnome, use Borg.
 
 
