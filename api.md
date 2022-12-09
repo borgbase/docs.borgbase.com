@@ -40,6 +40,15 @@ Some GraphQL sample queries:
 
 For an introduction to GraphQL, see [How to GraphQL](https://www.howtographql.com).
 
+
+## Integrations
+
+The following libraries and tools interface with our API. Some are maintained externally:
+
+- [Ansible plugin](https://github.com/adhawkins/ansible-borgbase) by Andy Hawkins. Allows adding SSH keys and repos from an Ansible playbook.
+- [GLPI plugin](https://plugins.glpi-project.org/#/plugin/borgbase) developed by [TICgal](  https://tic.gal/en/) to send backups to BorgBase.
+
+
 ## Examples
 
 Using cURL:
