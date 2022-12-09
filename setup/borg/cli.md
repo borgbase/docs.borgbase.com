@@ -62,7 +62,7 @@ That's it. You now have Borg installed on your local machine. You can test it by
 $ borg --version
 ```
 
-This should print something like `borg 1.1.8`. 
+This should print something like `borg 1.2.2`. 
 
 ## Step 2 – Install Python 3 and Borgmatic (optional)
 After completing step 1, you are ready to use Borg for simple operations. If you want to schedule regular backup jobs and exclusions, it's a good idea to install a helper tool – Borgmatic – as well. This time Python is required and there is no pre-compiled binary.
@@ -125,22 +125,24 @@ Now that we have a secure connection to our repository, we can start using it. T
 
 Borg supports different encryption modes with the recommended one depending on the version. `repokey` means that the encryption key is protected by a password and stored in the remote backup repo. There is also `keyfile` mode which stores the keyfile in your home-folder. It's important to know that *both* the keyfile and the password are required to access a repo. So if you lose your laptop with the keyfile on it, you can't access the backup. That's why it's important to either use repokey mode or keep a copy of the keyfile somewhere else.
 
-To initialize the remote repo, use the commands below. Replace the `ssh://` URL with your actual full repository address given in the control panel.
+To initialize the remote repo, use the commands below. Replace the `ssh://` URL with your actual full repository address given in the control panel. The repository URL will be kept as `BORG_REPO` variable to avoid typing it each time.
 
 {% tabs init %}
 
 {% tab init Borg 1.x %}
 ```shell
-$ borg init -e repokey-blake2 ssh://...
+$ export BORG_REPO=ssh://...
+$ borg init -e repokey-blake2
 ```
 {% endtab %}
 
 {% tab init Borg 2.x %}
 ```shell
-# In Borg v2, you usually set the repository URL using the BORG_REPO env var:
 $ export BORG_REPO=ssh://...
-$ borg rcreate --encryption=repokey-blake2-chacha20-poly1305
+$ borg benchmark cpu  # optional: find fastest encryption algorithm
+$ borg rcreate --encryption=repokey-blake2-aes-ocb
 ```
+**Note**: Encryption speed can vary depending on CPU and if a virtual machine is used. So it's best to benchmark it and choose the fastest combination. More [here](https://borgbackup.readthedocs.io/en/2.0.0b4/usage/rcreate.html#choosing-an-encryption-mode).
 {% endtab %}
 
 {% endtabs %}
@@ -154,14 +156,12 @@ After the command is done, you have your remote backup repository set up and rea
 
 {% tab create Borg 1.x %}
 ```shell
-$ export BORG_REPO=ssh://...
-$ borg create $BORG_REPO::my-archive-1 ~/Documents
+$ borg create ::my-archive-1 ~/Documents
 ```
 {% endtab %}
 
 {% tab create Borg 2.x %}
 ```shell
-$ export BORG_REPO=ssh://...
 $ borg create my-archive-1 ~/Documents
 ```
 {% endtab %}
