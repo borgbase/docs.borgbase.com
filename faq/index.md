@@ -16,7 +16,7 @@ has_toc: false
 
 ### All connections to a BorgBase repo fail with an error immediately.
 
-If you get `Connection closed by remote host. Is borg working on the server?`, it is almost always a problem with SSH keys. Double-check the following to debug further:
+If you get `Permission denied (public key)` or `Connection closed by remote host. Is borg working on the server?`, it is almost always a problem with SSH keys. Double-check the following to debug further:
 
 1. Have you already assigned a SSH key to the repo on [BorgBase.com](https://www.borgbase.com) and is this the same key you are using locally?  *BorgBase* will show the key's SHA256 fingerprint in *Account > SSH Keys*. You can compare this to your local fingerprint like this:
 
@@ -196,11 +196,18 @@ When using append-only mode, old transactions and segments are never cleaned fro
 
 ### Which storage backend are you using?
 
-Both regions are currently using hardware RAID-6 backed storage servers with enterprise drives and replacement drives ready on-site. This protects against hardware failure and a degree of bit rot. For a list of the providers we work with, you can also see our [GDPR page](https://www.borgbase.com/gdpr).
+We deploy a mix of hardware- and software RAID-6 backed storage servers with NVMe-backed write caches for performance and enterprise hard drives for reliablity. Replacement drives are ready on-site for quick failovers. For a list of the providers we work with, you can also see our [GDPR page](https://www.borgbase.com/gdpr).
 
-While this provides good durability against hard drive failure, BorgBase doesn't offer geographical redundancy or redundancy across multiple data centers for single repos. It's thus not recommended to use our service for archiving purposes, where there is no other copy of the data.
+While this setup provides good durability against most kinds of hardware failures, BorgBase doesn't offer geographical redundancy or redundancy across multiple data centers for single repos. It's thus not recommended to use our service for archiving purposes, where there is no other copy of the data.
 
-If you want geographic redundancy, you can add two repos in different regions and do parallel backup to both of them. This case is, e.g. well supported by Borgmatic, which allows adding a list of repositories.
+If you need geographic redundancy, you can add two repos in different regions and do parallel backup to both of them. This case is, e.g. well supported by Borgmatic, which allows adding a list of repositories. Here an example configuration:
+
+```
+location:
+    repositories:
+        - ssh://xxxxxx@xxxxxx.repo.borgbase.com/./repo  # EU-based repository nr. 1
+        - ssh://yyyyyy@yyyyyy.repo.borgbase.com/./repo  # US-based repository nr. 2
+```
 
 
 ### How can I migrate an existing repo including archives to or from BorgBase?
