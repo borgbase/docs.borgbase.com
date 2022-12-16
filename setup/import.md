@@ -12,7 +12,7 @@ If you have an existing Borg repository, you can import it into *BorgBase* using
 
 ## Import Existing Repository
 
-First, create a new and empty *BorgBase* repository in your account under **[Repositories](https://www.borgbase.com/repositories) > New Repo**. Choose the name, region and assign a SSH key for access. Then open the **Advanced Options** section and set the access mode to *SFTP*. Finally, click **Add Repository** to actually create the repository.
+First, create a new and empty *BorgBase* repository in your account under **[Repositories](https://www.borgbase.com/repositories) > New Repo**. Choose the name, region and assign a SSH key for access. Then open the **Advanced Options** section and *Enable SFTP*. Finally, click **Add Repository** to actually create the repository.
 
 Next click the *Copy repo URL* button on the left of the table row. This will add the address of your new repo to the clipboard.
 
@@ -35,7 +35,7 @@ After the copy operation is finished, you can change your repo's access mode bac
 
 Exporting works similar to importing, but assumes that you already have the repository set up in BorgBase. To export it, open the [Repositories](https://www.borgbase.com/repositories) page in the web interface and choose the **Edit** icon in the right column. This will open the repository settings.
 
-Then open the **Advanced Options** section and set the access mode to *SFTP*. When done, click **Save Changes** and copy the repo URL to the clipboard (icon on the left side)
+Then open the **Advanced Options** section and *Enable SFTP*. When done, click **Save Changes** and copy the repo URL to the clipboard (icon on the left side)
 
 Next connect to your existing repo using `sftp`:
 ```
