@@ -120,7 +120,8 @@ First it helps to understand that Borg does more than just copy files. It will a
 
 So the upload speed is not always the main bottleneck. Depending on your setup, you should also watch out for CPU usage or disk IO. It's usually difficult to improve uplink speed, but if you are CPU- or IO-limited, there are a few settings you can tune. Just be aware of the trade-offs. Maybe you are OK with a slower initial backup in order to have a smaller well-compressed backup in the future. So here some steps you can take to speed you backups:
 
-- First see this [official FAQ](https://borgbackup.readthedocs.io/en/master/faq.html#why-is-my-backup-so-slow) on steps to speed up backups.
+- Avoid congested times of the day: Many users set their backups to run at midnight UTC, which can lead to backups being slower at that time. On the hour tends to be more busy too. To enjoy the best speeds, set your backups to run at random times.
+- See the [official FAQ](https://borgbackup.readthedocs.io/en/master/faq.html#why-is-my-backup-so-slow) on steps to speed up backups using different Borg flags.
 - Make sure you choose an appropriate [compression level](https://borgbackup.readthedocs.io/en/stable/usage/help.html?highlight=compression#borg-help-compression) for your data. In general `lz4` (fast, but low compression) `zstd,3` (medium compression) and `zstd,8` (high compression) will work well.
 - Ensure the local [files cache](https://borgbackup.readthedocs.io/en/stable/usage/create.html#description) is working correctly. By default Borg will compare `ctime,size,inode` and process the file if either changes. If you have e.g. a network file system with unstable inodes, try using `--files-cache ctime,size`
 - On Linux: Use the BBR congestion algorithm, instead of the default cubic. Users have reported a 6x speedup after making this change. This feature needs to be enabled on the *sending* side and works best on **low bandwith connections**. Clients sending from data centers will likely not see an improvement, as reported by [APNIC](https://blog.apnic.net/2019/11/01/bbr-evaluation-at-a-large-cdn/). Add the below lines to `/etc/sysctl.conf` and apply with `sysctl -p`.
@@ -130,7 +131,6 @@ So the upload speed is not always the main bottleneck. Depending on your setup, 
   ```
   More details on enabling BBR for network congestion for [Debian](https://wiki.crowncloud.net/?How_to_enable_BBR_on_Debian_10) or [ArchLinux](https://gist.github.com/epyonavenger/a7d0bdcdb64169c4b0031391e10ff203). Thanks to our user Frédéric for sharing this tip!
 - Avoid excessive archive checking: `borg check` can read all backup segments and confirm their consistency. For large repos this can take a long time. BorgBase already uses different techniques to avoid bitrot in the storage backend, so `borg check` is not strictly necessary for this purpose. In Borgmatic set `checks` to `disabled` in the `consistency` section. If you still need consistency checks, consider using the `repository` option to limit the check to the repository. Checking all archive metadata is done on the client and very time consuming. See the official [Borg docs](https://borgbackup.readthedocs.io/en/stable/usage/check.html) for details.
-
 
 ### Repair Damaged Repositories
 
