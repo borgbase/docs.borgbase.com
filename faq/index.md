@@ -89,10 +89,8 @@ storage:
 ```
 
 
-#### Use external retry script
-When running Borg directly, you can use a general [retry script](https://github.com/kadwanev/retry). It will retry the command if it exits with an error.
-
-Borg also adds *checkpoint archives* every 30 minutes, so your progress is preserved if a retry is needed.
+#### Use external retry mechanism
+You can also use your own retry mechnism in a shell script. Borg adds *checkpoint archives* every 30 minutes, so your progress is preserved if a retry is needed. Keep in mind that exit code `1` means Borg encountered warnings and you probably don't want to retry in this case, but check the logs.
 
 
 #### Debug packet loss and unstable connections
