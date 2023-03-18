@@ -34,10 +34,10 @@ $ apt-get install openssh-client
 ```
 
 ## Step 2 – Create Keypair
-As computers get faster, encryption needs to adjust. That's why the recommended key algorithm and key length has changed over the years. The recommended key generation setting[^1] [^2] is:
+As computers get faster, encryption needs to adjust. That's why the recommended key algorithm and key length has changed over the years. The recommended key generation setting[^1] [^2] [^3] is:
 
 ```
-$ ssh-keygen -t ed25519 -a 100
+$ ssh-keygen -t ed25519
 ```
 
 This will generate an Ed25519 key, which is shorter and faster than a comparable RSA key. If you prefer to use the older RSA format or because you have an older OpenSSH version, you can also use:
@@ -73,3 +73,4 @@ During repo initialization, Borg will simply use the key without any further set
 ### References
 [^1]: [Secure Secure Shell](https://stribika.github.io/2015/01/04/secure-secure-shell.html)
 [^2]: [What are ssh-keygen best practices?](https://security.stackexchange.com/questions/143442/what-are-ssh-keygen-best-practices)
+[^3]: [Mozilla Infosec Guidelines](https://infosec.mozilla.org/guidelines/openssh#key-generation)

@@ -31,14 +31,15 @@ If you get `Permission denied (public key)`, `Connection closed by remote host. 
         IdentityFile ~/.ssh/id_custom
     ```
 
-3. Is SSH trying too many keys? The maximum number of keys (`MaxAuthTries`) that can be tried per connection is 6. If you have more keys, specify the key to use, as shown above.
-4. Are the key permissions OK? Private keys and important config files (if in use) need to have a permission of `0600`. To change the permission:
+3. Is the SSH key you are using encrypted? Encrypted keys need to be unlocked (added to `ssh-agent`) before using them with Vorta and you may get prompted for a password when using it with Borg directly. So not well suited for non-interactive use. For most use cases, using an encrypted key doesn't increase security. It's better to use one key per machine and not move it.
+4. Is SSH trying too many keys? The maximum number of keys (`MaxAuthTries`) that can be tried per connection is 6. If you have more keys, specify the key to use, as shown above.
+5. Are the key permissions OK? Private keys and important config files (if in use) need to have a permission of `0600`. To change the permission:
 
     ```
     $ chmod 0600 ~/.ssh/id_custom ~/.ssh/config
     ```
 
-5. If you still get errors, try to connect to your repo using the `ssh` command with verbose logging enabled:
+6. If you still get errors, try to connect to your repo using the `ssh` command with verbose logging enabled:
 
     ```
     $ ssh -v xxxx@xxxx.repo.borgbase.com
