@@ -193,7 +193,7 @@ location:
         - ~/Documents
         - ~/Pictures
 
-    one_file_system: true
+    # one_file_system: true
 
     repositories:
         - ssh://mmvz9gp4@mmvz9gp4.repo.borgbase.com/./repo
@@ -205,20 +205,27 @@ storage:
     encryption_passphrase: CHANGE ME!!
     archive_name_format: '{hostname}-{now}'
 
+    # Number of times to retry a failing backup
+    # Needs recent Borgmatic version
+    retries: 5
+    retry_wait: 5
+
 retention:
     keep_daily: 3
     keep_weekly: 4
     keep_monthly: 12
-    keep_yearly: 2
-    prefix: '{hostname}-'
 
 consistency:
     checks:
-        # uncomment to always do integrity checks. (takes long time for large repos)
-        #- repository
-        - disabled
+      - disabled
+      # Uncomment to regularly read all repo data
+      # Needs recent Borgmatic version
+      # - name: repository
+      #   frequency: 4 weeks
+      # - name: archives
+      #   frequency: 8 weeks
 
-    prefix: '{hostname}-'
+    check_last: 3
 ```
 
 Let's look at the major sections of this file one-by-one. Since the format is YAML, white-space, like spaces is important.
