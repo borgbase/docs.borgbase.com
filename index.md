@@ -22,11 +22,17 @@ Even the best tools need a sound strategy. Get started by creating an inventory 
 ### Sign up with BorgBase
 [BorgBase](https://www.borgbase.com) is a dedicated hosting service for Borg backup repositories. It allows you to manage all your backups in one place and use powerful Borg features, like append-only mode in a simple way. You get 10 GB free backup space after [signing up](https://www.borgbase.com/register) (no credit card required).
 
-### Choose a Backup Tool
+### Setup
+We aim to make this as simple as possible. The built-in [setup wizard](https://www.borgbase.com/setup) will display the commands to start using new backup repositories. There are also more detailed steps for different platform for [Borg](setup/borg) and [Restic](setup/restic) in the [Setup](setup) section.
+
+#### Choose a Backup Tool
 Currently we support two backup tools – Borg and Restic. They have similar features and the main difference is how backups are sent. Borg uses SSH, while Restic uses HTTP. See our [Setup](setup) section for a comparison and detailed setup instructions for each one.
 
-### Automation
+#### Automation
 Use our [GraphQL API](api) or [Ansible role](setup/borg/ansible) to automate repeated setup steps on client endpoints.
+
+### Verify Backup
+Ensure your data is there when it's needed. Our [verification checklist](verify) covers 5 common issues with backups and how to avoid them.
 
 ### Restore Data from a Backup
 The most important step: How to restore files from a backup. [More...](restore)
