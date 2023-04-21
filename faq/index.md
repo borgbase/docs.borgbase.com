@@ -131,6 +131,7 @@ So the upload speed is not always the main bottleneck. Depending on your setup, 
   More details on enabling BBR for network congestion for [Debian](https://wiki.crowncloud.net/?How_to_enable_BBR_on_Debian_10) or [ArchLinux](https://gist.github.com/epyonavenger/a7d0bdcdb64169c4b0031391e10ff203). Thanks to our user Frédéric for sharing this tip!
 - Avoid excessive archive checking: `borg check` can read all backup segments and confirm their consistency. For large repos this can take a long time. BorgBase already uses different techniques to avoid bitrot in the storage backend, so `borg check` is not strictly necessary for this purpose. In Borgmatic set `checks` to `disabled` in the `consistency` section. If you still need consistency checks, consider using the `repository` option to limit the check to the repository. Checking all archive metadata is done on the client and very time consuming. See the official [Borg docs](https://borgbackup.readthedocs.io/en/stable/usage/check.html) for details.
 
+
 ### Repair Damaged Repositories
 
 There are rare situations, where Borg repositories can be damaged by e.g. interrupted backups, incomplete migrations, hardware failures or other factors. Symptoms include:
@@ -138,21 +139,20 @@ There are rare situations, where Borg repositories can be damaged by e.g. interr
 - `Object with key XXX not found in repository`
 - `Cache is newer than repository - do you have multiple, independently updated repos with same ID?`
 
-If you don't necessarily need the data right now, but primarily want a working repository, Borg is generally good at fixing those issues and missing data will be added during the next backup run.
+Borg is generally good at fixing those issues and missing data will be added during the next backup run.
 
-Some general fixes for errors on missing data:
+To fix errors related to missing data or files:
 
-- First run `borg check $REPO_URL`. This will first check the repository files and then one or more archives.
-- If the first step reveals errors, you should make a local repo copy, unless the data is non-critical.
-- Next run `borg check --repair` to ask Borg to fix any errors.
-- Finally run `borg create ...` to do a full backup run and add potentially missing data.
+1. First run `borg check $REPO_URL`. This will first check the repository files and then one or more archives.
+2. If the first step reveals errors, you should make a local repo copy, unless the data is non-critical.
+3. Next run `borg check --repair $REPO_URL` to ask Borg to fix any errors.
+4. Finally run `borg create ...` to do a full backup run and add potentially missing data.
 
-Some possible fixes for cache errors (from [here](https://github.com/borgbackup/borg/issues/3428#issuecomment-380399036)):
+To fix errors related to the cache (from [here](https://github.com/borgbackup/borg/issues/3428#issuecomment-380399036)):
 
-- First try to the local cache `borg delete --cache-only $REPO_URL`
-- If the first step doesn't resolve the issue, try moving or removing the security folder in `~/.config/borg/security/$REPO_ID`. Where the `REPO_ID` can be found using `borg config $REPO_URL id`
-- Run a repo check with `borg check $REPO_URL`.
-
+1. First try to the local cache `borg delete --cache-only $REPO_URL`
+2. If the first step doesn't resolve the issue, try moving or removing the security folder in `~/.config/borg/security/$REPO_ID`. Where the `REPO_ID` can be found using `borg config $REPO_URL id`
+3. Run a repo check with `borg check $REPO_URL`.
 
 
 ## Append-Only Mode
