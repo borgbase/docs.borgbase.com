@@ -141,6 +141,8 @@ There are rare situations, where Borg repositories can be damaged by e.g. interr
 
 Borg is generally good at fixing those issues and missing data will be added during the next backup run.
 
+#### Missing Data Segments
+
 To fix errors related to missing data or files:
 
 1. First run `borg check $REPO_URL`. This will first check the repository files and then one or more archives.
@@ -148,10 +150,12 @@ To fix errors related to missing data or files:
 3. Next run `borg check --repair $REPO_URL` to ask Borg to fix any errors.
 4. Finally run `borg create ...` to do a full backup run and add potentially missing data.
 
+#### Cache Issues
+
 To fix errors related to the cache (from [here](https://github.com/borgbackup/borg/issues/3428#issuecomment-380399036)):
 
-1. First try to the local cache `borg delete --cache-only $REPO_URL`
-2. If the first step doesn't resolve the issue, try moving or removing the security folder in `~/.config/borg/security/$REPO_ID`. Where the `REPO_ID` can be found using `borg config $REPO_URL id`
+1. First try to delete the local cache `borg delete --cache-only $REPO_URL`
+2. If the first step doesn't resolve the issue, try moving the security folder in `~/.config/borg/security/$REPO_ID`. Where the `REPO_ID` can be found using `borg config $REPO_URL id`
 3. Run a repo check with `borg check $REPO_URL`.
 
 
