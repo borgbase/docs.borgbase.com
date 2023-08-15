@@ -6,7 +6,10 @@ parent: Borg
 grand_parent: Setup
 description: "Use Borg and Borgmatic to backup (Docker) containers"
 ---
+
 # Backup (Docker) Containers
+
+_Reviewed on 2023 August 16_
 
 ### Introduction
 
@@ -23,8 +26,8 @@ This tutorial assumes that you are using Docker or Podman, though similar contai
 Containers keep data in multiple places. To get a complete backup, you need to establish where data needed to successfully recreate a container is kept.
 
 - **Container configuration**: This means the details needed to recreate a container or pod and is equivalent to the `docker run` command needed to launch a container. Often this is kept in a `docker-compose.yml` file (for small deployments), in a orchestration tool, like Portainer or other deployment automation tool.
-- **Mounted volumes**: Any data inside a container is managed by the publisher of the image and will disappear if the container is updated or recreate. Thus it's necessary to mount persistent folders *outside* the container. This can happen with *named volumes* (managed by the container runtime and usually kept in `/var/lib/docker/volumes/` or a user's home folder) or *bind mounts* (links to actual host folders). No matter where mounted folders are kept, they need to be included in the backup.
-- **Databases**: Many apps require a database to work and often launch a separate container for it. If you have multiple apps requiring e.g. a MySQL database, it's generally simpler to consolidate this in *one* container and let multiple apps share one DB container. This makes backup easier and also saves resources.
+- **Mounted volumes**: Any data inside a container is managed by the publisher of the image and will disappear if the container is updated or recreate. Thus it's necessary to mount persistent folders _outside_ the container. This can happen with _named volumes_ (managed by the container runtime and usually kept in `/var/lib/docker/volumes/` or a user's home folder) or _bind mounts_ (links to actual host folders). No matter where mounted folders are kept, they need to be included in the backup.
+- **Databases**: Many apps require a database to work and often launch a separate container for it. If you have multiple apps requiring e.g. a MySQL database, it's generally simpler to consolidate this in _one_ container and let multiple apps share one DB container. This makes backup easier and also saves resources.
 
 ## Step 2 - Backup volumes
 
@@ -70,6 +73,6 @@ As a final step, it's generally a good idea to run a backup and test restoring i
 
 ## Conclusion
 
-This guide explained the high level step on backing up Docker and similar containers. As with every backup, it's important to first establish *where* all the data is located and then choose appropriate backup strategies to get a complete backup.
+This guide explained the high level step on backing up Docker and similar containers. As with every backup, it's important to first establish _where_ all the data is located and then choose appropriate backup strategies to get a complete backup.
 
 ## Have any other questions? [Email Us!](mailto:hello@borgbase.com)
