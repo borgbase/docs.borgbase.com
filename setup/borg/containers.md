@@ -8,6 +8,8 @@ description: "Use Borg and Borgmatic to backup (Docker) containers"
 ---
 # Backup (Docker) Containers
 
+Reviewed on 2023 August 16
+
 ### Introduction
 
 Docker and related container tools, like Podman have greatly simplified the work of sysadmins. Instead of installing dependencies on the operating system, they can now be isolated in a "container". This helps with isolation and updates. At the same time containers are relatively light because processes share the host OS and kernel.
