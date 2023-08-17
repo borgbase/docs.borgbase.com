@@ -8,7 +8,7 @@ description: "Use Borg and Borgmatic to backup (Docker) containers"
 ---
 # Backup (Docker) Containers
 
-Reviewed on August 2023
+Reviewed in August 2023
 
 ### Introduction
 
