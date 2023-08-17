@@ -8,6 +8,8 @@ description: "How to back up MySQL, MariaDB or Postgres using Borg Backup?"
 ---
 # How to back up MySQL, MariaDB or Postgres
 
+Reviewed in August 2023
+
 Many services and servers require a database, whose content needs to be backed up as well. There are different ways to achieve this using Borg or Borgmatic. One method you should avoid is to copy the internal data directory of the database, as it's not save to copy those files while the database service is running. A better way is to create a compressed dump of the actual data and add that file to the backup. There are multiple ways to do so:
 
 ### Using Borgmatic's Built-In Database Hook (Recommended)
