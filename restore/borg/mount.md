@@ -9,6 +9,8 @@ description: "Mount and Browse Archive"
 
 # Restoring Files by Mounting and Browsing a Borg Archive
 
+Reviewed in August 2023
+
 Note: You should be comfortable using the command line. If you prefer a graphical, client, look into our [Vorta Tutorial](/macos/how-to-backup-your-mac-using-the-vorta-backup-gui/) instead. These instructions should work on macOS and popular Linux flavors, like Debian, Ubuntu, as well as Red Hat, Fedora and CentOS.
 
 ## Goals
