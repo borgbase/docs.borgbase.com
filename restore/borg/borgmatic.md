@@ -9,6 +9,8 @@ description: "Restoring files with the Borgmatic from the Command Line"
 
 # Restoring Files with Borgmatic
 
+Reviewed in August 2023
+
 If you already use Borgmatic for your backups, it may be easier to use Borgmatic syntax for restoring.
 
 Note: You should be comfortable using the command line. If you prefer a graphical, client, look into our [Vorta Tutorial](/setup/vorta/) instead. These instructions should work on macOS and popular Linux flavors, like Debian, Ubuntu, as well as Red Hat, Fedora and CentOS.
