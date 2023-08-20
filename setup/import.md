@@ -5,7 +5,10 @@ layout: page
 parent: Setup
 description: "How can I import or export existing repository data into BorgBase?"
 ---
+
 # How to Import or Export Existing Repositories
+
+Reviewed in August 2023
 
 If you have an existing Borg repository, you can import it into *BorgBase* using SFTP. Naturally you can use the same technique to *export* an existing repository.
 
