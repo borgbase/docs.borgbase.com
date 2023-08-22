@@ -232,7 +232,7 @@ Let's look at the major sections of this file one-by-one. Since the format is YA
 
 - `source_directories`:  The list of folders you actually want to back up. You can always add more source folders later. They will simply be added.
 - `repositories`: The address of your backup repo.
-- `encryption_passphrase`: The password to access the repo, as set in step 4.
+- `encryption_passphrase`: The password to access the repo, as set in step 5.
 - `retention`: Determines how many snapshots Borg will keep.
 
 Once you are happy with the options, save the file and initialize your repository, like you would with Borg only:
@@ -260,7 +260,7 @@ $ borgmatic --verbosity 2
 
 Depending on your backup folder size, this may take a while. After Borgmatic is done, you can view the available snapshots and some statistics.
 ```
-$ borgmatic --list --info
+$ borgmatic rinfo
 ```
 
 After a few seconds you should get some output similar to this:
