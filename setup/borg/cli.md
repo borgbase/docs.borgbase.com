@@ -220,7 +220,7 @@ If you keep your repos with BorgBase you can copy a pre-made Borgmatic confirgur
 {% tab borgmatic_config Borgmatic >= 1.8 %}
 
 ```yaml
-# Updated ~/.config/borgmatic/config.yaml
+# ~/.config/borgmatic/config.yaml
 source_directories:
   - ~/Desktop
   - ~/Documents
@@ -262,7 +262,7 @@ check_last: 3
 {% tab borgmatic_config Borgmatic <= 1.7.x %}
 
 ```yaml
-# Updated ~/.config/borgmatic/config.yaml
+# ~/.config/borgmatic/config.yaml
 location:
   source_directories:
     - ~/Desktop
@@ -307,6 +307,9 @@ consistency:
 {% endtab %}
 
 {% endtabs %}
+
+{: .note }
+The configuration format for Borgmatic has changed in versions 1.8 and later. Make sure to use the appropriate configuration block based on your Borgmatic version. You can learn more about the changes in the [changelog](https://github.com/borgmatic-collective/borgmatic/releases/tag/1.8.0).
 
 **Note**: Encryption speed can vary depending on CPU and if a virtual machine is used. So it's best to benchmark it and choose the fastest combination. More [here](https://borgbackup.readthedocs.io/en/2.0.0b4/usage/rcreate.html#choosing-an-encryption-mode).
 
