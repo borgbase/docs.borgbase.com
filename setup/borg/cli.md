@@ -19,7 +19,7 @@ Reviewed in August 2023
 You should be comfortable using the command line. If you prefer a graphical, client, look into our [Vorta Desktop Client](/setup/vorta) instead. These instructions should work on macOS and popular Linux flavors, like Debian, Ubuntu, as well as Red Hat, Fedora and CentOS.
 
 {: .note }
-Borg will get a [major upgrade](https://borgbackup.readthedocs.io/en/2.0.0b3/changes.html#change-log-2-x) to version 2 later this year, which brings many improvements and removes legacy code- and features. Most commands stay the same. Where there is a difference, you can choose the right version using the tabs above the code snippet. _BorgBase_ itself supports all the latest release of every major branch and you can choose the preferred version for each repository.
+Borg will receive a [major upgrade](https://borgbackup.readthedocs.io/en/2.0.0b6/changes.html#change-log-2-x) to version 2 later this year, bringing many improvements and removing legacy code and features. Most commands will remain the same. In cases where there are differences, you can select the appropriate version using the tabs above the code snippet. As for _BorgBase_, it supports the latest release of every major branch, allowing you to choose the preferred major version for each repository.
 
 ### Introduction
 
