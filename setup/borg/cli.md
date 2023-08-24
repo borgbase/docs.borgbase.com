@@ -238,7 +238,6 @@ encryption_passphrase: CHANGE ME!!
 archive_name_format: "{hostname}-{now}"
 
 # Number of times to retry a failing backup
-# Needs recent Borgmatic version
 retries: 5
 retry_wait: 5
 
@@ -282,7 +281,7 @@ storage:
   archive_name_format: "{hostname}-{now}"
 
   # Number of times to retry a failing backup
-  # Needs recent Borgmatic version
+  # Requires Borgmatic version 1.7.x
   retries: 5
   retry_wait: 5
 
