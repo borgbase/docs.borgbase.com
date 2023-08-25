@@ -58,9 +58,9 @@ cd ~/Downloads
 
 Then give execute permissions to Borg.
 
-{% tabs create %}
+{% tabs os_commands %}
 
-{% tab create MacOS %}
+{% tab os_commands MacOS %}
 
 ```shell
 chmod +x borg-macos64
@@ -68,7 +68,7 @@ chmod +x borg-macos64
 
 {% endtab %}
 
-{% tab create Linux %}
+{% tab os_commands Linux %}
 
 ```shell
 chmod +x borg-linux64
@@ -76,7 +76,7 @@ chmod +x borg-linux64
 
 {% endtab %}
 
-{% tab create *BSD %}
+{% tab os_commands *BSD %}
 
 ```shell
 chmod +x borg-freebsd64
