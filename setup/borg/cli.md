@@ -21,9 +21,9 @@ You should be comfortable using the command line. If you prefer a graphical, cli
 {: .note }
 Borg will receive a [major upgrade](https://borgbackup.readthedocs.io/en/2.0.0b6/changes.html#change-log-2-x) to version 2 later this year, bringing many improvements and removing legacy code and features. Most commands will remain the same. In cases where there are differences, you can select the appropriate version using the tabs above the code snippet. As for _BorgBase_, it supports the latest release of every major branch, allowing you to choose the preferred major version for each repository.
 
-### Introduction
+## Introduction
 
-In this article we will set up a backup software called Borg Backup (or Borg for short). There are other backup solutions for Linux or macOS, but Borg has all the features we would expect from a proper backup, like encryption, compression and deduplication.
+This guide focuses on configuring Borg Backup (referred to as Borg). While there are alternative backup solutions for Linux and macOS, Borg excels by offering a comprehensive array of features, including encryption, compression, and deduplication.
 
 ## Prerequisites
 
