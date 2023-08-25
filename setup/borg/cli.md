@@ -48,7 +48,7 @@ pip install borgbackup
 
 ### Install as Pre-Compiled Binary
 
-If you don't manage a set of Python tools, the simplest way to install Borg is to download the latest release from their [Github page](https://github.com/borgbackup/borg/releases). This binary will have everything you need in one file.
+If you don't manage a set of Python tools, the simplest way to install Borg is to download the latest release from their [Github page](https://github.com/borgbackup/borg/releases/latest). This binary will have everything you need in one file.
 
 First we move to the **Downloads** folder, where we downloaded Borg to.
 
@@ -58,11 +58,35 @@ cd ~/Downloads
 
 Then give execute permissions to Borg.
 
+{% tabs create %}
+
+{% tab create MacOS %}
+
 ```shell
-chmod +x borg-macosx64
+chmod +x borg-macos64
 ```
 
-Last, move it to a standard folder for applications. Depending on your setup you may need to enter your admin-password to write to this folder.
+{% endtab %}
+
+{% tab create Linux %}
+
+```shell
+chmod +x borg-linux64
+```
+
+{% endtab %}
+
+{% tab create *BSD %}
+
+```shell
+chmod +x borg-freebsd64
+```
+
+{% endtab %}
+
+{% endtabs %}
+
+Finally, move it to a standard folder for applications. Depending on your setup you may need to enter your admin-password to write to this folder.
 
 ```shell
 sudo mv borg-macosx64 /usr/local/bin/borg
@@ -74,7 +98,7 @@ That's it. You now have Borg installed on your local machine. You can test it by
 borg --version
 ```
 
-This should print something like `borg 1.2.2`.
+This should print something like `borg 1.2.4`.
 
 ## Step 2 – Install Python 3 and Borgmatic (optional)
 
