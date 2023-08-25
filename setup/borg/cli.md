@@ -42,8 +42,8 @@ If you use Docker or a similar container tool, you can also use this [Borgmatic 
 
 If you already keep some Python tools around, you can just add Borg to it:
 
-```
-$ pip install borgbackup
+```shell
+pip install borgbackup
 ```
 
 ### Install as Pre-Compiled Binary
@@ -52,26 +52,26 @@ If you don't manage a set of Python tools, the simplest way to install Borg is t
 
 First we move to the **Downloads** folder, where we downloaded Borg to.
 
-```
-$ cd ~/Downloads
+```shell
+cd ~/Downloads
 ```
 
 Then give execute permissions to Borg.
 
-```
-$ chmod +x borg-macosx64
+```shell
+chmod +x borg-macosx64
 ```
 
 Last, move it to a standard folder for applications. Depending on your setup you may need to enter your admin-password to write to this folder.
 
-```
-$ sudo mv borg-macosx64 /usr/local/bin/borg
+```shell
+sudo mv borg-macosx64 /usr/local/bin/borg
 ```
 
 That's it. You now have Borg installed on your local machine. You can test it by simply starting it and checking the version
 
-```
-$ borg --version
+```shell
+borg --version
 ```
 
 This should print something like `borg 1.2.2`.
@@ -82,26 +82,26 @@ After completing step 1, you are ready to use Borg for simple operations. If you
 
 First make sure, you have a recent version of Python installed. On macOS, use Homebrew:
 
-```
-$ brew install python3
+```shell
+brew install python3
 ```
 
 On Linux, use the system's package manager, like Apt:
 
-```
-$ apt install python3
+```shell
+apt install python3
 ```
 
 With Python working, you can install Borgmatic. For system-wide backups, you should install it as global system package.
 
-```
-$ sudo pip3 install borgmatic
+```shell
+sudo pip3 install borgmatic
 ```
 
 If you plan on only backing up your home folder, installing it as user-package will work too:
 
-```
-$ pip3 install --user borgmatic
+```shell
+pip3 install --user borgmatic
 ```
 
 There are many other considerations in installing Python packages. If you get an error, make sure you know which Python installation you are using and what permissions are needed.
@@ -112,16 +112,16 @@ In this step we will securely connect your machine to the remote repository usin
 
 Let's start by generating a public-private key pair based on the (currently) most secure Ed25519 standard.
 
-```
-$ ssh-keygen -o -a 100 -t ed25519
+```shell
+ssh-keygen -o -a 100 -t ed25519
 ```
 
 This will ask you for a location to save the key and a password. If you want to use automatic backups on your Mac, you should enter an empty passphrase or add the passphrase to the Keychain.
 
 The above command will create a public- and a private key. The private key should remain a secret on your local machine. The public key is passed to your remote/cloud backup repository. You can display the public key using this command:
 
-```
-$ cat ~/.ssh/id_ed25519.pub
+```shell
+cat ~/.ssh/id_ed25519.pub
 ```
 
 This will display your public key as single line. Now just copy it and provide it to your repository provider. When using [BorgBase.com](https://www.borgbase.com), you can add public keys under **Account > SSH Keys**.
@@ -152,8 +152,8 @@ To initialize the remote repo, use the commands below. Replace the `ssh://` URL 
 {% tab init Borg 1.x %}
 
 ```shell
-$ export BORG_REPO=ssh://...
-$ borg init -e repokey-blake2
+export BORG_REPO=ssh://...
+borg init -e repokey-blake2
 ```
 
 {% endtab %}
@@ -161,9 +161,9 @@ $ borg init -e repokey-blake2
 {% tab init Borg 2.x %}
 
 ```shell
-$ export BORG_REPO=ssh://...
-$ borg benchmark cpu  # optional: find fastest encryption algorithm
-$ borg rcreate --encryption=repokey-blake2-aes-ocb
+export BORG_REPO=ssh://...
+borg benchmark cpu  # optional: find fastest encryption algorithm
+borg rcreate --encryption=repokey-blake2-aes-ocb
 ```
 
 **Note**: Encryption speed can vary depending on CPU and if a virtual machine is used. So it's best to benchmark it and choose the fastest combination. More [here](https://borgbackup.readthedocs.io/en/2.0.0b4/usage/rcreate.html#choosing-an-encryption-mode).
@@ -180,7 +180,7 @@ After the command is done, you have your remote backup repository set up and rea
 {% tab create Borg 1.x %}
 
 ```shell
-$ borg create ::my-archive-1 ~/Documents
+borg create ::my-archive-1 ~/Documents
 ```
 
 {% endtab %}
@@ -188,7 +188,7 @@ $ borg create ::my-archive-1 ~/Documents
 {% tab create Borg 2.x %}
 
 ```shell
-$ borg create my-archive-1 ~/Documents
+borg create my-archive-1 ~/Documents
 ```
 
 {% endtab %}
@@ -203,14 +203,14 @@ It would be quite cumbersome to manually run Borg every few hours and keep comin
 
 Let's start by creating a default Borgmatic folder:
 
-```
-$ mkdir -p ~/.config/borgmatic
+```shell
+mkdir -p ~/.config/borgmatic
 ```
 
 Then open the main config file with your favorite text editor. I'll use `nano`, but `vi`, Sublime or Atom will work too.
 
-```
-$ nano ~/.config/borgmatic/config.yaml
+```shell
+nano ~/.config/borgmatic/config.yaml
 ```
 
 If you keep your repos with BorgBase you can copy a pre-made Borgmatic confirguration from the **Setup** page. Or start with this version and fill in the blanks:
@@ -326,7 +326,7 @@ Once you are happy with the options, save the file and initialize your repositor
 {% tab init Borg 1.x %}
 
 ```shell
-$ borgmatic init --encryption repokey-blake2
+borgmatic init --encryption repokey-blake2
 ```
 
 {% endtab %}
@@ -334,7 +334,7 @@ $ borgmatic init --encryption repokey-blake2
 {% tab init Borg 2.x %}
 
 ```shell
-$ borgmatic init --encryption repokey-blake2-chacha20-poly1305
+borgmatic init --encryption repokey-blake2-chacha20-poly1305
 ```
 
 {% endtab %}
@@ -343,8 +343,8 @@ $ borgmatic init --encryption repokey-blake2-chacha20-poly1305
 
 Simply running `borgmatic` without any options will create a new backup. We will add the `--verbosity` option to see what's going on during the first backup.
 
-```
-$ borgmatic --verbosity 2
+```shell
+borgmatic --verbosity 2
 ```
 
 Depending on your backup folder size, this may take a while. After Borgmatic is done, you can view the available snapshots and some statistics.
@@ -354,7 +354,7 @@ Depending on your backup folder size, this may take a while. After Borgmatic is 
 {% tab borgmatic_rinfo Borgmatic >= 1.7 %}
 
 ```shell
-$ borgmatic rinfo
+borgmatic rinfo
 ```
 
 {% endtab %}
@@ -362,7 +362,7 @@ $ borgmatic rinfo
 {% tab borgmatic_rinfo Borgmatic <= 1.6 %}
 
 ```shell
-$ borgmatic --list --info
+borgmatic --list --info
 ```
 
 {% endtab %}
@@ -394,8 +394,8 @@ You can see that there are 2 snapshots in this repository with a total of 134 GB
 
 With Borgmatic working, we can set up Cron to do regular backups in the future. Cron is an old Unix tool to run _repeated_ tasks. It's usually included in all Unix-like systems.
 
-```
-$ crontab -e
+```shell
+crontab -e
 ```
 
 This will open an editor to add new cron jobs. There are many ways to schedule cron-jobs. For hourly backups enter this:
