@@ -27,9 +27,9 @@ This guide focuses on configuring Borg Backup (referred to as Borg). While there
 
 ## Prerequisites
 
-This tutorial assumes you are using a recent Linux, \*BSD or macOS machine. You don't need to be a command line expert. All commands can be copy & pasted.
+Before proceeding, ensure that you have access to a modern Linux, \*BSD, or macOS system. You don't need to be a command-line expert, as all commands can be copied and pasted for simplicity.
 
-It also assumes that you have server-based version of Borg available. The easiest option is to sign up for [BorgBase.com](https://www.borgbase.com), which offers a free tier of 10 GB. Other options are your own server with SSH access or one of the providers linked [here](https://www.borgbackup.org/support/commercial.html).
+Additionally, please note that you should have a server-based version of Borg available. The most straightforward option is to register on [BorgBase.com](https://www.borgbase.com), which includes a free 10 GB tier. Alternatively, you can use your own server with SSH access or select from the providers listed [here](https://www.borgbackup.org/support/commercial.html).
 
 ## Step 1 - Install Borg
 
