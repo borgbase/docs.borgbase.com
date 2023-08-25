@@ -246,6 +246,8 @@ keep_daily: 3
 keep_weekly: 4
 keep_monthly: 12
 
+checks:
+  - name: disabled
 # Uncomment to regularly read all repo data
 # Needs recent Borgmatic version
 # checks:
