@@ -10,6 +10,8 @@ exclude: ["README.md", "Rakefile"]
 search_enabled: true
 heading_anchors: true
 
+permalink: /404.html
+
 aux_links:
   "Get 10 GB Free Backup Hosting":
     - "https://www.borgbase.com"
