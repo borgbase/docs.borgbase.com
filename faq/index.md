@@ -110,6 +110,17 @@ $ iperf3 -c xxxxx.repo.borgbase.com
 For an in-depth discussion on network interruptions, also see Borg issues [#636](https://github.com/borgbackup/borg/issues/636) and [#3988](https://github.com/borgbackup/borg/issues/3988). Or [this](https://askubuntu.com/a/354245) and [this](https://unix.stackexchange.com/questions/3026/what-options-serveraliveinterval-and-clientaliveinterval-in-sshd-config-exac) StackExchange question.
 
 
+### I get a 'Data integrity error' when accessing a repository
+
+Borg 1.2.6 shipped with improved archive verification and may throw this error when created with older Borg versions. Full details in the [release logs](https://github.com/borgbackup/borg/blob/1.2.6/docs/changes.rst#pre-125-archives-spoofing-vulnerability-cve-2023-36811) or this [Github issue](https://github.com/borgbackup/borg/issues/7802).
+
+If you trust the remote repository, at a minimum you will need to run the below command:
+```
+$ BORG_WORKAROUNDS=ignore_invalid_archive_tam borg upgrade --archives-tam $REPO_URL
+```
+
+After this all archives will be verified and you will no longer see this error.
+
 
 ### Why is my backup process so slow?
 
