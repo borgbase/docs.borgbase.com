@@ -16,7 +16,9 @@ has_toc: false
 
 ### All connections to a BorgBase repo fail with an error immediately.
 
-If you get `Permission denied (public key)`, `Connection closed by remote host. Is borg working on the server?` or get asked for a *password* (as opposed to Borg *passphrase*), it is almost always a problem with SSH keys. Double-check the following to debug further:
+If you get a `Connection refused` error, there may have been too many failed login attempts. Those could also be caused by different retry scripts. In this case, your IP may be blocked for 20 minutes from this server. Solution is simply to wait a few minutes and ensure there aren't too many failed logins.
+
+If you get `Permission denied (public key)`, `Connection closed by remote host. Is borg working on the server?` or get asked for a SSH *password* (as opposed to Borg *passphrase*), it is almost always a problem with SSH keys. Double-check the following to debug further:
 
 1. Have you already assigned a SSH key to the repo on [BorgBase.com](https://www.borgbase.com) and is this the same key you are using locally?  *BorgBase* will show the key's SHA256 fingerprint in *Account > SSH Keys*. You can compare this to your local fingerprint like this:
 
