@@ -6,9 +6,10 @@ description: ""
 has_children: true
 has_toc: false
 ---
+
 # Setting up Backups to BorgBase
 
-Time to get real on backups. 💪 The *Setup* section helps you to choose a backup tool and start backing up your files.
+Time to get real on backups. 💪 The _Setup_ section helps you to choose a backup tool and start backing up your files.
 {: .fs-6 .fw-300 }
 
 ---
@@ -17,20 +18,19 @@ Time to get real on backups. 💪 The *Setup* section helps you to choose a back
 
 Currently BorgBase offers support for two backup tools. Choosing the right one depends on your specific situation. Here a quick comparison:
 
-|                            | Borg                                                                              | Restic                                          |
-|----------------------------|-----------------------------------------------------------------------------------|-------------------------------------------------|
-| Initial Release            | 2010                                                                              | 2015                                            |
-| Deduplication              | Yes                                                                               | Yes                                             |
-| Compression                | Yes, different algorithms                                                         | Yes, Zstandard only                             |
-| Encryption                 | Yes, optional                                                                     | Yes, always                                     |
-| Transport protocol         | SSH                                                                               | HTTP/2                                          |
-| Transport authentication             | SSH keypair                                                                       | Username and password              |
-| Programming language       | Python/C/Cython                                                                   | Go                                              |
-| Multi-threaded             | No (planned)                                                                      | Yes                                             |
-| Installation               | Included in many Linux distros, single PyInstaller binary available, or with `pip` | Single Go binaries for many platforms available |
-| Desktop GUIs               | Yes, Vorta and Pika Backup                                                        | No                                              |
-| Related projects and tools | Many community projects with additional tools, e.g. Borgmatic                     | Some, but not as many as Borg                   |
-
+|                            | Borg                                                                                                          | Restic                                                    |
+| -------------------------- | ------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------- |
+| Initial Release            | 2010                                                                                                          | 2015                                                      |
+| Deduplication              | Yes                                                                                                           | Yes                                                       |
+| Compression                | Yes, different algorithms                                                                                     | Yes, Zstandard only                                       |
+| Encryption                 | Yes, optional                                                                                                 | Yes, always                                               |
+| Transport protocol         | SSH                                                                                                           | HTTP/2                                                    |
+| Transport authentication   | SSH keypair                                                                                                   | Username and password                                     |
+| Programming language       | Python/C/Cython                                                                                               | Go                                                        |
+| Multi-threaded             | No (planned)                                                                                                  | Yes                                                       |
+| Installation               | Included in many Linux distros, single PyInstaller binary available, or with `pip`                            | Single Go binaries for many platforms available           |
+| Desktop GUIs               | Yes, [Vorta](https://github.com/borgbase/vorta) and [Pika Backup](https://github.com/pika-backup/pika-backup) | Yes, [BackRest](https://github.com/garethgeorge/backrest) |
+| Related projects and tools | Many community projects with additional tools, e.g. Borgmatic                                                 | Some, but not as many as Borg                             |
 
 As you can see the features of both tools are relatively similar. For new backups, Borg is more efficient and uses less memory. Restic is faster if little data changed and if there isn't much data to compress. See [here](https://github.com/borgbase/benchmarks) for an in-depth benchmark.
 
@@ -42,12 +42,11 @@ In terms of tooling and options, Borg is more mature, while Restic focuses on a 
 - If you have a high-latency connection (over 100ms), Restic may do better.
 - If you need a desktop GUI for macOS or Gnome, use Borg.
 
-
 ## Step 2 - Create Backup Repository
 
 Next you will create a new "repository" for your backup. A repository groups multiple snapshots (or archives) together and keeps related files. Usually one machine will use one repository. In some cases it can also make sense to share a repository between different machines to benefit from shared deduplication.
 
-To add a new repository on *BorgBase*, log into your account, go to the [Repositories page](https://www.borgbase.com/repositories) and click *Add Repo*. This will ask you to pick a name, region and format. There are also optional settings like limiting the storage quota.
+To add a new repository on _BorgBase_, log into your account, go to the [Repositories page](https://www.borgbase.com/repositories) and click _Add Repo_. This will ask you to pick a name, region and format. There are also optional settings like limiting the storage quota.
 
 ## Step 3 - Initialize Repository and Upload Files
 
@@ -57,4 +56,3 @@ This step will depend on the backup tool you chose previously. We provide you wi
 - [Setting up Backups with Restic](restic)
 
 If you already have an existing repository, you can also [import](import) it using SFTP.
-
