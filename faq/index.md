@@ -267,9 +267,7 @@ If you see larger variations, you are probably running your repo in *append-only
 
 > As data is only appended, and nothing removed, commands like prune or delete won’t free disk space, they merely tag data as deleted in a new transaction.
 
-If you are OK to fully remove those old segments, then just write to the repo with a full-access key. This will clean up old segments:
-
-> Be aware that as soon as you write to the repo in non-append-only mode (e.g. prune, delete or create archives from an admin machine), it will remove the deleted objects permanently
+If you are OK to fully remove those old segments, you can run `borg compact` (starting with Borg version 1.2) on it or perform any write operation with a full access key (previous Borg versions). This will free the space and the actual usage and the usage caluclated by Borg should now match more closely.
 
 
 ### How often should I run `borg check`?
