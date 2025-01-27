@@ -10,7 +10,7 @@ description: "Vorta is a cross-platform open source backup client. It makes mana
 
 [Vorta](https://vorta.borgbase.com) is a cross-platform open source backup client. It makes managing Borg backups easy and there is no need to run commands in the Terminal.
 
-<img src="https://files.qmax.us/vorta-screencast-6.gif" alt="">
+<video controls="" style="max-width: 100%;" preload="none" src="https://vorta.borgbase.com/assets/images/vorta/vorta-0.9-1080.mp4" poster="https://vorta.borgbase.com/assets/images/vorta/vorta-0.9-preview.webp"> </video>
 
 Vorta is also open source and everyone can contribute to improve the app or look at the source code. Together with Borg, which is also open source, this creates a strong chain of trust. By using Vorta, the user can benefit from all the strong point of Borg and have the convenience of a graphical user interface at the same time. Feature highlights:
 
