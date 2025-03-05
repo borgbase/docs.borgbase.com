@@ -217,7 +217,7 @@ If you keep your repos with BorgBase you can copy a pre-made Borgmatic confirgur
 
 {% tabs borgmatic_config %}
 
-{% tab borgmatic_config Borgmatic >= 1.8 %}
+{% tab borgmatic_config Borgmatic >= 1.8.5 %}
 
 ```yaml
 # ~/.config/borgmatic/config.yaml
@@ -246,16 +246,9 @@ keep_daily: 3
 keep_weekly: 4
 keep_monthly: 12
 
-checks:
-  - name: disabled
-# Uncomment to regularly read all repo data
-# Needs recent Borgmatic version
-# checks:
-#   - name: repository
-#     frequency: 4 weeks
-#   - name: archives
-#     frequency: 8 weeks
-
+# Don't read whole repo each time
+skip_actions:
+    - check
 check_last: 3
 ```
 
