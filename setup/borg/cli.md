@@ -163,7 +163,7 @@ $ borg init -e repokey-blake2
 ```shell
 $ export BORG_REPO=ssh://...
 $ borg benchmark cpu  # optional: find fastest encryption algorithm
-$ borg rcreate --encryption=repokey-blake2-aes-ocb
+$ borg repo-create --encryption=repokey-blake2-aes-ocb
 ```
 
 **Note**: Encryption speed can vary depending on CPU and if a virtual machine is used. So it's best to benchmark it and choose the fastest combination. More [here](https://borgbackup.readthedocs.io/en/2.0.0b4/usage/rcreate.html#choosing-an-encryption-mode).
