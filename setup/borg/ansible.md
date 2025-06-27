@@ -23,7 +23,7 @@ We provide a ready-to-use Ansible role to install Borg, Borgmatic and a cron job
 
 ### Steps to use this role:
 
-1. Install via [Ansible Galaxy](https://galaxy.ansible.com/m3nu/ansible_role_borgbackup) or clone [Github repository](https://github.com/borgbase/ansible-role-borgbackup) into your `roles` folder.
+1. Install via [Ansible Galaxy](https://galaxy.ansible.com/ui/standalone/roles/borgbase/ansible_role_borgbackup) or clone [Github repository](https://github.com/borgbase/ansible-role-borgbackup) into your `roles` folder.
 2. Add a new repository without SSH key in [BorgBase](https://www.borgbase.com)
 3. Replace Borg passphrase, repository URL and source directories in your playbook
 4. Run playbook against client host. A new SSH key will be created and displayed.
