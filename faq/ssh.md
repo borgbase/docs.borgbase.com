@@ -66,7 +66,7 @@ ssh-ed25519 AAAAC3NzaC1lZDI...LqRJw+dl/E+2BJ manu@nyx
 
 You can now simply copy it to the clipboard and add it to [BorgBase.com](https://www.borgbase.com) under **Account** > **SSH Keys**.
 
-When adding a new backup repository, you can choose any of your SSH keys. It's good practice to have one keypair per-server or machine. So each machine can only access its own backups.
+**Finally, be sure to also assign the key to a backup repository. Else it won't be used.** When adding a new backup repository, you can choose any of your SSH keys. It's good practice to have one keypair per-server or machine. So each machine can only access its own backups.
 
 During repo initialization, Borg will simply use the key without any further settings.
 
