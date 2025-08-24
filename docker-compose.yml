@@ -1,0 +1,31 @@
+version: '3.8'
+
+services:
+  develop:
+    container_name: borgbase-docs-dev
+    image: borgbase-docs:latest
+    build: .
+    ports:
+      - "4000:4000"
+      - "35729:35729"  # LiveReload port
+    volumes:
+      - .:/app:Z
+      - bundle_cache:/usr/local/bundle
+    environment:
+      - BUNDLE_PATH=/usr/local/bundle
+      - SASS_SILENCE_DEPRECATIONS=true
+    command: bundle exec jekyll serve --host 0.0.0.0 --livereload --incremental
+
+  build:
+    container_name: borgbase-docs-build
+    image: borgbase-docs:latest
+    volumes:
+      - .:/app:Z
+      - bundle_cache:/usr/local/bundle
+    environment:
+      - BUNDLE_PATH=/usr/local/bundle
+      - JEKYLL_ENV=production
+    command: bundle exec jekyll build
+
+volumes:
+  bundle_cache:
