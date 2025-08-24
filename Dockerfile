@@ -1,12 +1,7 @@
-# Use Ruby 3.4 for Jekyll 3.9 compatibility
-FROM docker.io/library/ruby:3.4
+FROM docker.io/library/ruby:3.4-slim-trixie
 
 # Install dependencies
-RUN apt-get update && apt-get install -y \
-    build-essential \
-    git \
-    nodejs \
-    npm \
+RUN apt-get update && apt-get install -y build-essential \
     && rm -rf /var/lib/apt/lists/*
 
 # Set working directory
