@@ -20,11 +20,13 @@ To use SSH, you need a keypair, which consists of a public- and a private key. T
 
 BorgBase supports the following SSH key types for secure authentication:
 
-- **RSA** - longer than 1024 bit (`ssh-rsa`)
-- **ECDSA with NIST P-256 curve** (`ecdsa-sha2-nistp256`)
-- **ECDSA with NIST P-384 curve** (`ecdsa-sha2-nistp384`)
-- **ECDSA with NIST P-521 curve** (`ecdsa-sha2-nistp521`)
-- **Ed25519** (`ssh-ed25519`) - _Recommended_
+| Key Type    | Identifier            | Notes                |
+| ----------- | --------------------- | -------------------- |
+| RSA         | `ssh-rsa`             | Longer than 1024 bit |
+| ECDSA P-256 | `ecdsa-sha2-nistp256` | NIST P-256 curve     |
+| ECDSA P-384 | `ecdsa-sha2-nistp384` | NIST P-384 curve     |
+| ECDSA P-521 | `ecdsa-sha2-nistp521` | NIST P-521 curve     |
+| Ed25519     | `ssh-ed25519`         | **Recommended**      |
 
 We recommend using Ed25519 keys as they provide the best security and performance characteristics.
 
