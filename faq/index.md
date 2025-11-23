@@ -214,6 +214,12 @@ When using append-only mode, old transactions and segments are never cleaned fro
 
 ## Other Questions
 
+### Why am I seeing a warning about post-quantum SSH algorithms?
+
+Some SSH clients may warn that the connection is not using a post-quantum key exchange algorithm. This warning is safe to ignore. Borg encryption is separate from SSH. SSH is only used for authentication and transport. Your backup data is encrypted by Borg using its own encryption algorithms, which are independent of the SSH connection.
+
+Post-quantum cryptography is still very theoretical, and quantum computers capable of breaking current algorithms don't exist yet. As we add new servers or upgrade existing ones, newer algorithms will be used automatically.
+
 ### What's the difference between a SSH key, SSH password, SSH key passphrase and Borg repository passphrase?
 
 *BorgBase* uses SSH keys for authentication. This means to connect to a backup repository, you need to upload the *public* part of a SSH keypair and then use the *private* part to make a connection.
