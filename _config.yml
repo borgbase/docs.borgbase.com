@@ -28,5 +28,6 @@ kramdown:
 
 plugins:
   - jekyll-seo-tag
+  - jekyll-sitemap
   # https://github.com/Ovski4/jekyll-tabs
   - jekyll-tabs
