@@ -16,31 +16,33 @@ Time to get real on backups. 💪 The _Setup_ section helps you to choose a back
 
 ## Step 1 - Choosing a Backup Tool
 
-Currently BorgBase offers support for two backup tools. Choosing the right one depends on your specific situation. Here a quick comparison:
+Currently BorgBase offers support for three backup tools. Choosing the right one depends on your specific situation. Here a quick comparison:
 
-|                            | Borg                                                                                                          | Restic                                                    |
-| -------------------------- | ------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------- |
-| Initial Release            | 2010                                                                                                          | 2015                                                      |
-| Deduplication              | Yes                                                                                                           | Yes                                                       |
-| Compression                | Yes, different algorithms                                                                                     | Yes, Zstandard only                                       |
-| Encryption                 | Yes, optional                                                                                                 | Yes, always                                               |
-| Transport protocol         | SSH                                                                                                           | HTTP/2                                                    |
-| Transport authentication   | SSH keypair                                                                                                   | Username and password                                     |
-| Programming language       | Python/C/Cython                                                                                               | Go                                                        |
-| Multi-threaded             | No (planned)                                                                                                  | Yes                                                       |
-| Installation               | Included in many Linux distros, single PyInstaller binary available, or with `pip`                            | Single Go binaries for many platforms available           |
-| Desktop GUIs               | Yes, [Vorta](https://github.com/borgbase/vorta) and [Pika Backup](https://github.com/pika-backup/pika-backup) | Yes, [BackRest](https://github.com/garethgeorge/backrest) |
-| Related projects and tools | Many community projects with additional tools, e.g. Borgmatic                                                 | Some, but not as many as Borg                             |
+| | Borg | Restic | V'Ger |
+| -- | -- | -- | -- |
+| Initial Release | 2010 | 2015 | 2026 |
+| Deduplication | Yes | Yes | Yes |
+| Compression | Yes, different algorithms | Yes, Zstandard only | Yes, LZ4 or Zstandard |
+| Encryption | Yes, optional | Yes, always | Yes, always (AES-256-GCM or ChaCha20, auto-selected) |
+| Transport protocol | SSH | HTTP/2 | HTTP/2 (REST) |
+| Transport authentication | SSH keypair | Username and password | Access token |
+| Programming language | Python/C/Cython | Go | Rust |
+| Multi-threaded | No (planned) | Yes | Yes |
+| Configuration | Via wrappers (e.g. Borgmatic) | Via wrappers (e.g. Autorestic) | Built-in YAML configuration |
+| Scheduling | External (cron/systemd) | External (cron/systemd) | Built-in daemon scheduler |
+| Installation | Included in many Linux distros, single PyInstaller binary available, or with `pip` | Single Go binaries for many platforms available | Single binary for Linux, macOS, and Windows |
+| Desktop GUIs | Yes, [Vorta](https://github.com/borgbase/vorta) and [Pika Backup](https://github.com/pika-backup/pika-backup) | Yes, [BackRest](https://github.com/garethgeorge/backrest) | Yes, built-in |
+| Related projects and tools | Many community projects with additional tools, e.g. Borgmatic | Some, but not as many as Borg | Built by BorgBase, no wrappers needed |
 
-As you can see the features of both tools are relatively similar. For new backups, Borg is more efficient and uses less memory. Restic is faster if little data changed and if there isn't much data to compress. See [here](https://github.com/borgbase/benchmarks) for an in-depth benchmark.
+Borg is the most mature and memory-efficient tool. Restic is well-established with a large community. V'Ger is the fastest in both backup and restore with the lowest CPU cost, and includes built-in scheduling and configuration. See [here](https://vger.borgbase.com/#benchmarks) for an in-depth benchmark.
 
-In terms of tooling and options, Borg is more mature, while Restic focuses on a more basic set of features. Here some rough guidance on which one to choose:
+Here some rough guidance on which one to choose:
 
-- If Borg comes with your distro and you are comfortable using SSH keys, use Borg.
-- If you don't usually use SSH keys and prefer the simplicity of a username and password, use Restic.
-- If you need low memory consumption (like on a VPS), use Borg.
-- If you have a high-latency connection (over 100ms), Restic may do better.
-- If you need a desktop GUI for macOS or Gnome, use Borg.
+- If you want the fastest backups with built-in scheduling and a friendly YAML configuration, use V'Ger.
+- If you already use Borg and are happy with it, there's no need to switch.
+- If you need the lowest memory consumption (like on a small VPS), use Borg.
+- If you need a desktop GUI for macOS or Gnome, use Borg with Vorta.
+- If you already have Restic scripts and workflows in place, Restic will continue to work well.
 
 ## Step 2 - Create Backup Repository
 
@@ -54,5 +56,6 @@ This step will depend on the backup tool you chose previously. We provide you wi
 
 - [Setting up Backups with Borg](borg)
 - [Setting up Backups with Restic](restic)
+- [Setting up Backups with V'Ger](https://vger.borgbase.com/)
 
 If you already have an existing repository, you can also [import](import) it using SFTP.
