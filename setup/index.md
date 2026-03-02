@@ -18,7 +18,7 @@ Time to get real on backups. 💪 The _Setup_ section helps you to choose a back
 
 Currently BorgBase offers support for three backup tools. Choosing the right one depends on your specific situation. Here a quick comparison:
 
-| | Borg | Restic | V'Ger |
+| | Borg | Restic | Vykar |
 | -- | -- | -- | -- |
 | Initial Release | 2010 | 2015 | 2026 |
 | Deduplication | Yes | Yes | Yes |
@@ -34,11 +34,11 @@ Currently BorgBase offers support for three backup tools. Choosing the right one
 | Desktop GUIs | Yes, [Vorta](https://github.com/borgbase/vorta) and [Pika Backup](https://github.com/pika-backup/pika-backup) | Yes, [BackRest](https://github.com/garethgeorge/backrest) | Yes, built-in |
 | Related projects and tools | Many community projects with additional tools, e.g. Borgmatic | Some, but not as many as Borg | Built by BorgBase, no wrappers needed |
 
-Borg is the most mature and memory-efficient tool. Restic is well-established with a large community. V'Ger is the fastest in both backup and restore with the lowest CPU cost, and includes built-in scheduling and configuration. See [here](https://vger.borgbase.com/#benchmarks) for an in-depth benchmark.
+Borg is the most mature and memory-efficient tool. Restic is well-established with a large community. Vykar is the fastest in both backup and restore with the lowest CPU cost, and includes built-in scheduling and configuration. See [here](https://vykar.borgbase.com/#benchmarks) for an in-depth benchmark.
 
 Here some rough guidance on which one to choose:
 
-- If you want the fastest backups with built-in scheduling and a friendly YAML configuration, use V'Ger.
+- If you want the fastest backups with built-in scheduling and a friendly YAML configuration, use Vykar.
 - If you already use Borg and are happy with it, there's no need to switch.
 - If you need the lowest memory consumption (like on a small VPS), use Borg.
 - If you need a desktop GUI for macOS or Gnome, use Borg with Vorta.
@@ -56,6 +56,6 @@ This step will depend on the backup tool you chose previously. We provide you wi
 
 - [Setting up Backups with Borg](borg)
 - [Setting up Backups with Restic](restic)
-- [Setting up Backups with V'Ger](https://vger.borgbase.com/)
+- [Setting up Backups with Vykar](https://vykar.borgbase.com/)
 
 If you already have an existing repository, you can also [import](import) it using SFTP.
