@@ -56,33 +56,29 @@ You will end up with two files: The private key, `id_synology` and the public ke
 Next, add a Borgmatic config file in the shared folder created above. You can copy a template from the BorgBase web interface under *Setup* or from [Borgmatic's website](https://torsion.org/borgmatic/). A minimal example would be:
 
 ```
-location:
-    # List of source directories to backup.
-    source_directories:
-        - /volume1/data
-        - /volume1/more-data
+# List of source directories to backup.
+source_directories:
+    - /volume1/data
+    - /volume1/more-data
 
-    # Paths of local or remote repositories to backup to.
-    repositories:
-        - xxxxx@xxxxx.repo.borgbase.com:repo
+# Paths of local or remote repositories to backup to.
+repositories:
+    - xxxxx@xxxxx.repo.borgbase.com:repo
 
-storage:
-    # Point to your private key
-    ssh_command: ssh -i /path/to/private/key
+# Point to your private key
+ssh_command: ssh -i /path/to/private/key
 
-    # Add passphrase used during repo init
-    encryption_passphrase: "my-secret-passphrase-8859849"
+# Add passphrase used during repo init
+encryption_passphrase: "my-secret-passphrase-8859849"
 
-retention:
-    # Retention policy for how many backups to keep.
-    keep_daily: 7
-    keep_weekly: 4
-    keep_monthly: 6
+# Retention policy for how many backups to keep.
+keep_daily: 7
+keep_weekly: 4
+keep_monthly: 6
 
-consistency:
-    # List of checks to run to validate your backups.
-    checks:
-        - repository
+# List of checks to run to validate your backups.
+checks:
+    - repository
 ```
 
 See [here](https://torsion.org/borgmatic/docs/reference/configuration/) for all available options. You will need to adjust at a minimum:
