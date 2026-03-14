@@ -86,7 +86,7 @@ See [here](https://torsion.org/borgmatic/docs/reference/configuration/) for all 
 - Folders to back up (source_directories)
 - Path to private SSH key (ssh_command)
 - BorgBase repository URL (repositories). It's also possible to use multiple repos to achieve additional redundancy.
-- Add the encryption passphrase used during repo initilization (encryption_passphrase)
+- Add the encryption passphrase used during repo initialization (encryption_passphrase)
 
 Last, save the contents of the above file as e.g. `borgmatic.yml`.
 
