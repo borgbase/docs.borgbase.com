@@ -63,7 +63,7 @@ source_directories:
 
 # Paths of local or remote repositories to backup to.
 repositories:
-    - xxxxx@xxxxx.repo.borgbase.com:repo
+    - path: ssh://xxxxx@xxxxx.repo.borgbase.com/./repo
 
 # Point to your private key
 ssh_command: ssh -i /path/to/private/key
@@ -78,7 +78,7 @@ keep_monthly: 6
 
 # List of checks to run to validate your backups.
 checks:
-    - repository
+    - name: repository
 ```
 
 See [here](https://torsion.org/borgmatic/docs/reference/configuration/) for all available options. You will need to adjust at a minimum:
@@ -91,7 +91,7 @@ See [here](https://torsion.org/borgmatic/docs/reference/configuration/) for all 
 Last, save the contents of the above file as e.g. `borgmatic.yml`.
 
 
-## Step 6 - Add Backup Task
+## Step 5 - Add Backup Task
 
 In this step we will add a daily task to create a new Borg archive. This is all done in the web interface and you can choose all kinds of daily, weekly or monthly backup frequencies.
 
@@ -105,7 +105,7 @@ In the next screen, you can enter any name for the task. The user should be `roo
 Add the path of your Borg folder and backup script under *Task Settings*. E.g.
 
 ```
-/usr/local/bin/borgmatic -c /path/to/borgmatic.yml create prune
+/usr/local/bin/borgmatic -c /path/to/borgmatic.yml create prune compact
 ```
 
 To regularly verify the integrity of your backups, you can add a monthly task for repo-checking: (please don't do daily checks, as it puts a lot of load on our servers)
@@ -118,7 +118,7 @@ To regularly verify the integrity of your backups, you can add a monthly task fo
 
 > **Initialize Repository:** If you are using a brand new repository, you need to initialize it first. This can be done via Borgmatic and it will use the config you added above. Simply run the below command either from the command line or as one-off task under *Scheduled Tasks*
 
-> `/usr/local/bin/borgmatic init -e repokey-blake2 -c /path/to/borgmatic.yml`
+> `/usr/local/bin/borgmatic -c /path/to/borgmatic.yml repo-create -e repokey-blake2`
 
 
 That's it. Now you are ready to run the backup script. To trigger a manual test run, select the new task and click the *Run* button. You should see increased CPU usage and some upload activity in the resource monitor widget. If there are any errors, you will find them in the shared folder in a log file.
@@ -129,4 +129,3 @@ That's it. Now you are ready to run the backup script. To trigger a manual test 
 Now you have an efficient offsite-backup of your essential data with the added benefit of having everything integrated and logged in the web interface.
 
 As always, if you have any additions or questions regarding this guide, feel free to open an issue or pull request in the [Github repo](https://github.com/borgbase/docs.borgbase.com) or shoot us an email to [hello@borgbase.com](mailto:hello@borgbase.com).
-

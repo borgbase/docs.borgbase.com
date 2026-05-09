@@ -10,7 +10,7 @@ description: "Instructions on how to set up Borg Backup from the command line on
 # How to Set Up Borg Backups from the Command Line on Linux and macOS
 {: .no_toc }
 
-Reviewed in August 2023
+Reviewed in May 2026
 
 1. TOC
 {:toc}
@@ -19,7 +19,7 @@ Reviewed in August 2023
 You should be comfortable using the command line. If you prefer a graphical, client, look into our [Vorta Desktop Client](/setup/vorta) instead. These instructions should work on macOS and popular Linux flavors, like Debian, Ubuntu, as well as Red Hat, Fedora and CentOS.
 
 {: .note }
-Borg will get a [major upgrade](https://borgbackup.readthedocs.io/en/2.0.0b3/changes.html#change-log-2-x) to version 2 later this year, which brings many improvements and removes legacy code- and features. Most commands stay the same. Where there is a difference, you can choose the right version using the tabs above the code snippet. _BorgBase_ itself supports all the latest release of every major branch and you can choose the preferred version for each repository.
+Borg 2 is available as testing releases, but there is no final release yet. It includes breaking repository and CLI changes. Where commands differ, you can choose the right version using the tabs above the code snippet. _BorgBase_ itself supports all the latest release of every major branch and you can choose the preferred version for each repository.
 
 ### Introduction
 
@@ -74,7 +74,7 @@ That's it. You now have Borg installed on your local machine. You can test it by
 $ borg --version
 ```
 
-This should print something like `borg 1.2.2`.
+This should print something like `borg 1.4.4`.
 
 ## Step 2 – Install Python 3 and Borgmatic (optional)
 
@@ -163,10 +163,10 @@ $ borg init -e repokey-blake2
 ```shell
 $ export BORG_REPO=ssh://...
 $ borg benchmark cpu  # optional: find fastest encryption algorithm
-$ borg repo-create --encryption=repokey-blake2-aes-ocb
+$ borg repo-create --encryption=repokey-blake2-chacha20-poly1305
 ```
 
-**Note**: Encryption speed can vary depending on CPU and if a virtual machine is used. So it's best to benchmark it and choose the fastest combination. More [here](https://borgbackup.readthedocs.io/en/2.0.0b4/usage/rcreate.html#choosing-an-encryption-mode).
+**Note**: Encryption speed can vary depending on CPU and if a virtual machine is used. So it's best to benchmark it and choose the fastest combination. More [here](https://borgbackup.readthedocs.io/en/master/usage/repo-create.html#choosing-an-encryption-mode).
 {% endtab %}
 
 {% endtabs %}
@@ -195,11 +195,11 @@ $ borg create my-archive-1 ~/Documents
 
 {% endtabs %}
 
-`my-archive-1` is the name of the snapshot. It can be anything, but mostly people use the hostname and a timestamp. E.g. `tim-macbook-2018-10-10`. Archives allow you to access different versions of your files. This can be useful if a file was deleted by accident or encrypted by a cryptolocker.
+`my-archive-1` is the archive name. It can be anything, but mostly people use the hostname and a timestamp. E.g. `tim-macbook-2018-10-10`. Archives allow you to access different versions of your files. This can be useful if a file was deleted by accident or encrypted by a cryptolocker.
 
 ## Step 6 – Set up Borgmatic for Regular Backups
 
-It would be quite cumbersome to manually run Borg every few hours and keep coming up with new Snapshot names. That's why we will use Borgmatic to do this job for us.
+It would be quite cumbersome to manually run Borg every few hours and keep coming up with new archive names. That's why we will use Borgmatic to do this job for us.
 
 Let's start by creating a default Borgmatic folder:
 
@@ -213,11 +213,11 @@ Then open the main config file with your favorite text editor. I'll use `nano`, 
 $ nano ~/.config/borgmatic/config.yaml
 ```
 
-If you keep your repos with BorgBase you can copy a pre-made Borgmatic confirguration from the **Setup** page. Or start with this version and fill in the blanks:
+If you keep your repos with BorgBase you can copy a pre-made Borgmatic configuration from the **Setup** page. Or start with this version and fill in the blanks:
 
 {% tabs borgmatic_config %}
 
-{% tab borgmatic_config Borgmatic >= 1.8.5 %}
+{% tab borgmatic_config Borgmatic >= 1.8.5, including 2.x %}
 
 ```yaml
 # ~/.config/borgmatic/config.yaml
@@ -304,16 +304,16 @@ consistency:
 {% endtabs %}
 
 {: .note }
-The configuration format for Borgmatic has changed in versions 1.8 and later. Make sure to use the appropriate configuration block based on your Borgmatic version. You can learn more about the changes in the [changelog](https://github.com/borgmatic-collective/borgmatic/releases/tag/1.8.0).
+The configuration format for Borgmatic changed in version 1.8. Make sure to use the appropriate configuration block based on your Borgmatic version. The older section-based format still works in Borgmatic 2.x, but emits deprecation warnings. You can learn more about the changes in the [changelog](https://github.com/borgmatic-collective/borgmatic/releases/tag/1.8.0).
 
-**Note**: Encryption speed can vary depending on CPU and if a virtual machine is used. So it's best to benchmark it and choose the fastest combination. More [here](https://borgbackup.readthedocs.io/en/2.0.0b4/usage/rcreate.html#choosing-an-encryption-mode).
+**Note**: Encryption speed can vary depending on CPU and if a virtual machine is used. So it's best to benchmark it and choose the fastest combination. More [here](https://borgbackup.readthedocs.io/en/master/usage/repo-create.html#choosing-an-encryption-mode).
 
 Let's look at the major sections of this file one-by-one. Since the format is YAML, white-space, like spaces is important.
 
 - `source_directories`: The list of folders you actually want to back up. You can always add more source folders later. They will simply be added.
 - `repositories`: The address of your backup repo.
 - `encryption_passphrase`: The password to access the repo, as set in step 5.
-- `retention`: Determines how many snapshots Borg will keep.
+- `keep_*`: Determines how many snapshots Borg will keep.
 
 Once you are happy with the options, save the file and initialize your repository, like you would with Borg only:
 
@@ -322,7 +322,7 @@ Once you are happy with the options, save the file and initialize your repositor
 {% tab init Borg 1.x %}
 
 ```shell
-$ borgmatic init --encryption repokey-blake2
+$ borgmatic repo-create --encryption repokey-blake2
 ```
 
 {% endtab %}
@@ -330,17 +330,17 @@ $ borgmatic init --encryption repokey-blake2
 {% tab init Borg 2.x %}
 
 ```shell
-$ borgmatic init --encryption repokey-blake2-chacha20-poly1305
+$ borgmatic repo-create --encryption repokey-blake2-chacha20-poly1305
 ```
 
 {% endtab %}
 
 {% endtabs %}
 
-Simply running `borgmatic` without any options will create a new backup. We will add the `--verbosity` option to see what's going on during the first backup.
+Run `borgmatic create` to create a new backup. We will add the `--verbosity` option to see what's going on during the first backup.
 
 ```
-$ borgmatic --verbosity 2
+$ borgmatic --verbosity 2 create
 ```
 
 Depending on your backup folder size, this may take a while. After Borgmatic is done, you can view the available snapshots and some statistics.
@@ -350,7 +350,7 @@ Depending on your backup folder size, this may take a while. After Borgmatic is 
 {% tab borgmatic_rinfo Borgmatic >= 1.7 %}
 
 ```shell
-$ borgmatic rinfo
+$ borgmatic repo-list repo-info
 ```
 
 {% endtab %}
@@ -406,7 +406,7 @@ This will run `borgmatic` every hour. You could also schedule it every 3 hours, 
 10 */3 * * * borgmatic
 ```
 
-When you're done, save the file and you should be set. You can always make sure backups actually happen using the `borgmatic rlist` command or by setting a monitoring alert on BorgBase.com. It will alert you if no new snapshots are added for a set amount of time.
+When you're done, save the file and you should be set. You can always make sure backups actually happen using the `borgmatic repo-list` command or by setting a monitoring alert on BorgBase.com. It will alert you if no new snapshots are added for a set amount of time.
 
 ## Conclusion
 
@@ -415,6 +415,6 @@ You now have a reliable and secure backup setup. Borg and Borgmatic offer many o
 - [Export](https://borgbackup.readthedocs.io/en/stable/usage/key.html#borg-key-export) your repokey to keep it secure somewhere. It's also possible to [print](https://borgbackup.readthedocs.io/en/stable/paperkey.html) it.
 - Learn more about available compression options to see what works well with your data. `$ borg help compression`
 - View all available Borgmatic [options](https://github.com/witten/borgmatic), like excluding certain files.
-- Set up a local backup repository to backup to a hard drive or thumb drive. This is not a replacement for a cloud backup, but does provider some protection against failed hardware if the size of the data is too large to upload.
+- Set up a local backup repository to backup to a hard drive or thumb drive. This is not a replacement for a cloud backup, but does provide some protection against failed hardware if the size of the data is too large to upload.
 
 ## Have any other questions? [Email Us!](mailto:hello@borgbase.com)

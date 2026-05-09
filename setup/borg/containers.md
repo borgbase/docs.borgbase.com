@@ -8,7 +8,7 @@ description: "Use Borg and Borgmatic to backup (Docker) containers"
 ---
 # Backup (Docker) Containers
 
-Reviewed in August 2023
+Reviewed in May 2026
 
 ### Introduction
 
@@ -35,10 +35,9 @@ With the locations known, you can use our usual [CLI tutorial](cli) or [Ansible 
 First let's cover container configurations and volumes:
 
 ```
-location:
-    source_directories:
-        - /root/docker-compose
-        - /var/lib/docker/volumes/
+source_directories:
+    - /root/docker-compose
+    - /var/lib/docker/volumes/
 ```
 
 ## Step 3 - Backup databases
@@ -48,19 +47,23 @@ Databases are slightly trickier to back up, since data might be kept in memory a
 The below config would log into a local database container as root user and create a backup of all databases:
 
 ```
-hooks:
-  before_backup:
-    - echo "`date` - Starting backup."
-  postgresql_databases:
-      - name: all
-        password: ${POSTGRES_ROOT_PASSWORD}
-        username: postgres
-  mysql_databases:
-      - name: all
-        port: 33306
-        username: root
-        password: ${MYSQL_ROOT_PASSWORD}
-        options: "--column-statistics=0"
+commands:
+  - before: action
+    when:
+      - create
+    run:
+      - echo "`date` - Starting backup."
+
+postgresql_databases:
+    - name: all
+      password: ${POSTGRES_ROOT_PASSWORD}
+      username: postgres
+mysql_databases:
+    - name: all
+      port: 33306
+      username: root
+      password: ${MYSQL_ROOT_PASSWORD}
+      options: "--column-statistics=0"
 ```
 
 {: .note }

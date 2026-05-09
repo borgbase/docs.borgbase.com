@@ -10,18 +10,18 @@ has_toc: false
 # Setting up Backups with Restic
 
 {: .note }
-Restic support was only added recently and our documenation for it will be expanded over time.
+Restic support was only added recently and our documentation for it will be expanded over time.
 
 ## Step 1 - Initialize Repository
 
-First you need to initilize the repository. This sets up the encryption and writes some supporting files. To avoid passing the repository URL and password with each command, it's recommended to set it as shell variable:
+First you need to initialize the repository. This sets up the encryption and writes some supporting files. To avoid passing the repository URL and password with each command, it's recommended to set it as shell variable:
 
 ```
 $ export RESTIC_REPOSITORY=rest:https://xxxxx:yyyyyyyyyyy@xxxxx.repo.borgbase.com
 $ export RESTIC_PASSWORD=mysecret
 ```
 
-To initilize the repository
+To initialize the repository:
 ```
 $ restic init
 ```
@@ -40,6 +40,6 @@ $ restic snapshots
 
 ## Further reading
 
-You can find more on how to use Restic in the [official documentation](https://restic.readthedocs.io/en/stable/050_restore.html).
+You can find more on how to use Restic in the [official documentation](https://restic.readthedocs.io/en/stable/010_introduction.html).
 
 ## Have any other questions? [Email Us!](mailto:hello@borgbase.com)
