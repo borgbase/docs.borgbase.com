@@ -214,13 +214,6 @@ When using append-only mode, old transactions and segments are never cleaned fro
 
 ## Other Questions
 
-### Why am I seeing a warning about post-quantum SSH algorithms?
-
-Some SSH clients may warn that the connection is not using a post-quantum key exchange algorithm. This warning is safe to ignore. Borg encryption is separate from SSH. SSH is only used for authentication and transport. Your backup data is encrypted by Borg using its own encryption algorithms, which are independent of the SSH connection.
-
-Post-quantum cryptography (PQC) is still very theoretical, and quantum computers capable of breaking current algorithms don't exist yet. With that said, we do want to give our users peace of mind and based on our normal update cycles, we expect all our servers to support PQC around spring/summer 2026. The reason is that we run a mix of RHEL 9 and 10-based systems in our fleet. While RHEL 10 already supports PQC, backporting the feature to RHEL 9 would be risky. The good news is that RHEL 9.8 is expected to rebase to OpenSSH 9.9p1 with native PQC support following a rebase that already happened in Centos Stream in September 2025. Once this update is available we will update this FAQ.
-
-
 ### What's the difference between a SSH key, SSH password, SSH key passphrase and Borg repository passphrase?
 
 *BorgBase* uses SSH keys for authentication. This means to connect to a backup repository, you need to upload the *public* part of a SSH keypair and then use the *private* part to make a connection.
