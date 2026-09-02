@@ -47,8 +47,15 @@ If you get `Permission denied (public key)`, `Connection closed by remote host. 
     $ ssh -v xxxx@xxxx.repo.borgbase.com
     ```
 
-This will print a list of keys being tried and potential problems. You won't get a shell at the end, as BorgBase only supports access via `borg`. Once you see `Remote: Key is restricted.` or `PTY allocation request failed on channel 0` then the login step still worked.
+	This will print a list of keys being tried and potential problems. You won't get a shell at the end, as BorgBase only supports access via `borg`. Once you see `Remote: Key is restricted.` or `PTY allocation request failed on channel 0` then the login step still worked.
 
+7. Does the server's SSH host key match the repo's? Mouse over the fingerprint icon next to the repo in BorgBase to see the expected fingerprint, then check what your client actually reaches:
+
+	```
+	$ ssh-keyscan -t rsa xxxxx.repo.borgbase.com | ssh-keygen -lf -
+	```
+
+	If it doesn't match, something on the network path is answering on port 22 instead of our server (often a router "SSH inspection"/proxy feature or an ISP middlebox) — this shows up as Server accepts key followed immediately by Permission denied. Don't delete your known_hosts entry; it's what caught the mismatch. Try a different network, such as a phone hotspot, to confirm.
 
 ### My SSH connection breaks after a long backup or prune operation.
 
