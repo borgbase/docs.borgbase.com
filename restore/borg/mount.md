@@ -97,13 +97,13 @@ $ mkdir borg-mnt
 Next mount the whole repository into the newly created folder. This will give us a view of _all_ archives in the repository.
 
 ```
-$ borg mount w66xh7lj@w66xh7lj.repo.borgbase.com:repo borg-mount
+$ borg mount w66xh7lj@w66xh7lj.repo.borgbase.com:repo borg-mnt
 ```
 
-If there was no error, you should now see all your archives in the `borg-mount` folder:
+If there was no error, you should now see all your archives in the `borg-mnt` folder:
 
 ```
-$ ls -l borg-mount
+$ ls -l borg-mnt
 ```
 
 Depending on the archive names used, the output could look like this.
