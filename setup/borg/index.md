@@ -24,6 +24,7 @@ For Gnome desktops there is also the community-maintained [Pika Backup](pika).
 ### Servers and NAS
 - Our [Ansible role](ansible) can be used to fully automate the setup process.
 - If you run a NAS, see our [Synology](synology) and [TrueNAS](true-nas) tutorials.
+- The community-maintained [Borg UI](https://borgui.com) is a web interface for Borg on servers and NAS. It runs as a container or natively and has a BorgBase preset for the repository path and SSH key setup.
 - JVM Host is offering a paid Borg plugin for use with DirectAdmin. [Tutorial](https://www.jvmhost.com/articles/directadmin-borg-plugin/) and [order page](https://www.jvmhost.com/software.html).
 - If you run a database server, like MySQL, MariaDB or Postgres, see [here](databases) on how to properly dump the data before a backup run.
 
