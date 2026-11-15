@@ -6,7 +6,7 @@ sidebar:
   order: 8
 ---
 
-Reviewed in May 2026
+_Reviewed in May 2026_
 
 Many services and servers require a database, whose content needs to be backed up as well. There are different ways to achieve this using Borg or Borgmatic. One method you should avoid is to copy the internal data directory of the database, as it's not safe to copy those files while the database service is running. A better way is to create a compressed dump of the actual data and add that file to the backup. There are multiple ways to do so:
 
@@ -23,7 +23,6 @@ mysql_databases:
     - name: all
 ```
 
-
 ### Using a Standalone Backup Script
 
 Most popular distributions include scripts, like `automysqlbackup`[^1] or `autopostgresqlbackup`[^2]. Those scripts will usually save a daily dump of all databases to a folder, like `/var/lib/automysqlbackup`. By running this script *before* your backup and including the dump folder in your source directories, you get a timely backup of your database.
@@ -38,11 +37,6 @@ commands:
       run:
           - /usr/sbin/autopostgresqlbackup
 ```
-
-
-## Have any other questions? [Email Us!](mailto:hello@borgbase.com)
-
-
 
 ### References
 [^1]: [automysqlbackup](https://sourceforge.net/projects/automysqlbackup/)

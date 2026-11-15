@@ -3,7 +3,7 @@ title: "SSH Keys for BorgBase"
 description: "Supported SSH key types and how to create secure SSH keys for BorgBase connections."
 sidebar:
   label: "SSH Keys"
-  order: 1
+  order: 2
 ---
 
 ## Introduction

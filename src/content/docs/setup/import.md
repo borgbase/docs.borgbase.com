@@ -6,14 +6,13 @@ sidebar:
   order: 7
 ---
 
-Reviewed in August 2023
+_Reviewed in August 2023_
 
 If you have an existing Borg repository, you can import it into *BorgBase* using SFTP. Naturally you can use the same technique to *export* an existing repository.
 
 :::note
 For Restic repositories, you can use the `restic copy` feature to copy all snapshots to a different repository. More [here](https://restic.readthedocs.io/en/latest/045_working_with_repos.html#copying-snapshots-between-repositories)
 :::
-
 
 ## Import Existing Repository
 
@@ -35,7 +34,6 @@ sftp> put -Rp .
 
 After the copy operation is finished, you can change your repo's access mode back to *Borg* and use `borg info` to verify the new repo.
 
-
 ## Export Existing Repository
 
 Exporting works similar to importing, but assumes that you already have the repository set up in BorgBase. To export it, open the [Repositories](https://www.borgbase.com/repositories) page in the web interface and choose the **Edit** icon in the right column. This will open the repository settings.
@@ -51,7 +49,6 @@ And download the repo folder:
 ```
 sftp> get -Rp .
 ```
-
 
 ## Using Rclone
 
@@ -79,5 +76,3 @@ To download a repository from BorgBase:
 ```
 $ rclone sync -v borgbase:repo local-repo
 ```
-
-## Have any other questions? [Email Us!](mailto:hello@borgbase.com)

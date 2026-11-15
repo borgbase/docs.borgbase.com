@@ -2,7 +2,7 @@
 /linux/how-to-restore-files-from-a-borg-backup-using-the-command-line/  /restore
 /backup-strategy/steps-with-template/   /strategy
 /macos/how-to-backup-your-mac-using-the-vorta-backup-gui/   /setup/borg/vorta
-/linux/how-to-create-a-ssh-key-on-macos-or-ubuntu-debian/   /faq/ssh
+/linux/how-to-create-a-ssh-key-on-macos-or-ubuntu-debian/   /setup/borg/ssh-keys
 /linux/setup-borg-command-line/ /setup/borg/cli
 /automation /api
 /faq/databases /setup/borg/databases
@@ -17,3 +17,6 @@
 /setup/vorta /setup/borg/vorta
 /restore/borgmatic /restore/borg/borgmatic
 /restore/mount /restore/borg/mount
+
+# After the FAQ was split into topic pages
+/faq/ssh /setup/borg/ssh-keys

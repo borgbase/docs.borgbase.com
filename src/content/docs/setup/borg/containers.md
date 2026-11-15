@@ -6,9 +6,7 @@ sidebar:
   order: 4
 ---
 
-Reviewed in May 2026
-
-### Introduction
+_Reviewed in May 2026_
 
 Docker and related container tools, like Podman have greatly simplified the work of sysadmins. Instead of installing dependencies on the operating system, they can now be isolated in a "container". This helps with isolation and updates. At the same time containers are relatively light because processes share the host OS and kernel.
 
@@ -75,5 +73,3 @@ As a final step, it's generally a good idea to run a backup and test restoring i
 ## Conclusion
 
 This guide explained the high level step on backing up Docker and similar containers. As with every backup, it's important to first establish *where* all the data is located and then choose appropriate backup strategies to get a complete backup.
-
-## Have any other questions? [Email Us!](mailto:hello@borgbase.com)

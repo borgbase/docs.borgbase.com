@@ -6,7 +6,6 @@ sidebar:
   order: 2
 ---
 
-### Introduction
 We all rely on data to help us get our job done and enhance our life. Think of business documents, personal pictures, source code for software projects, tax receipts or health records. Some of this data now lives in the cloud. You can sync your pictures or keep your source code on Github. This has left many of us with the impression that someone else is responsible for keeping our data safe.
 
 Since you are reading this, you probably know better. Cloud accounts can be blocked or compromised. Syncing something is not a backup, because deletions are synced as well. Even well-run data centers can burn down.[^7] That’s why backups are still important if you have any kind of data that’s important. Just consider this: if file or folder X was gone. Would it bother you? Could you still do your job effectively? If the answer is yes for any data you keep on your Macbook, then read on.
@@ -57,7 +56,6 @@ Here's an expanded version of our template[^2]:
 
 <img src="/img/strategy/Screenshot-2018-12-07-at-12.43.45.png" alt="" width="835" height="174" />
 
-
 ## Step 3 – Evaluate Backup Strategy
 You now have a full list of your data assets, where they live, how they change and how often they are backed up. Now we want to make sure those strategies actually protect the data by going through some data loss scenarios. These are designed to
 
@@ -67,7 +65,6 @@ You now have a full list of your data assets, where they live, how they change a
 4. Find Security exposures (e.g. exposed backups of confidential files)
 
 Evaluating these issues takes some experience and technical know-how. In a corporate environment, you may need to ask colleagues for more information.
-
 
 ### Unwanted Correlations
 Probabilities of failure are usually not independent. This is frequently overlooked. Some examples of risk correlations:
@@ -81,14 +78,12 @@ With this in mind, have another look at the template. Specifically the *Location
 
 Once your data- and backup locations are all noted down, look for unwanted correlations in each row. If you discover correlated locations, you may need to add another backup.
 
-
 ### Insufficient Backup Processes and Permissions
 Users often assume that a file sync (Dropbox, Nextcloud) is the same as having a backup. In many cases this is not the case. Especially if the remote side doesn't keep different old versions. To be safe against threats like cryptolockers and compromised servers, you need to ensure that the current backup process is in fact producing a data copy that is independent of the original. If a threat in one data location can easily affect the backup, then you don't have a backup. Some examples:
 
 - For servers, the primary server can't have access to the backup. Else a compromise of the primary server could also destroy the backup. E.g. a hacker controlling your primary server shouldn't be able to delete your backup.
 - For sync-based data, like contact, calendards, Dropbox and others: These are NOT backups. If you accidentially delete an important contact, the deletion will be synced.
 - Your employees are required to save all documents to a central file server. If there are no further snapshots or backups of those files, then this practice will only protect agains some threats (failed desktop hard drive), but not others (rogue employee deleting files on the server).
-
 
 ### Backup Frequency Mismatch
 You probably noticed this while writing up your inventory. In some cases the velocity of the data (how often it changes) will not match your current backup frequency. That means you can expect to lose more data than specified in the RPO. So for each row make sure that the backup frequency is higher or the same as the specified RPO. If it's not, either find a way to increase it or change your RPO. Here's an example:
@@ -103,7 +98,6 @@ The next concept to be aware of is Recovery Time Objective (RTO). It describes t
     Image credit:
     <a href="https://en.wikipedia.org/wiki/File:RPO_RTO_example.svg" title="File:RPO RTO example.svg">File:RPO RTO example.svg</a>, <a href="http://creativecommons.org/licenses/by/4.0/" title="Creative Commons Attribution 4.0">CC BY 4.0</a></figcaption>
 </figure>
-
 
 ### Security Issues
 The data you handle will have value to other people. A competitior could be interested in documents and client lists. An employee could be interested in salary data. At the same time the fines for data breaches have been increasing. So it should be in your interest to keep *all* data locations safe. This includes backup locations.

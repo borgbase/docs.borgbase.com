@@ -5,10 +5,6 @@ sidebar:
   order: 4
 ---
 
-:::note
-Restic support was only added recently and our documentation for it will be expanded over time.
-:::
-
 ## Step 1 - Initialize Repository
 
 First you need to initialize the repository. This sets up the encryption and writes some supporting files. To avoid passing the repository URL and password with each command, it's recommended to set it as shell variable:
@@ -38,5 +34,3 @@ $ restic snapshots
 ## Further reading
 
 You can find more on how to use Restic in the [official documentation](https://restic.readthedocs.io/en/stable/010_introduction.html).
-
-## Have any other questions? [Email Us!](mailto:hello@borgbase.com)

@@ -12,7 +12,6 @@ It's possible to install Borg Backup on a Synology NAS device and use it for off
 An earlier version of this tutorial described a setup using only Borg. Since 2020, Borgmatic is included in the Synology Borg package, which makes setup much easier. To avoid using the command line, this tutorial puts the SSH key and Borgmatic config into a hidden share on the data directory. Alternatively these files could also kept under `/root/.config/borgmatic/config.yaml` and `/root/.ssh`.
 :::
 
-
 ## Step 1 - Install Borg Backup and Borgmatic
 
 [SynoCommunity](https://synocommunity.com) provides an updated Borg package for DSM. It also includes [Borgmatic](https://torsion.org/borgmatic/), which is a wrapper around Borg to manage configs, pruning and repo checks.
@@ -28,7 +27,6 @@ To install it, follow the steps outlined on their [website](https://synocommunit
 
 You should now see a new *Community* entry on the left side that should have *Borg* listed as package. Simply click *Install* to install Borg together with Python 3.
 
-
 ## Step 2 - Create Hidden Shared Folder for Borg Config Files
 
 Now, let's add a new hidden share to have easy access to Borg config files.
@@ -37,7 +35,6 @@ Now, let's add a new hidden share to have easy access to Borg config files.
 2. Click *Create* and enter a name, description and choose to hide the folder. We also won't need the recycle bin.
 
 <img src="/img/synology/add-shared-folder.png" alt="" width="800" />
-
 
 ## Step 3 - Create SSH Keys
 
@@ -48,7 +45,6 @@ $ ssh-keygen -f ./id_synology
 ```
 
 You will end up with two files: The private key, `id_synology` and the public key `id_synology.pub`. Copy the private key to the new `BorgBackup` shared folder on the DSM and add the public key to your [BorgBase.com](https://www.borgbase.com) account.
-
 
 ## Step 4 - Add Borgmatic Config
 
@@ -89,7 +85,6 @@ See [here](https://torsion.org/borgmatic/docs/reference/configuration/) for all 
 
 Last, save the contents of the above file as e.g. `borgmatic.yml`.
 
-
 ## Step 5 - Add Backup Task
 
 In this step we will add a daily task to create a new Borg archive. This is all done in the web interface and you can choose all kinds of daily, weekly or monthly backup frequencies.
@@ -119,11 +114,9 @@ To regularly verify the integrity of your backups, you can add a monthly task fo
 
 > `/usr/local/bin/borgmatic -c /path/to/borgmatic.yml repo-create -e repokey-blake2`
 
-
 That's it. Now you are ready to run the backup script. To trigger a manual test run, select the new task and click the *Run* button. You should see increased CPU usage and some upload activity in the resource monitor widget. If there are any errors, you will find them in the shared folder in a log file.
 
-
-### Conclusion
+## Conclusion
 
 Now you have an efficient offsite-backup of your essential data with the added benefit of having everything integrated and logged in the web interface.
 

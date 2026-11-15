@@ -8,7 +8,7 @@ sidebar:
 
 Untested backups are like Schrödinger's cat. Nobody knows they're dead or alive. This article helps to methodically evaluate the quality of a backup.
 
-### tl;dr
+## tl;dr
 You can evaluate the quality of a backup by considering those 5 points:
 
 - [x] Backups are happening
@@ -17,10 +17,9 @@ You can evaluate the quality of a backup by considering those 5 points:
 - [x] Backups are independent (enough) from the source data
 - [x] Backups are safe from modification
 
-### Prerequisites
+## Prerequisites
 
 You should have a backup process in place and working. If you are still working on setting up your backups, then start with this [higher level guide](/strategy) on backup strategy and then check back when it's all up and running.
-
 
 ## Checklist for existing Backups
 ### 1.  Backups are happening
@@ -32,20 +31,20 @@ There are a few services that are specialized in monitoring cron jobs. They will
 1 1 * * 0  backup.sh && curl http://my-monitor.com/success
 ````
 
-For [Borgmatic](https://torsion.org/borgmatic/docs/how-to/monitor-your-backups/#third-party-monitoring-services) you can define error hooks that are called when failures happen:
+For [Borgmatic](https://torsion.org/borgmatic/docs/how-to/monitor-your-backups/#third-party-monitoring-services) you can define command hooks that are called when failures happen:
 
 ```yaml
-hooks:
-    on_error:
-        - send-message.sh "Error with {repository}"
+commands:
+    - after: error
+      run:
+          - send-message.sh "Error with {repository}"
 ```
 
 And log successful runs:
 
 ```yaml
-hooks:
-    healthchecks:
-        ping_url: http://my-monitor.com/success
+healthchecks:
+    ping_url: http://my-monitor.com/success
 ```
 
 When using [BorgBase](https://www.borgbase.com/), we will also monitor for the absence of successful backups for you and alert you when they are absent for too long.
@@ -73,11 +72,9 @@ Of course, it will be difficult to fully uncorrelate your data from the backup. 
 ### 5. Backups are safe from modification
 This final point applies to all "push" style backups where the source machine also initiates the backup. Popular sync solutions, like Dropbox, fall into this category: A file is changed locally and Dropbox uploads the file, potentially overwriting the remote backup copy. Another example would be simple (S)FTP storage space, where either only one copy of the data is kept or the client has permission to modify the data.
 
-While Borg is also a push backup, you can enable [*append-only* mode](/faq#append-only-mode), which will preserve all data until the repository is explicitly cleaned up. To avoid backups growing too large, pair this with [server-side compaction](/faq#how-can-i-prune-append-only-repositories).
+While Borg is also a push backup, you can enable [*append-only* mode](/faq/append-only), which will preserve all data until the repository is explicitly cleaned up. To avoid backups growing too large, pair this with [server-side compaction](/faq/append-only#how-can-i-prune-append-only-repositories).
 
 ## Conclusion
 Now you know many ways in which a backup can go wrong and hopefully more ways to avoid ever getting in a bad backup situation.
 
 This article was adapted from [5 Common Backup Failures and How to Avoid Them](https://noted.lol/common-backup-failures/), initially published on [Noted.lol](https://noted.lol/)
-
-## Have any other questions? [Email Us!](mailto:hello@borgbase.com)

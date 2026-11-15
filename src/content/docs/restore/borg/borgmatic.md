@@ -6,14 +6,16 @@ sidebar:
   order: 4
 ---
 
-Reviewed in August 2023
+_Reviewed in August 2023_
 
 If you already use Borgmatic for your backups, it may be easier to use Borgmatic syntax for restoring.
 
-Note: You should be comfortable using the command line. If you prefer a graphical, client, look into our [Vorta Tutorial](/setup/borg/vorta) instead. These instructions should work on macOS and popular Linux flavors, like Debian, Ubuntu, as well as Red Hat, Fedora and CentOS.
+:::note
+You should be comfortable using the command line. If you prefer a graphical client, look into our [Vorta Tutorial](/setup/borg/vorta) instead. These instructions should work on macOS and popular Linux flavors, like Debian, Ubuntu, as well as Red Hat, Fedora and CentOS.
+:::
 
 ## Prerequisites
-You should already have Borg, as well as Borgmatic installed and know how to use the command line. If you didn't install Borg yet, have a look at [this previous guide](https://docs.borgbase.com/linux/setup-borg-command-line/).  Please refer to the official [borgmatic documentation](https://torsion.org/borgmatic/docs/how-to/set-up-backups/) for setting up Borgmatic. If your repository is hosted on BorgBase, your config file can be automatically generated for you using the [Configuration Assistant](https://www.borgbase.com/setup).
+You should already have Borg, as well as Borgmatic installed and know how to use the command line. If you didn't install Borg yet, have a look at [this previous guide](/setup/borg/cli).  Please refer to the official [borgmatic documentation](https://torsion.org/borgmatic/how-to/set-up-backups/) for setting up Borgmatic. If your repository is hosted on BorgBase, your config file can be automatically generated for you using the [Configuration Assistant](https://www.borgbase.com/setup).
 
 Borgmatic will automatically use the repo and passphrase defined in the config file. So this doesn't need to be specified again.
 
@@ -32,7 +34,7 @@ $ borgmatic list --archive server-2020-04-01
 Or only look at files in a specific archive and folder:
 ```
 $ borgmatic list \
-    --archive server-2020-04-01
+    --archive server-2020-04-01 \
     --path var/www/example.com
 ```
 
@@ -46,12 +48,12 @@ For example, if you would like to only restore `/mnt/catpics` from the same arch
 ```
 $ borgmatic extract \
     --archive server-2020-04-01 \
-    --path mnt/catpics
+    --path mnt/catpics \
     --destination /mnt/new-directory
 ```
 
 This will restore the full path of that particular directory, but will only include that directory.
 
-### Conclusion
+## Conclusion
 
-If you already keep your Borg settings in Borgmatic, you should also use it to extract backups. For more details also see [their own documentation](https://torsion.org/borgmatic/docs/how-to/extract-a-backup/).
+If you already keep your Borg settings in Borgmatic, you should also use it to extract backups. For more details also see [their own documentation](https://torsion.org/borgmatic/how-to/extract-a-backup/).

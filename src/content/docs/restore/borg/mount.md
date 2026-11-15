@@ -6,9 +6,15 @@ sidebar:
   order: 2
 ---
 
-Reviewed in August 2023
+_Reviewed in August 2023_
 
-Note: You should be comfortable using the command line. If you prefer a graphical, client, look into our [Vorta Tutorial](/setup/borg/vorta) instead. These instructions should work on macOS and popular Linux flavors, like Debian, Ubuntu, as well as Red Hat, Fedora and CentOS.
+:::note
+You should be comfortable using the command line. If you prefer a graphical client, look into our [Vorta Tutorial](/setup/borg/vorta) instead. These instructions should work on macOS and popular Linux flavors, like Debian, Ubuntu, as well as Red Hat, Fedora and CentOS.
+:::
+
+:::note
+The commands on this page use Borg 1.x syntax. Borg 2 takes the repository via `BORG_REPO` or `-r` and the archive as a separate argument, as described in the [setup tutorial](/setup/borg/cli).
+:::
 
 ## Goals
 
@@ -16,7 +22,7 @@ This article assumes that you have set up a backup workflow to a local or remote
 
 ## Prerequisites
 
-You should already have Borg installed and know how to use the command line. If you didn't install Borg yet, have a look at [this previous guide](https://docs.borgbase.com/linux/setup-borg-command-line/).
+You should already have Borg installed and know how to use the command line. If you didn't install Borg yet, have a look at [this previous guide](/setup/borg/cli).
 
 ## Step 1 - Set up FUSE
 
@@ -25,7 +31,7 @@ The FUSE library allows mounting arbitrary file systems into user space. It's av
 **For macOS**: Install the FUSE library from Homebrew.
 
 ```
-$ brew cask install macfuse
+$ brew install --cask macfuse
 ```
 
 **For Debian/Ubuntu**: The FUSE library is available from the main package repository.
@@ -45,7 +51,7 @@ $ yum install fuse-devel fuse pkgconfig
 FUSE support is an optional add-on for Borg. Install it like this:
 
 ```
-$ pip3 install 'borgbackup[fuse]'
+$ pip3 install 'borgbackup[llfuse]'
 ```
 
 On macOS, you could also use Borg's [FUSE-enabled Tap](https://github.com/borgbackup/homebrew-tap).
@@ -55,7 +61,7 @@ On macOS, you could also use Borg's [FUSE-enabled Tap](https://github.com/borgba
 Next make sure everything is installed properly and you have access to the backup repo.
 
 ```
-$ borg info w66xh7lj@w66xh7lj.repo.borgbase.com:repo
+$ borg info ssh://w66xh7lj@w66xh7lj.repo.borgbase.com/./repo
 ```
 
 You should see output similar to this. If you get an error, be sure that you have access to the repository. If your repo is encrypted, it will also ask you for the password or keyfile.
@@ -88,13 +94,13 @@ The `borg mount` command allows for simple browsing and restoring individual fil
 First create a new folder as mount point. Since we're not working with root permissions, we won't use `/mnt`. Instead any empty folder in your home directory will suffice.
 
 ```
-$ mkdir borg-mnt
+$ mkdir borg-mount
 ```
 
 Next mount the whole repository into the newly created folder. This will give us a view of _all_ archives in the repository.
 
 ```
-$ borg mount w66xh7lj@w66xh7lj.repo.borgbase.com:repo borg-mount
+$ borg mount ssh://w66xh7lj@w66xh7lj.repo.borgbase.com/./repo borg-mount
 ```
 
 If there was no error, you should now see all your archives in the `borg-mount` folder:

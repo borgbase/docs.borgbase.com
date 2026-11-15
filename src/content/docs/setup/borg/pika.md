@@ -30,7 +30,7 @@ Pika Backup can be installed using one of these options:
  
 ## Connect to Repository
 
-- Create a SSH key locally and add it to your [BorgBase](https://www.borgbase.com) control panel - see [here](https://docs.borgbase.com/setup/cli/#step-3-create-and-assign-ssh-key-for-authentication) for futher information
+- Create a SSH key locally and add it to your [BorgBase](https://www.borgbase.com) control panel - see [here](/setup/borg/ssh-keys) for further information
 - Create a new repository on BorgBase, be sure to add the SSH key you created previously is selected in the *Access* tab.
 
 <img src="/img/setup/addNewRepo.png" alt="Add new repository in Pika Backup" width="450">

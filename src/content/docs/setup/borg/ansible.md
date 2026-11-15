@@ -5,17 +5,19 @@ sidebar:
   order: 5
 ---
 
-We provide a ready-to-use Ansible role to install Borg, Borgmatic and a cron job on a Linux client (tested on Ubuntu/Debian/CentOS/Fedora) client. Example usage in a playbook:
+We provide a ready-to-use Ansible role to install Borg, Borgmatic and a cron job on a Linux client (tested on Ubuntu/Debian/CentOS/Fedora). Example usage in a playbook:
 
 ```yaml
 - hosts: webservers
   roles:
-  - role: m3nu.ansible_role_borgbackup
-    borg_encryption_passphrase: CHANGEME
-    borg_repository: m5vz9gp4@m5vz9gp4.repo.borgbase.com:repo
-    borg_source_directories:
-      - /srv/www
-      - /var/lib/automysqlbackup
+    - role: borgbase.ansible_role_borgbackup
+      borgbackup_config:
+        encryption_passphrase: CHANGEME
+        repositories:
+          - ssh://m5vz9gp4@m5vz9gp4.repo.borgbase.com/./repo
+        source_directories:
+          - /srv/www
+          - /var/lib/automysqlbackup
 ```
 
 ### Steps to use this role:
@@ -38,5 +40,3 @@ $ ansible-galaxy collection install adhawkins.borgbase
 ```
 
 For more details see the [Github repo](https://github.com/adhawkins/ansible-borgbase) or the [module documentation](https://adhawkins.github.io/ansible-borgbase/collections/adhawkins/borgbase/index.html).
-
-## Have any other questions? [Email Us!](mailto:hello@borgbase.com)

@@ -36,7 +36,27 @@ export default defineConfig({
 					label: 'Setup',
 					items: [
 						'setup',
-						{ label: 'Borg', collapsed: true, items: [{ autogenerate: { directory: 'setup/borg' } }] },
+						{
+							label: 'Borg',
+							collapsed: true,
+							items: [
+								'setup/borg',
+								'setup/borg/cli',
+								'setup/borg/ssh-keys',
+								{ label: 'Desktop', items: ['setup/borg/vorta', 'setup/borg/pika'] },
+								{
+									label: 'Servers and NAS',
+									items: [
+										'setup/borg/ansible',
+										'setup/borg/borg-ui',
+										'setup/borg/synology',
+										'setup/borg/true-nas',
+										'setup/borg/containers',
+										'setup/borg/databases',
+									],
+								},
+							],
+						},
 						'setup/restic',
 						'setup/import',
 					],
@@ -53,7 +73,7 @@ export default defineConfig({
 				},
 				'pricing',
 				'api',
-				{ label: 'FAQ', items: ['faq', 'faq/ssh'] },
+				{ label: 'FAQ', items: [{ autogenerate: { directory: 'faq' } }] },
 			],
 		}),
 	],

@@ -6,18 +6,20 @@ sidebar:
   order: 3
 ---
 
-Reviewed in August 2023
+_Reviewed in August 2023_
 
 FUSE can be slow for a large number of files and it can't restore metadata. For this reason, Borg includes a second command for fast bulk-restoring – `borg extract`.
 
-Note: You should be comfortable using the command line. If you prefer a graphical, client, look into our [Vorta Tutorial](/setup/borg/vorta) instead. These instructions should work on macOS and popular Linux flavors, like Debian, Ubuntu, as well as Red Hat, Fedora and CentOS.
+:::note
+You should be comfortable using the command line. If you prefer a graphical client, look into our [Vorta Tutorial](/setup/borg/vorta) instead. These instructions should work on macOS and popular Linux flavors, like Debian, Ubuntu, as well as Red Hat, Fedora and CentOS.
+:::
 
 :::note
-Borg is currently transitioning to the more standards-conform `ssh://` URL format. You may still see the older, deprecated SCP-style format (`xxx@xxx.repo.borgbase.com:repo`) in some places. The *BorgBase* control panel will give you the new format by default.
+The commands on this page use Borg 1.x syntax. Borg 2 takes the repository via `BORG_REPO` or `-r` and the archive as a separate argument, as described in the [setup tutorial](/setup/borg/cli).
 :::
 
 ## Prerequisites
-You should already have Borg installed and know how to use the command line. If you didn't install Borg yet, have a look at [this previous guide](https://docs.borgbase.com/linux/setup-borg-command-line/).
+You should already have Borg installed and know how to use the command line. If you didn't install Borg yet, have a look at [this previous guide](/setup/borg/cli).
 
 ## Step 1 - Listing the Archives
 

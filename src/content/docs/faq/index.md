@@ -1,311 +1,43 @@
 ---
 title: "Frequently Asked Questions"
 description: "Common errors and frequently asked questions"
+tableOfContents: false
 sidebar:
   label: "Overview"
   order: 0
 ---
 
-## Troubleshooting
+Answers to common questions and errors, grouped by topic.
 
-### All connections to a BorgBase repo fail with an error immediately.
+**[Connection and SSH Issues](/faq/connection)**
 
-If you get a `Connection refused` error, there may have been too many failed login attempts. Those could also be caused by different retry scripts. In this case, your IP may be blocked for 20 minutes from this server. Solution is simply to wait a few minutes and ensure there aren't too many failed logins.
+- [All connections to a BorgBase repo fail with an error immediately.](/faq/connection#all-connections-to-a-borgbase-repo-fail-with-an-error-immediately)
+- [My SSH connection breaks after a long backup or prune operation.](/faq/connection#my-ssh-connection-breaks-after-a-long-backup-or-prune-operation)
+- [What's the difference between a SSH key, SSH password, SSH key passphrase and Borg repository passphrase?](/faq/connection#whats-the-difference-between-a-ssh-key-ssh-password-ssh-key-passphrase-and-borg-repository-passphrase)
 
-If you get `Permission denied (public key)`, `Connection closed by remote host. Is borg working on the server?` or get asked for a SSH *password* (as opposed to Borg *passphrase*), it is almost always a problem with SSH keys. Double-check the following to debug further:
+**[Backup Performance](/faq/performance)**
 
-1. Have you already assigned a SSH key to the repo on [BorgBase.com](https://www.borgbase.com) and is this the same key you are using locally?  *BorgBase* will show the key's SHA256 fingerprint in *Account > SSH Keys*. You can compare this to your local fingerprint like this:
+- [Why is my backup process so slow?](/faq/performance#why-is-my-backup-process-so-slow)
+- [How often should I run `borg check`?](/faq/performance#how-often-should-i-run-borg-check)
 
-    ```
-    $ ssh-keygen -lf ~/.ssh/id_ed25519
-    ```
+**[Append-Only Mode and Storage Use](/faq/append-only)**
 
-2. Is SSH using the key you assigned? By default only `~/.ssh/id_[rsa | ed25519 | ecdsa]` are used. If you run Borg from a different user account, the SSH keys will differ too. When using a custom key name, you can add `IdentityFile ~/.ssh/id_custom` to `~/.ssh/config`. Or to only use this key with BorgBase:
+- [Why can I still prune or delete archives with active append-only mode?](/faq/append-only#why-can-i-still-prune-or-delete-archives-with-active-append-only-mode)
+- [How can I prune append-only repositories?](/faq/append-only#how-can-i-prune-append-only-repositories)
+- [Why is BorgBase showing the same storage use after deleting or pruning archives?](/faq/append-only#why-is-borgbase-showing-the-same-storage-use-after-deleting-or-pruning-archives)
+- [Why is the repository size shown in the web interface different from `borg info`?](/faq/append-only#why-is-the-repository-size-shown-in-the-web-interface-different-from-borg-info)
 
-    ```
-    Host *.repo.borgbase.com
-        IdentityFile ~/.ssh/id_custom
-    ```
+**[Repairing Repositories](/faq/repair)**
 
-3. Is the SSH key you are using encrypted? Encrypted keys need to be unlocked (added to `ssh-agent`) before using them with Vorta and you may get prompted for a password when using it with Borg directly. So not well suited for non-interactive use. For most use cases, using an encrypted key doesn't increase security. It's better to use one key per machine and not move it.
-4. Is SSH trying too many keys? The maximum number of keys (`MaxAuthTries`) that can be tried per connection is 6. If you have more keys, specify the key to use, as shown above.
-5. Are the key permissions OK? Private keys and important config files (if in use) need to have a permission of `0600`. To change the permission:
+- [I get a 'Data integrity error' when accessing a repository](/faq/repair#i-get-a-data-integrity-error-when-accessing-a-repository)
+- [Repair Damaged Repositories](/faq/repair#repair-damaged-repositories)
 
-    ```
-    $ chmod 0600 ~/.ssh/id_custom ~/.ssh/config
-    ```
+**[Account and Service](/faq/account)**
 
-6. If you still get errors, try to connect to your repo using the `ssh` command with verbose logging enabled:
+- [Which storage backend are you using?](/faq/account#which-storage-backend-are-you-using)
+- [How can I migrate an existing repo including archives to or from BorgBase?](/faq/account#how-can-i-migrate-an-existing-repo-including-archives-to-or-from-borgbase)
+- [How do I fully remove my account?](/faq/account#how-do-i-fully-remove-my-account)
+- [Is there a maintenance window?](/faq/account#is-there-a-maintenance-window)
+- [How do I get support?](/faq/account#how-do-i-get-support)
 
-    ```
-    $ ssh -v xxxx@xxxx.repo.borgbase.com
-    ```
-
-	This will print a list of keys being tried and potential problems. You won't get a shell at the end, as BorgBase only supports access via `borg`. Once you see `Remote: Key is restricted.` or `PTY allocation request failed on channel 0` then the login step still worked.
-
-7. Does the server's SSH host key match the repo's? Mouse over the fingerprint icon next to the repo in BorgBase to see the expected fingerprint, then check what your client actually reaches:
-
-	```
-	$ ssh-keyscan -t rsa xxxxx.repo.borgbase.com | ssh-keygen -lf -
-	```
-
-	If it doesn't match, something on the network path is answering on port 22 instead of our server (often a router "SSH inspection"/proxy feature or an ISP middlebox) — this shows up as Server accepts key followed immediately by Permission denied. Don't delete your known_hosts entry; it's what caught the mismatch. Try a different network, such as a phone hotspot, to confirm.
-
-### My SSH connection breaks after a long backup or prune operation.
-
-If Borg happens to be busy on the client- or server side, it may not send data over the SSH connection for a while. In this case, some ISPs will [terminate](https://anderstrier.dk/2021/01/11/my-isp-is-killing-my-idle-ssh-sessions-yours-might-be-too/) the connection after a period of inactivity, especially if a NAT is involved. You would then see an error like this:
-
-```
-Remote: packet_write_wait: Connection to xxx.xxx.xxx.xxx: Broken pipe
-Connection closed by remote host
-```
-
-or
-
-```
-Remote: client_loop: send disconnect: Broken pipe
-RemoteRepository: 2.61 kB bytes sent, 1.01 MB bytes received, 52 messages sent
-Connection closed by remote host
-```
-
-Which means the SSH connection has been terminated and Borg is unable to send data to the server-side process. Some possible solutions are:
-
-
-#### Frequent keepalive packets
-Mostly helpful for long `borg prune` or `borg check` operations running server-side. Have the client send regular keep-alive packets while no data is sent by Borg. On the client machine, you can add the below configuration to `~/.ssh/config` or `/etc/ssh/ssh_config`:
-
-```
-Host *.repo.borgbase.com
-        ServerAliveInterval 10
-        ServerAliveCountMax 30
-```
-
-This configuration means that the client will send a null packet every 10 seconds to keep the connection alive. If it doesn't get a response 30 times, the connection will be closed. BorgBase already has the appropriate `ClientAliveInterval` configuration applied server-side.
-
-
-#### Enable automatic retries in Borgmatic
-Newer versions of Borgmatic can automatically retry a failed command. To benefit from this feature add this to your Borgmatic config:
-
-```
-storage:
-    retries: 5
-    retry_wait: 5
-```
-
-
-#### Use external retry mechanism
-You can also use your own retry mechnism in a shell script. Borg adds *checkpoint archives* every 30 minutes, so your progress is preserved if a retry is needed. Keep in mind that exit code `1` means Borg encountered warnings and you probably don't want to retry in this case, but check the logs.
-
-
-#### Debug packet loss and unstable connections
-If you suspect routing issues or an unstable network connection (certain residential internet connections come with restricted upload speed), you can run the below network tests: a `mtr` traceroute test to uncover packet loss or `iperf3` for excessive retransmits:
-
-Traceroute to uncover routing issues and packet loss: (takes about 15 min to complete)
-```
-$ mtr -s 1000 -r -c 1000 xxxxx.repo.borgbase.com
-```
-
-Network performance test to uncover excessive retransmits and measure bandwidth: (contact support to enable this first)
-```
-$ iperf3 -c xxxxx.repo.borgbase.com
-```
-
-For an in-depth discussion on network interruptions, also see Borg issues [#636](https://github.com/borgbackup/borg/issues/636) and [#3988](https://github.com/borgbackup/borg/issues/3988). Or [this](https://askubuntu.com/a/354245) and [this](https://unix.stackexchange.com/questions/3026/what-options-serveraliveinterval-and-clientaliveinterval-in-sshd-config-exac) StackExchange question.
-
-
-### I get a 'Data integrity error' when accessing a repository
-
-Borg 1.2.6 shipped with improved archive verification and may throw this error when created with older Borg versions. Full details in the [release logs](https://github.com/borgbackup/borg/blob/1.2.6/docs/changes.rst#pre-125-archives-spoofing-vulnerability-cve-2023-36811) or this [Github issue](https://github.com/borgbackup/borg/issues/7802).
-
-If you trust the remote repository, at a minimum you will need to run the below command:
-```
-$ BORG_WORKAROUNDS=ignore_invalid_archive_tam borg upgrade --archives-tam $REPO_URL
-```
-
-After this all archives will be verified and you will no longer see this error.
-
-
-### Why is my backup process so slow?
-
-All our servers are connected with 1Gbit connections at a minimum and located in professional data centers. There is no throttline based on account type. We rarely get reports of slow backup speeds. If you do encounter slower-than-expected backups or slow upload speeds, you can follow the steps below to find the bottleneck.
-
-First it helps to understand that modern backup tools do more than just copy files. They will also chunk them into smaller pieces, calculate hashsums, compress and encrypt each part. See [here](https://borgbackup.readthedocs.io/en/master/faq.html#what-s-the-expected-backup-performance) for the full details.
-
-So the upload speed is not always the main bottleneck. Depending on your setup, you should also watch out for CPU usage or disk IO. It's usually difficult to improve uplink speed, but if you are CPU- or IO-limited, there are a few settings you can tune. Just be aware of the trade-offs. Maybe you are OK with a slower initial backup in order to have a smaller well-compressed backup in the future. So here some steps you can take to speed you backups:
-
-#### General Tips
-- Avoid congested times of the day: Many users set their backups to run at midnight UTC, which can lead to backups being slower at that time. On the hour tends to be more busy too. To enjoy the best speeds, set your backups to run at random times.
-- High latency connection: For backups using TCP (which includes both Borg and Restic), high latency can limit total bandwidth due to the way network buffers are set in Linux. E.g. for 100ms latency the speed would be limited to about 250 Mbit/s. For Restic this can be resolved by tuning the below Linux kernel settings. For Borg the limits are hard-coded in SSH and can't be changed easily. If you want to make the adjustments for Restic, first calclate your connection's bandwidth delay product [here](https://www.speedguide.net/bdp.php) and then see [here](https://fasterdata.es.net/host-tuning/linux/) on how to apply them.
-- Use the BBR congestion algorithm, instead of the default cubic. Users have reported a 6x speedup after making this change. This feature needs to be enabled on the *sending* side and works best on **low bandwith connections**. Clients sending from data centers will likely not see an improvement, as reported by [APNIC](https://blog.apnic.net/2019/11/01/bbr-evaluation-at-a-large-cdn/). Add the below lines to `/etc/sysctl.conf` and apply with `sysctl -p`.
-  ```
-  net.core.default_qdisc=fq
-  net.ipv4.tcp_congestion_control=bbr
-  ```
-  More details on enabling BBR for network congestion for [Debian](https://wiki.crowncloud.net/?How_to_enable_BBR_on_Debian_10) or [ArchLinux](https://gist.github.com/epyonavenger/a7d0bdcdb64169c4b0031391e10ff203). Thanks to our user Frédéric for sharing this tip!
-
-#### Tips for Borg
-- See the [official FAQ](https://borgbackup.readthedocs.io/en/master/faq.html#why-is-my-backup-so-slow) on steps to speed up backups using different Borg flags.
-- Make sure you choose an appropriate [compression level](https://borgbackup.readthedocs.io/en/stable/usage/help.html?highlight=compression#borg-help-compression) for your data. In general `lz4` (fast, but low compression) `zstd,3` (medium compression) and `zstd,8` (high compression) will work well.
-- Ensure the local [files cache](https://borgbackup.readthedocs.io/en/stable/usage/create.html#description) is working correctly. By default Borg will compare `ctime,size,inode` and process the file if either changes. If you have e.g. a network file system with unstable inodes, try using `--files-cache ctime,size`
-- Avoid excessive archive checking: `borg check` can read all backup segments and confirm their consistency. For large repos this can take a long time. BorgBase already uses different techniques to avoid bitrot in the storage backend, so `borg check` is not strictly necessary for this purpose. In Borgmatic set `checks` to `disabled` in the `consistency` section. If you still need consistency checks, consider using the `repository` option to limit the check to the repository. Checking all archive metadata is done on the client and very time consuming. See the official [Borg docs](https://borgbackup.readthedocs.io/en/stable/usage/check.html) for details.
-
-
-### Repair Damaged Repositories
-
-There are rare situations, where Borg repositories can be damaged by e.g. interrupted backups, incomplete migrations, hardware failures or other factors. Symptoms include:
-
-- `Object with key XXX not found in repository`
-- `Cache is newer than repository - do you have multiple, independently updated repos with same ID?`
-
-Borg is generally good at fixing those issues and missing data will be added during the next backup run.
-
-#### Missing Data Segments
-
-To fix errors related to missing data or files:
-
-1. First run `borg check $REPO_URL`. This will first check the repository files and then one or more archives.
-2. If the first step reveals errors, you should make a local repo copy, unless the data is non-critical.
-3. Next run `borg check --repair $REPO_URL` to ask Borg to fix any errors.
-4. Finally run `borg create ...` to do a full backup run and add potentially missing data.
-
-#### Cache Issues
-
-To fix errors related to the cache (from [here](https://github.com/borgbackup/borg/issues/3428#issuecomment-380399036)):
-
-1. First try to delete the local cache `borg delete --cache-only $REPO_URL`
-2. If the first step doesn't resolve the issue, try moving the security folder in `~/.config/borg/security/$REPO_ID`. Where the `REPO_ID` can be found using `borg config $REPO_URL id`
-3. Run a repo check with `borg check $REPO_URL`.
-
-
-## Append-Only Mode
-
-Also called "delayed deletion". In this mode, Borg will never remove old segments and instead add a new transaction for any change in a transaction log. The result is that no data is ever deleted and operations (like archive prunes- or deletions) can be undone. This is useful if the client machine shouldn't get full access to its own backups to e.g. prevent a hacker from deleting backups after taking over a client machine. For full details and instruction on how to roll back, see the official [Borg docs](https://borgbackup.readthedocs.io/en/stable/usage/notes.html#append-only-mode).
-
-
-### Why can I still prune or delete archives with active append-only mode?
-
-The server-side Borg process [doesn't know](https://github.com/borgbackup/borg/issues/3504#issuecomment-354765228) about the high-level commands (`borg delete`, `borg prune`) you run. It only knows about adding chunks, removing chunks and so on. So with the current architecture, it's not possible to reject e.g. a `borg delete` command right away.
-
-As a result, all high level operations still work, but old data isn't deleted (delayed deletion). Effectively this means that while running backups with append-only SSH keys, no disk space will be recovered in your BorgBase repo with pruning. But you can run a prune with an all access ssh key when your free quota is running low, which will then clear pruned backups and free up disk space.
-
-With append-only mode enabled, the repository will have a timestamped transaction log. This [allows going back](https://borgbackup.readthedocs.io/en/stable/usage/notes.html#append-only-mode) to previous states, even if prune- or delete-commands were issued by the backup client.
-
-If you need to restore an older repo version, you can use [SFTP mode](/setup/import) to make the necessary edits or, preferably, download a backup copy of the whole repo before doing any edits.
-
-
-### Why is BorgBase showing the same storage use after deleting or prunging archives?
-
-There are situations where removing an archive doesn't automatically delete the data associated with it. This can have multiple reasons:
-
-- The same data segment is still associated with another archive. E.g. if you have two archives referencing the same files and you delete one of them, the data usage will stay the same.
-- You are using an append-only key. In this case the server-side Borg process will ignore all requests to actually delete any data and transactions can be rolled back. See the whole [append-only section](#append-only-mode) for more.
-- When using Borg `1.1.x`, old data is cleaned up only during a *write operation* to the repository. So if you changed key permissions recently, there can be a delay before the data is cleaned up.
-- When using Borg `1.2.x` or higher, old data is only deleted when running `borg compact` or running the *Compact Repo* action from the BorgBase Control Panel. Before that, no disk space is released.
-
-
-### How can I prune append-only repositories?
-
-When using append-only mode, old transactions and segments are never cleaned from the repo and the size can grow over time. The timing and conditions of when old segments are cleaned up depends on the Borg version in use:
-
-- Borg 1.1.x: In this version, old segments are deleted *implicitely* when a write operation (e.g. `borg create`, `borg delete`) is done with a full access key.
-- Borg 1.2.x: This version added a new `borg compact` command to *explicitely* clean up old segments at a suitable time. You can trigger this command from our control panel under *More > Compact repo* from the repo table. Or run `borg compact` with a full access key directly.
-
-
-
-
-## Other Questions
-
-### What's the difference between a SSH key, SSH password, SSH key passphrase and Borg repository passphrase?
-
-*BorgBase* uses SSH keys for authentication. This means to connect to a backup repository, you need to upload the *public* part of a SSH keypair and then use the *private* part to make a connection.
-
-The SSH key and the Borg repository passphrase are totally separate. SSH keys are only used for *authentication* to log into the BorgBase repo and you can easily replace it in the control panel.
-
-It's possible to create an encrypted SSH key that's protected with a passphrase. We don't recommend this for backup purposes, since it doesn't add much security and can interfere with automation. It's preferred to generate a SSH key without passphrase and keep it on this one machine only. If the same Borg repository is used from another machine, generate a new key there.
-
-In addition, SSH also supports login by *password*. This doesn't work well with automation and isn't supported by *BorgBase*. If you are prompted for a SSH password, there is an issue with your SSH key.
-
-The Borg repository passphrase is used for *encryption* and is separate from SSH. It encrypts the backup data on your machine and we can't help you recover or replace it. You should keep it somewhere safe off the source machine, so you always have access to the backup, even if something happens to the source machine.
-
-To summarize the terms again:
-
-- *SSH key*: The private part of a keypair used to authenticate with a SSH server. Used by *BorgBase* for *authentication* when connecting to a Borg repository.
-- *SSH password*: Another way to authenticate with a SSH server. Not used by *BorgBase*.
-- *SSH key passphrase*: To encrypt a SSH key.
-- *Borg repository passphrase*: To encrypt the data in a Borg repository
-
-
-### Which storage backend are you using?
-
-We deploy a mix of hardware- and software RAID-6 backed storage servers with NVMe-backed write caches for performance and enterprise hard drives for reliablity. Replacement drives are ready on-site for quick failovers. For a list of the providers we work with, you can also see our [GDPR page](https://www.borgbase.com/gdpr).
-
-While this setup provides good durability against most kinds of hardware failures, BorgBase doesn't offer geographical redundancy or redundancy across multiple data centers for single repos. It's thus not recommended to use our service for archiving purposes, where there is no other copy of the data.
-
-If you need geographic redundancy, you can add two repos in different regions and do parallel backup to both of them. This case is, e.g. well supported by Borgmatic, which allows adding a list of repositories. Here an example configuration:
-
-```
-location:
-    repositories:
-        - ssh://xxxxxx@xxxxxx.repo.borgbase.com/./repo  # EU-based repository nr. 1
-        - ssh://yyyyyy@yyyyyy.repo.borgbase.com/./repo  # US-based repository nr. 2
-```
-
-
-### How can I migrate an existing repo including archives to or from BorgBase?
-
-We offer free migration services for both, incoming and outgoing transfers. Currently this is done manually. To start a transfer follow these steps:
-
-1. For incoming transfers, create an empty repo in your BorgBase account.
-2. Make sure your old repo data is accessible from the internet somehow, e.g. via SSH, FTP or HTTP. For SSH we will provide you with a one-time public key to use.
-3. Contact our support and provide the BorgBase repo ID and the login details of the transfer source or target.
-
-
-### Why is the repository size shown in the web interface different from `borg info`?
-
-BorgBase always displays the actual disk usage, as measured on the file system. This includes some metadata and index files and slight variations from the space usage reported via `borg info` under *All Archives > Deduplicated Size* are expected.
-
-If you see larger variations, you are probably running your repo in *append-only mode*. This means `borg` never really deletes old segments. So the actual disk usage will be higher than what `borg` thinks over time. From the [docs](https://borgbackup.readthedocs.io/en/stable/usage/notes.html#append-only-mode):
-
-> As data is only appended, and nothing removed, commands like prune or delete won’t free disk space, they merely tag data as deleted in a new transaction.
-
-If you are OK to fully remove those old segments, you can run `borg compact` (starting with Borg version 1.2) on it or perform any write operation with a full access key (previous Borg versions). This will free the space and the actual usage and the usage caluclated by Borg should now match more closely.
-
-
-### How often should I run `borg check`?
-
-The `borg check` command can detect issues with your repository, but running it on large repos will make your backups much slower and cause higher load on our storage servers. It's not really necessary to run it more often, since the underlying RAID controller already does weekly data scrubs to verify the data. As a result we strongly recommend running `borg check` once a month only. When using Borgmatic, this can be done like this:
-
-- Run this cron task every day to create a new backup: `borgmatic --create --prune`
-- And this once a month (some random day a few hours after the backup): `borgmatic --check`
-
-Our [Ansible role](https://github.com/borgbase/ansible-role-borgbackup) also supports monthly checks, when `borgmatic_large_repo` is set to `True` (the default).
-
-**If we notice excessive repo checks on your account, we may contact you or interrupt those processes in order to guarantee the best speed for all users.**
-
-
-### How do I fully remove my account?
-
-If you have found another backup service and prefer to remove your account, you can do so any time. Doing so will remove your account data permanently. If you ever choose to start using BorgBase again, you will have to open a new account. If you ever had a paid subscription, we will still keep some invoicing data, as required by law. To remove your account:
-
-1. Remove all your repositories and make sure the data is saved elsewhere. You can also transfer your whole archive via `rsync`, as described [here](/setup/import).
-2. Log into your account and navigate to [*Account > Profile*](https://www.borgbase.com/account?tab=6). Then click *Remove Account*
-
-
-### Is there a maintenance window?
-
-Sometimes it's necessary to restart services and servers to apply security- and maintenance updates. Such updates are applied during off-peak hours, late morning and afternoon of that time zone. They will be published on our [status page](https://status.borgbase.com/status/default).
-
-
-### How do I get support?
-
-If you have any questions or issues regarding your *BorgBase* account, simply email to [hello@borgbase.com](mailto:hello@borgbase.com) any time. You will generally receive a response within a few hours during working hours and within a day otherwise.
-
-We are also happy to help out with questions around setting up backups using the various projects in the Borg eco system, for example Borgmatic, Vorta and others on a best-effort basis. If you have a specific question, you will usually receive a speedy response. For more general questions (e.g. "How do I restore my backup?") or feedback on open source software, it's better to first read the related documentation, search the project's issue tracker or – for genuine bugs – open an issue on Github. Here some links for specific projects:
-
-- **Borg Backup**: [Documentation](https://borgbackup.readthedocs.io/en/stable/index.html), [Issue Tracker](https://github.com/borgbackup/borg/issues/)
-- **Borgmatic**: [Documentation](https://torsion.org/borgmatic/), [Issue Tracker](https://projects.torsion.org/borgmatic-collective/borgmatic/issues/)
-- **Vorta**: [Documentation](https://vorta.borgbase.com/), [Issue Tracker](https://github.com/borgbase/vorta/issues)
-
-If you require additional support or integration, we can also connect you with a relevant maintainer or our parent company's [Quick Support offering](https://www.peakford.com/support/).
-
-### Have any other questions? [Email Us!](mailto:hello@borgbase.com)
+Looking for help with SSH keys? See [SSH Keys for BorgBase](/setup/borg/ssh-keys) in the setup section.

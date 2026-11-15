@@ -5,10 +5,6 @@ sidebar:
   order: 2
 ---
 
-:::note
-Restic support was only added recently and our documenation for it will be expanded over time.
-:::
-
 ## Step 1 - List Snapshots
 
 To restore files from a Restic backup, you need two things:
@@ -37,9 +33,6 @@ To actually download files from a backup:
 $ restic restore 9999999 --target /tmp/restore-work
 ```
 
-
 ## Further reading
 
 You can find more on how to restore files in the [official documentation](https://restic.readthedocs.io/en/stable/).
-
-## Have any other questions? [Email Us!](mailto:hello@borgbase.com)
