@@ -1,0 +1,19 @@
+# Legacy WordPress-era URLs
+/linux/how-to-restore-files-from-a-borg-backup-using-the-command-line/  /restore
+/backup-strategy/steps-with-template/   /strategy
+/macos/how-to-backup-your-mac-using-the-vorta-backup-gui/   /setup/borg/vorta
+/linux/how-to-create-a-ssh-key-on-macos-or-ubuntu-debian/   /faq/ssh
+/linux/setup-borg-command-line/ /setup/borg/cli
+/automation /api
+/faq/databases /setup/borg/databases
+/faq/import /setup/import
+
+# Before the Restic section was added
+/setup/ansible /setup/borg/ansible
+/setup/cli /setup/borg/cli
+/setup/databases /setup/borg/databases
+/setup/pika /setup/borg/pika
+/setup/synology /setup/borg/synology
+/setup/vorta /setup/borg/vorta
+/restore/borgmatic /restore/borg/borgmatic
+/restore/mount /restore/borg/mount
