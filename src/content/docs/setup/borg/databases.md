@@ -6,7 +6,7 @@ sidebar:
   order: 8
 ---
 
-_Reviewed in May 2026_
+_Reviewed in November 2026_
 
 Many services and servers require a database, whose content needs to be backed up as well. There are different ways to achieve this using Borg or Borgmatic. One method you should avoid is to copy the internal data directory of the database, as it's not safe to copy those files while the database service is running. A better way is to create a compressed dump of the actual data and add that file to the backup. There are multiple ways to do so:
 
@@ -14,12 +14,14 @@ Many services and servers require a database, whose content needs to be backed u
 
 If you are already using Borgmatic and have a large database, you can also use their built-in database hooks to dump the database content and include it in your backup. The advantage of this technique is that the database dump is read via a named pipe and never written to disk, thus saving storage space.
 
-To dump all MySQL and Postgres DBs before each backup, one would use the following snippet:[^4]
+To dump all Postgres, MySQL and MariaDB DBs before each backup, one would use the following snippet, keeping only the hooks for the databases you run:[^4]
 
 ```
 postgresql_databases:
     - name: all
 mysql_databases:
+    - name: all
+mariadb_databases:
     - name: all
 ```
 

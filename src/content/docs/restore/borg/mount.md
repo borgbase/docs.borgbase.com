@@ -6,7 +6,7 @@ sidebar:
   order: 2
 ---
 
-_Reviewed in August 2023_
+_Reviewed in November 2026_
 
 :::note
 You should be comfortable using the command line. If you prefer a graphical client, look into our [Vorta Tutorial](/setup/borg/vorta) instead. These instructions should work on macOS and popular Linux flavors, like Debian, Ubuntu, as well as Red Hat, Fedora and CentOS.
@@ -37,7 +37,7 @@ $ brew install --cask macfuse
 **For Debian/Ubuntu**: The FUSE library is available from the main package repository.
 
 ```
-$ sudo apt-get install libfuse-dev fuse pkg-config
+$ sudo apt-get install libfuse3-dev fuse3 pkg-config
 ```
 
 **For Red Hat/CentOS**: FUSE is available from the official repository.
@@ -51,7 +51,8 @@ $ yum install fuse-devel fuse pkgconfig
 FUSE support is an optional add-on for Borg. Install it like this:
 
 ```
-$ pip3 install 'borgbackup[llfuse]'
+$ pip3 install 'borgbackup[llfuse]'   # macOS, Red Hat/CentOS (FUSE 2)
+$ pip3 install 'borgbackup[pyfuse3]'  # Debian/Ubuntu (FUSE 3)
 ```
 
 On macOS, you could also use Borg's [FUSE-enabled Tap](https://github.com/borgbackup/homebrew-tap).

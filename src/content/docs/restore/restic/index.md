@@ -19,7 +19,7 @@ $ export RESTIC_REPOSITORY=rest:https://xxxxx:yyyyyyyyyyy@xxxxx.repo.borgbase.co
 $ export RESTIC_PASSWORD=mysecret
 ```
 
-Then list snapshot:
+Then list snapshots:
 ```
 $ restic snapshots
 ```
@@ -30,7 +30,7 @@ Note the ID of the snapshot you want to restore and proceed to the next step
 
 To actually download files from a backup:
 ```
-$ restic restore 9999999 --target /tmp/restore-work
+$ restic restore 99999999 --target /tmp/restore-work
 ```
 
 ## Further reading

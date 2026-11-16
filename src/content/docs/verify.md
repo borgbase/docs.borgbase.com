@@ -25,13 +25,13 @@ You should have a backup process in place and working. If you are still working 
 ### 1.  Backups are happening
 This is the most common and easiest to spot. You want to have a way to be sure your backup script still works after months or years of updates and server modifications. So it's essential to log successful runs, the absence of successful runs, and failures. And keep in mind that the absence of failures isn't the same as success. If your script just doesn't run, it can't fail.
 
-There are a few services that are specialized in monitoring cron jobs. They will also alert you about the absence of successful backups, not just failures. Borgmatic, a very useful wrapper around Borg implements a number of them, as described [here](https://torsion.org/borgmatic/docs/how-to/monitor-your-backups/#third-party-monitoring-services). Or you can ping a service endpoint at the end a run like this:
+There are a few services that are specialized in monitoring cron jobs. They will also alert you about the absence of successful backups, not just failures. Borgmatic, a very useful wrapper around Borg implements a number of them, as described [here](https://torsion.org/borgmatic/reference/configuration/monitoring/). Or you can ping a service endpoint at the end a run like this:
 
 ````
 1 1 * * 0  backup.sh && curl http://my-monitor.com/success
 ````
 
-For [Borgmatic](https://torsion.org/borgmatic/docs/how-to/monitor-your-backups/#third-party-monitoring-services) you can define command hooks that are called when failures happen:
+For [Borgmatic](https://torsion.org/borgmatic/reference/configuration/command-hooks/) you can define command hooks that are called when failures happen:
 
 ```yaml
 commands:

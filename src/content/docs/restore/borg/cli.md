@@ -6,7 +6,7 @@ sidebar:
   order: 3
 ---
 
-_Reviewed in August 2023_
+_Reviewed in November 2026_
 
 FUSE can be slow for a large number of files and it can't restore metadata. For this reason, Borg includes a second command for fast bulk-restoring – `borg extract`.
 
@@ -15,7 +15,7 @@ You should be comfortable using the command line. If you prefer a graphical clie
 :::
 
 :::note
-The commands on this page use Borg 1.x syntax. Borg 2 takes the repository via `BORG_REPO` or `-r` and the archive as a separate argument, as described in the [setup tutorial](/setup/borg/cli).
+The commands on this page use Borg 1.x syntax. Borg 2 takes the repository via `BORG_REPO` or `-r` and the archive as a separate argument, as described in the [setup tutorial](/setup/borg/cli). If several archives share the same name, select one by its ID as shown by `borg repo-list`, e.g. `aid:4dcedf39`.
 :::
 
 ## Prerequisites
@@ -23,7 +23,12 @@ You should already have Borg installed and know how to use the command line. If 
 
 ## Step 1 - Listing the Archives
 
-To use it, you will need to know the precise path and archive name to restore. The [`borg list`](https://borgbackup.readthedocs.io/en/stable/usage/list.html) command can be helpful for this.
+To use it, you will need to know the precise path and archive name to restore. The [`borg list`](https://borgbackup.readthedocs.io/en/stable/usage/list.html) command can be helpful for this. It lists all archives of a repository or, with an archive name appended, the files in that archive:
+
+```
+$ borg list ssh://w66xh7lj@w66xh7lj.repo.borgbase.com/./repo
+$ borg list ssh://w66xh7lj@w66xh7lj.repo.borgbase.com/./repo::nyx2-test-repo-2019-02-16T12:04:06
+```
 
 Assuming we got the archive name and path from the previous step, a possible `borg extract` command could be
 
@@ -40,7 +45,7 @@ The last part of the command gives the path you're looking to restore. If you pa
 
 ## Step 2 - Extracting the Archives
 
-Borg will restore your files to the current working directory. So be sure you are in the right place before running the command for real. To restore all the data from a specific snapshot to the current directory:
+Borg will restore your files to the current working directory. So be sure you are in the right place before running the command for real. Borg 2 only extracts into an empty directory, unless you add `--continue`. To restore all the data from a specific snapshot to the current directory:
 
 ```
 $ borg extract \

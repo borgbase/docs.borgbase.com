@@ -12,7 +12,7 @@ We deploy a mix of hardware- and software RAID-6 backed storage servers with NVM
 
 While this setup provides good durability against most kinds of hardware failures, BorgBase doesn't offer geographical redundancy or redundancy across multiple data centers for single repos. It's thus not recommended to use our service for archiving purposes, where there is no other copy of the data.
 
-If you need geographic redundancy, you can add two repos in different regions and do parallel backup to both of them. This case is, e.g. well supported by Borgmatic, which allows adding a list of repositories. Here an example configuration:
+If you need geographic redundancy, you can add two repos in different regions and back up to both of them. This case is, e.g. well supported by Borgmatic, which allows adding a list of repositories. Here an example configuration:
 
 ```yaml
 repositories:

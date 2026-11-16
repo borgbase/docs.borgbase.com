@@ -6,7 +6,7 @@ sidebar:
   order: 4
 ---
 
-_Reviewed in May 2026_
+_Reviewed in November 2026_
 
 Docker and related container tools, like Podman have greatly simplified the work of sysadmins. Instead of installing dependencies on the operating system, they can now be isolated in a "container". This helps with isolation and updates. At the same time containers are relatively light because processes share the host OS and kernel.
 
@@ -40,7 +40,7 @@ source_directories:
 
 Databases are slightly trickier to back up, since data might be kept in memory and just copying the data files is not sufficient for a clean backup. The simplest way to get a full database backup is Borgmatic's database dump feature. It will use named pipes to dump the data, which doesn't need space for intermediate files. See [here](/setup/borg/databases) for more.
 
-The below config would log into a local database container as root user and create a backup of all databases:
+The below config would log into local database containers via their published ports as root user and create a backup of all databases:
 
 ```
 commands:
@@ -52,10 +52,13 @@ commands:
 
 postgresql_databases:
     - name: all
-      password: ${POSTGRES_ROOT_PASSWORD}
+      hostname: 127.0.0.1
+      port: 5432
       username: postgres
+      password: ${POSTGRES_ROOT_PASSWORD}
 mysql_databases:
     - name: all
+      hostname: 127.0.0.1
       port: 33306
       username: root
       password: ${MYSQL_ROOT_PASSWORD}

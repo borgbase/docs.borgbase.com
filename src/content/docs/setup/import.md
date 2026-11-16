@@ -6,7 +6,7 @@ sidebar:
   order: 7
 ---
 
-_Reviewed in August 2023_
+_Reviewed in November 2026_
 
 If you have an existing Borg repository, you can import it into *BorgBase* using SFTP. Naturally you can use the same technique to *export* an existing repository.
 

@@ -8,7 +8,7 @@ sidebar:
 
 import { Tabs, TabItem } from '@astrojs/starlight/components';
 
-_Reviewed in May 2026_
+_Reviewed in November 2026_
 
 In this article we will set up a backup software called Borg Backup (or Borg for short). There are other backup solutions for Linux or macOS, but Borg has all the features we would expect from a proper backup, like encryption, compression and deduplication.
 
@@ -125,13 +125,6 @@ After adding the repo, you can copy the repository location using the icon in th
 
 This will tell Borg where to connect to for storing backups and it will use your public SSH key to authenticate itself. There are no passwords to remember and it's very difficult to crack a key due to its length.
 
-The URL format depends on the Borg version chosen for the repository:
-
-| Borg version | Repository URL |
-| -- | -- |
-| Borg 1.x | `ssh://xxx@xxx.repo.borgbase.com/./repo` |
-| Borg 2.x | `ssh://xxx@xxx.repo.borgbase.com/repo` |
-
 :::note
 You may still see the older SCP-style format (`xxx@xxx.repo.borgbase.com:repo`) in some places. It is deprecated in Borg 1.x and no longer accepted by Borg 2. The _BorgBase_ control panel will give you the `ssh://` format by default.
 :::
@@ -158,7 +151,7 @@ $ borg init -e repokey-blake2
 <TabItem label="Borg 2.x">
 
 ```shell
-$ export BORG_REPO=ssh://xxx@xxx.repo.borgbase.com/repo
+$ export BORG_REPO=ssh://xxx@xxx.repo.borgbase.com/./repo
 $ borg benchmark cpu  # optional: find fastest encryption algorithm
 $ borg repo-create --encryption=chacha20-poly1305
 ```
@@ -169,7 +162,7 @@ Borg 2 selects the cipher (`aes256-ocb` or `chacha20-poly1305`), the ID hash (`-
 
 </Tabs>
 
-All those commands will ask you for a passphrase to protect the repository key. Make it nice and long and keep it somewhere safe.
+Initializing the repository will ask you for a passphrase to protect the repository key. Make it nice and long and keep it somewhere safe.
 
 After the command is done, you have your remote backup repository set up and ready to accept files. You can add some test files from your _Documents_ folder with this command:
 
@@ -251,7 +244,6 @@ source_directories:
 # one_file_system: true
 
 repositories:
-  # For Borg 2 repositories, use ssh://.../repo (without the /./ part)
   - path: ssh://mmvz9gp4@mmvz9gp4.repo.borgbase.com/./repo
 
 exclude_caches: true

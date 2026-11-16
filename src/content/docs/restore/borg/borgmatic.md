@@ -6,7 +6,7 @@ sidebar:
   order: 4
 ---
 
-_Reviewed in August 2023_
+_Reviewed in November 2026_
 
 If you already use Borgmatic for your backups, it may be easier to use Borgmatic syntax for restoring.
 
@@ -23,10 +23,10 @@ Borgmatic will automatically use the repo and passphrase defined in the config f
 
 Assuming that you have Borgmatic correctly configured and making backups, you would first need to find the correct archive (often called snapshot or version) to restore by listing them.
 ```
-$ borgmatic list
+$ borgmatic repo-list
 ```
 
-After choosing the right archive, you can view files contained in it:
+After choosing the right archive, you can view files contained in it. With Borg 2, archives of a series share the same name, so pass the archive ID shown in the first column or `latest` to `--archive` instead:
 ```
 $ borgmatic list --archive server-2020-04-01
 ```
@@ -42,7 +42,7 @@ $ borgmatic list \
 
 Make sure you are in the directory you would like to restore to, as it will extract the files into it.
 
-If you would only like restore a particular directory from a backup, its as easy as adding `--destination $SOME_FOLDER` to the command, along with the directory or file you would like to restore (minus the first `/`).
+If you would only like restore a particular directory from a backup, its as easy as adding `--path` with the directory or file you would like to restore (minus the first `/`). To extract into another folder than the current one, add `--destination $SOME_FOLDER` (the folder must already exist).
 
 For example, if you would like to only restore `/mnt/catpics` from the same archive, the full command would be:
 ```

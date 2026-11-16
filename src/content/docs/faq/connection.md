@@ -39,7 +39,7 @@ If you get `Permission denied (public key)`, `Connection closed by remote host. 
     $ ssh -v xxxx@xxxx.repo.borgbase.com
     ```
 
-    This will print a list of keys being tried and potential problems. You won't get a shell at the end, as BorgBase only supports access via `borg`. Once you see `Remote: Key is restricted.` or `PTY allocation request failed on channel 0` then the login step still worked.
+    This will print a list of keys being tried and potential problems. You won't get a shell at the end, as BorgBase only supports access via `borg`. Once you see `Remote: Key is restricted.`, a `Remote:` line ending in `key options: command` (newer OpenSSH versions) or `PTY allocation request failed on channel 0` then the login step still worked.
 
 7. Does the server's SSH host key match the repo's? Mouse over the fingerprint icon next to the repo in BorgBase to see the expected fingerprint, then check what your client actually reaches:
 
