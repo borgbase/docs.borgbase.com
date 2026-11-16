@@ -24,7 +24,7 @@ export default defineConfig({
 					attrs: {
 						src: 'https://stats.snapdragon.cc/script.js',
 						'data-website-id': '80a4c095-4270-49b2-ae02-9f9478887c43',
-						async: true,
+						defer: true,
 					},
 				},
 			],
