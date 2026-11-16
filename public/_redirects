@@ -6,7 +6,7 @@
 /linux/setup-borg-command-line/ /setup/borg/cli
 /automation /api
 /faq/databases /setup/borg/databases
-/faq/import /setup/import
+/faq/import /repositories/import
 
 # Before the Restic section was added
 /setup/ansible /setup/borg/ansible
@@ -20,3 +20,13 @@
 
 # After the FAQ was split into topic pages
 /faq/ssh /setup/borg/ssh-keys
+
+# After the FAQ was regrouped into Troubleshooting, Repositories and Account
+/faq /troubleshooting
+/faq/connection /troubleshooting/connection
+/faq/performance /troubleshooting/performance
+/faq/repair /troubleshooting/repair
+/faq/append-only /repositories/append-only
+/faq/account /account
+/setup/import /repositories/import
+/setup/borg/true-nas https://runby.coffee/backing-up-truenas-with-borg/

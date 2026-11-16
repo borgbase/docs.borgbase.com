@@ -3,7 +3,6 @@ title: "SSH Keys for BorgBase"
 description: "Supported SSH key types and how to create secure SSH keys for BorgBase connections."
 sidebar:
   label: "SSH Keys"
-  order: 2
 ---
 
 ## Introduction
@@ -92,6 +91,27 @@ You can now simply copy it to the clipboard and add it to [BorgBase.com](https:/
 **Finally, be sure to also assign the key to a backup repository. Else it won't be used.** When adding a new backup repository, you can choose any of your SSH keys. It's good practice to have one keypair per-server or machine. So each machine can only access its own backups.
 
 During repo initialization, Borg will simply use the key without any further settings.
+
+## Keys, Passwords and Passphrases
+
+*BorgBase* uses SSH keys for authentication. This means to connect to a backup repository, you need to upload the *public* part of a SSH keypair and then use the *private* part to make a connection.
+
+The SSH key and the Borg repository passphrase are totally separate. SSH keys are only used for *authentication* to log into the BorgBase repo and you can easily replace it in the control panel.
+
+It's possible to create an encrypted SSH key that's protected with a passphrase. We don't recommend this for backup purposes, since it doesn't add much security and can interfere with automation. It's preferred to generate a SSH key without passphrase and keep it on this one machine only. If the same Borg repository is used from another machine, generate a new key there.
+
+In addition, SSH also supports login by *password*. This doesn't work well with automation and isn't supported by *BorgBase*. If you are prompted for a SSH password, there is an issue with your SSH key.
+
+The Borg repository passphrase is used for *encryption* and is separate from SSH. It encrypts the backup data on your machine and we can't help you recover or replace it. You should keep it somewhere safe off the source machine, so you always have access to the backup, even if something happens to the source machine.
+
+To summarize the terms again:
+
+- *SSH key*: The private part of a keypair used to authenticate with a SSH server. Used by *BorgBase* for *authentication* when connecting to a Borg repository.
+- *SSH password*: Another way to authenticate with a SSH server. Not used by *BorgBase*.
+- *SSH key passphrase*: To encrypt a SSH key.
+- *Borg repository passphrase*: To encrypt the data in a Borg repository
+
+If connections fail, see [Connection and SSH Issues](/troubleshooting/connection).
 
 ### References
 

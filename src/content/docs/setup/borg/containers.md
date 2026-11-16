@@ -3,7 +3,6 @@ title: "Backup (Docker) Containers"
 description: "Use Borg and Borgmatic to backup (Docker) containers"
 sidebar:
   label: "Containers"
-  order: 4
 ---
 
 _Reviewed in November 2026_

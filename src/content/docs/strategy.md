@@ -3,7 +3,6 @@ title: "Practical Steps to a Comprehensive Backup Strategy – With Template"
 description: "How to plan a comprehensive backup strategy by taking an inventory of your data and matching it to storage locations and backup processes."
 sidebar:
   label: "Strategy"
-  order: 2
 ---
 
 We all rely on data to help us get our job done and enhance our life. Think of business documents, personal pictures, source code for software projects, tax receipts or health records. Some of this data now lives in the cloud. You can sync your pictures or keep your source code on Github. This has left many of us with the impression that someone else is responsible for keeping our data safe.
@@ -40,7 +39,7 @@ Try to be comprehensive when making this list. Be sure to include items that are
 
 You can use the following template[^2] to make your own data asset inventory. Once you're happy with it continue with step 2.
 
-<img src="/img/strategy/Screenshot-2018-12-07-at-12.43.34.png" alt="" width="835" height="295" class="aligncenter size-large wp-image-78" />
+<img src="/img/strategy/Screenshot-2018-12-07-at-12.43.34.png" alt="" width="835" height="295" />
 
 ## Step 2 – Selection of Backup Method
 With all your essential data inventoried, you can now continue to select an appropriate backup method for each. Depending on the kind of data, data velocity and your desired RPO, some popular options for backup methods are:

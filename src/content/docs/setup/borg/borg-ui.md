@@ -3,7 +3,6 @@ title: "How to Backup a Server or NAS to BorgBase using Borg UI"
 description: "Borg UI is a self-hosted web interface for Borg. It manages repositories, schedules, restores and alerts from the browser on a server, NAS or homelab box."
 sidebar:
   label: "Borg UI"
-  order: 6
 ---
 
 **[Borg UI](https://borgui.com)** is a community-maintained web interface for Borg. It runs as a Docker container, or natively on Debian and Ubuntu, on a server, NAS or homelab box and manages Borg repositories from the browser. It ships a BorgBase preset, so the repository path form and the SSH key setup are handled for you.

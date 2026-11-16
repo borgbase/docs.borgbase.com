@@ -3,15 +3,14 @@ title: "Restoring Files with Borg"
 description: "Restoring Files with the Borg from the Command Line"
 sidebar:
   label: "Restore with Borg"
-  order: 3
 ---
 
 _Reviewed in November 2026_
 
-FUSE can be slow for a large number of files and it can't restore metadata. For this reason, Borg includes a second command for fast bulk-restoring – `borg extract`.
+The `borg extract` command restores a full archive or selected paths from it, including all metadata. It is the fastest way to restore a large number of files. If you would rather browse archives and copy a few files, see [Mount and Browse Archives](/restore/borg/mount). For other options and what you need on a new machine, see the [overview](/restore/borg).
 
 :::note
-You should be comfortable using the command line. If you prefer a graphical client, look into our [Vorta Tutorial](/setup/borg/vorta) instead. These instructions should work on macOS and popular Linux flavors, like Debian, Ubuntu, as well as Red Hat, Fedora and CentOS.
+You should be comfortable using the command line. If you prefer a graphical client, see [restoring with Vorta](https://vorta.borgbase.com/usage/restore/) instead. These instructions should work on macOS and popular Linux flavors, like Debian, Ubuntu, as well as Red Hat, Fedora and CentOS.
 :::
 
 :::note
@@ -23,7 +22,7 @@ You should already have Borg installed and know how to use the command line. If 
 
 ## Step 1 - Listing the Archives
 
-To use it, you will need to know the precise path and archive name to restore. The [`borg list`](https://borgbackup.readthedocs.io/en/stable/usage/list.html) command can be helpful for this. It lists all archives of a repository or, with an archive name appended, the files in that archive:
+To use `borg extract`, you will need to know the precise path and archive name to restore. The [`borg list`](https://borgbackup.readthedocs.io/en/stable/usage/list.html) command can be helpful for this. It lists all archives of a repository or, with an archive name appended, the files in that archive:
 
 ```
 $ borg list ssh://w66xh7lj@w66xh7lj.repo.borgbase.com/./repo

@@ -3,7 +3,6 @@ title: "Verify Existing Backups"
 description: "How to verify existing backups"
 sidebar:
   label: "Verify"
-  order: 4
 ---
 
 Untested backups are like Schrödinger's cat. Nobody knows they're dead or alive. This article helps to methodically evaluate the quality of a backup.
@@ -47,19 +46,19 @@ healthchecks:
     ping_url: http://my-monitor.com/success
 ```
 
-When using [BorgBase](https://www.borgbase.com/), we will also monitor for the absence of successful backups for you and alert you when they are absent for too long.
+When using [BorgBase](https://www.borgbase.com/), we will also monitor for the absence of successful backups for you and alert you when they are absent for too long. See [Monitoring Alerts](/repositories/settings#monitoring-alerts).
 
 ### 2. Backups are happening often enough
 This is less a technical problem, and more an organizational one. It's related to your recovery point objective (RPO), as described [here](/strategy#backup-frequency-mismatch). In a nutshell, RPO is a fancy way of saying that a backup becomes less useful, as it becomes older.
 
-Consider, for example, an office file server that's used by dozens of employees. If you do daily backups in such a case, you are at risk of losing a whole day's work (if the incident happens just after the end of the workday). This may not be acceptable. So you should always match your backup technique and interval to the speed at which data changes.
-
-In the case of our office file server, you could add an additional backup run at noon (if bandwidth is an issue) or set up hourly local snapshots to cover the most common risks of accidental deletions.
+Always match your backup technique and interval to the speed at which data changes. For an office file server with daily backups, you risk losing a whole day's work. In this case you could add another backup run at noon or set up hourly local snapshots to cover the most common risks of accidental deletions.
 
 ### 3. Backups contain the expected data
 This error is hard to catch with automated tooling. So the best way is to browse or mount the backup and look at a few files and folders. You can use [Vorta](https://vorta.borgbase.com/), the desktop backup client BorgBase maintains to browse the actual files. Or mount an archive and browse it locally. For BorgBase you can also track the change in space usage over time on a chart. Though this may miss issues with small folders or data that doesn't change much.
 
-Another way to *really* verify a backup, is to use it while migrating to a new server or do a trial restore.
+Another way to *really* verify a backup, is to use it while migrating to a new server or do a [trial restore](/restore).
+
+Borg can also verify the consistency of the repository itself with `borg check`. This reads a lot of data, so [run it once a month at most](/troubleshooting/performance#how-often-should-i-run-borg-check).
 
 ### 4. Backups are independent (enough) from the source data
 Backups are there to protect from uncertain events that may happen. If one event can take down your backup *and* the source data at the same time, it's not a good backup. Some examples:
@@ -67,12 +66,14 @@ Backups are there to protect from uncertain events that may happen. If one event
 - Your backup is with a cloud provider that's managed and accessed by the same admin account managing the source data. So anyone breaking into this account could remove the source data *and* the backup.
 - A hosting company is generous enough to include some free backup space with your hosting package. This is great but risks losing all your data if this one company goes out of business unexpectedly.
 
+For more examples, see [Unwanted Correlations](/strategy#unwanted-correlations) in our strategy guide.
+
 Of course, it will be difficult to fully uncorrelate your data from the backup. Hence the "enough" in the title. It will still be on the same planet and maybe the same country. But there are many ways to improve the situation by putting your eggs in different baskets, i.e. providers, regions, drives of the same company, etc.
 
 ### 5. Backups are safe from modification
 This final point applies to all "push" style backups where the source machine also initiates the backup. Popular sync solutions, like Dropbox, fall into this category: A file is changed locally and Dropbox uploads the file, potentially overwriting the remote backup copy. Another example would be simple (S)FTP storage space, where either only one copy of the data is kept or the client has permission to modify the data.
 
-While Borg is also a push backup, you can enable [*append-only* mode](/faq/append-only), which will preserve all data until the repository is explicitly cleaned up. To avoid backups growing too large, pair this with [server-side compaction](/faq/append-only#how-can-i-prune-append-only-repositories).
+While Borg is also a push backup, you can enable [*append-only* mode](/repositories/append-only), which will preserve all data until the repository is explicitly cleaned up. To avoid backups growing too large, pair this with [server-side compaction](/repositories/append-only#how-can-i-prune-append-only-repositories).
 
 ## Conclusion
 Now you know many ways in which a backup can go wrong and hopefully more ways to avoid ever getting in a bad backup situation.

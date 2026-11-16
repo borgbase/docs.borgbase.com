@@ -31,11 +31,10 @@ export default defineConfig({
 			plugins: [starlightLinksValidator()],
 			sidebar: [
 				'index',
-				'strategy',
 				{
 					label: 'Setup',
 					items: [
-						'setup',
+						{ slug: 'setup', label: 'Choose a Backup Tool' },
 						{
 							label: 'Borg',
 							collapsed: true,
@@ -47,33 +46,60 @@ export default defineConfig({
 								{
 									label: 'Servers and NAS',
 									items: [
-										'setup/borg/ansible',
-										'setup/borg/borg-ui',
 										'setup/borg/synology',
-										'setup/borg/true-nas',
-										'setup/borg/containers',
-										'setup/borg/databases',
+										{ label: 'TrueNAS', link: 'https://runby.coffee/backing-up-truenas-with-borg/' },
+										'setup/borg/borg-ui',
+										'setup/borg/ansible',
 									],
 								},
+								{ label: 'Guides', items: ['setup/borg/databases', 'setup/borg/containers'] },
 							],
 						},
 						'setup/restic',
-						'setup/import',
+						{ label: 'Vykar', link: 'https://vykar.borgbase.com/' },
 					],
 				},
-				'verify',
 				{
 					label: 'Restore',
 					collapsed: true,
 					items: [
 						'restore',
-						{ label: 'Borg', collapsed: true, items: [{ autogenerate: { directory: 'restore/borg' } }] },
+						{
+							label: 'Borg',
+							collapsed: true,
+							items: [
+								'restore/borg',
+								'restore/borg/cli',
+								'restore/borg/mount',
+								'restore/borg/borgmatic',
+								{ label: 'Restore with Vorta', link: 'https://vorta.borgbase.com/usage/restore/' },
+							],
+						},
 						'restore/restic',
+						{ label: 'Vykar', link: 'https://vykar.borgbase.com/' },
 					],
 				},
-				'pricing',
+				{
+					label: 'Repositories',
+					items: ['repositories/settings', 'repositories/append-only', 'repositories/import', 'repositories/storage'],
+				},
+				{
+					label: 'Troubleshooting',
+					items: ['troubleshooting', 'troubleshooting/connection', 'troubleshooting/performance', 'troubleshooting/repair'],
+				},
+				{
+					label: 'Planning',
+					collapsed: true,
+					items: [
+						{ slug: 'strategy', label: 'Backup Strategy' },
+						{ slug: 'verify', label: 'Verification Checklist' },
+					],
+				},
+				{
+					label: 'Account',
+					items: ['pricing', 'account'],
+				},
 				'api',
-				{ label: 'FAQ', items: [{ autogenerate: { directory: 'faq' } }] },
 			],
 		}),
 	],

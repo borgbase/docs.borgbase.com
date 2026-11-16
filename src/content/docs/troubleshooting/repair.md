@@ -3,7 +3,6 @@ title: "Repairing Repositories"
 description: "Resolve data integrity errors, missing segments and cache problems in Borg repositories."
 sidebar:
   label: "Repair"
-  order: 4
 ---
 
 :::note

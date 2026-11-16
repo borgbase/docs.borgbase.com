@@ -1,8 +1,6 @@
 ---
 title: "API"
-description: "Introduction to the BorgBase API and Ansible role for full backup automation."
-sidebar:
-  order: 7
+description: "Introduction to the BorgBase GraphQL API for automating repositories and SSH keys."
 ---
 
 The [GraphQL API](https://api.borgbase.com/graphql) used by the web interface is also available to automate tasks. You can look up repository statistics, assign new SSH keys or create new backup repositories.

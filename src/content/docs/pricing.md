@@ -3,7 +3,6 @@ title: "Pricing and Invoicing"
 description: "How we invoice our backup services to you."
 sidebar:
   label: "Pricing"
-  order: 6
 ---
 
 [BorgBase](https://www.borgbase.com) uses a combination of fixed and variable billing. First you would choose a plan, based on your overall backup needs. See the [front page](https://www.borgbase.com#pricing) for current plans and pricing.

@@ -3,7 +3,6 @@ title: "How to Set Up Borg Backups from the Command Line on Linux and macOS"
 description: "Instructions on how to set up Borg Backup from the command line on Linux and macOS."
 sidebar:
   label: "Command Line"
-  order: 1
 ---
 
 import { Tabs, TabItem } from '@astrojs/starlight/components';
@@ -102,7 +101,7 @@ In this step we will securely connect your machine to the remote repository usin
 Let's start by generating a public-private key pair based on the (currently) most secure Ed25519 standard.
 
 ```shell
-$ ssh-keygen -o -a 100 -t ed25519
+$ ssh-keygen -t ed25519
 ```
 
 This will ask you for a location to save the key and a password. If you want to use automatic backups, you should enter an empty passphrase or add the passphrase to the macOS Keychain.
@@ -117,7 +116,7 @@ Now just copy it and provide it to your repository provider. When using [BorgBas
 
 ## Step 3 – Create a Remote Borg Repository
 
-After adding your public key, you are ready to set up a remote repository. Different providers have different ways for this. When using BorgBase, add a new repository under **Repositories**. It will ask for a repo name, quota and which SSH key to use. You can also choose between US and EU server locations.
+After adding your public key, you are ready to set up a remote repository. Different providers have different ways for this. When using BorgBase, add a new repository under **Repositories**. It will ask for a repo name, quota and which SSH key to use. You can also choose between US and EU server locations. All options are described under [Repository Settings](/repositories/settings).
 
 After adding the repo, you can copy the repository location using the icon in the first **Name** column.
 
@@ -324,7 +323,7 @@ Let's look at the major options of this file one-by-one. Since the format is YAM
 - `repositories`: The address of your backup repo.
 - `encryption_passphrase`: The password to access the repo, as set in step 4.
 - `keep_*`: Determines how many snapshots Borg will keep.
-- `checks`: How often Borgmatic verifies the repository. Reading all repo data takes time, so this is limited to once every four weeks.
+- `checks`: How often Borgmatic verifies the repository. Reading all repo data takes time, so this is limited to once every four weeks. Please don't check more often than this. See [here](/troubleshooting/performance#how-often-should-i-run-borg-check) for why.
 
 Archive names are chosen by Borgmatic. By default it uses the hostname and a timestamp with Borg 1 and just the hostname (as series name) with Borg 2. Set `archive_name_format` to change this.
 

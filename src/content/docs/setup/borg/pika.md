@@ -3,7 +3,6 @@ title: "How to Backup your Desktop using Pika Backup"
 description: "Pika Backup is a GTK program written in Rust designed to make simple backups based on borg."
 sidebar:
   label: "Pika Backup"
-  order: 3
 ---
 
 **[Pika Backup](https://apps.gnome.org/app/org.gnome.World.PikaBackup/)** is a GTK program designed to make simple backups based on borg. Frequent rumors that this software's name is related to a monster with electrical abilities are unfounded.

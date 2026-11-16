@@ -1,38 +1,27 @@
 ---
-title: "Account and Service"
-description: "Storage backend, repository migration, maintenance windows, account removal and how to get support."
+title: "Account and Support"
+description: "Account security, maintenance windows, account removal and how to get support."
 sidebar:
-  label: "Account and Service"
-  order: 5
+  label: "Account and Support"
 ---
+
+## How do I protect my account with two-factor authentication?
+
+BorgBase supports two-factor authentication with one-time passwords (OTP) from an authenticator app. Once enabled in your account settings, logging into the control panel requires the current code in addition to your password. This protects repository settings and SSH key assignments, even if your password is leaked. It doesn't affect backups, which authenticate with SSH keys or repository credentials.
 
 ## Which storage backend are you using?
 
-We deploy a mix of hardware- and software RAID-6 backed storage servers with NVMe-backed write caches for performance and enterprise hard drives for reliability. Replacement drives are ready on-site for quick failovers. For a list of the providers we work with, you can also see our [GDPR page](https://www.borgbase.com/gdpr).
-
-While this setup provides good durability against most kinds of hardware failures, BorgBase doesn't offer geographical redundancy or redundancy across multiple data centers for single repos. It's thus not recommended to use our service for archiving purposes, where there is no other copy of the data.
-
-If you need geographic redundancy, you can add two repos in different regions and back up to both of them. This case is, e.g. well supported by Borgmatic, which allows adding a list of repositories. Here an example configuration:
-
-```yaml
-repositories:
-    - path: ssh://xxxxxx@xxxxxx.repo.borgbase.com/./repo  # EU-based repository nr. 1
-    - path: ssh://yyyyyy@yyyyyy.repo.borgbase.com/./repo  # US-based repository nr. 2
-```
+See [Storage Backend and Redundancy](/repositories/storage).
 
 ## How can I migrate an existing repo including archives to or from BorgBase?
 
-We offer free migration services for both, incoming and outgoing transfers. Currently this is done manually. To start a transfer follow these steps:
-
-1. For incoming transfers, create an empty repo in your BorgBase account.
-2. Make sure your old repo data is accessible from the internet somehow, e.g. via SSH, FTP or HTTP. For SSH we will provide you with a one-time public key to use.
-3. Contact our support and provide the BorgBase repo ID and the login details of the transfer source or target.
+See [Import and Export](/repositories/import) for self-service transfers and our [free migration service](/repositories/import#migration-service).
 
 ## How do I fully remove my account?
 
 If you have found another backup service and prefer to remove your account, you can do so any time. Doing so will remove your account data permanently. If you ever choose to start using BorgBase again, you will have to open a new account. If you ever had a paid subscription, we will still keep some invoicing data, as required by law. To remove your account:
 
-1. Remove all your repositories and make sure the data is saved elsewhere. You can also transfer your whole archive via `rsync`, as described [here](/setup/import).
+1. Remove all your repositories and make sure the data is saved elsewhere. You can also download your whole repository via SFTP or `rclone`, as described [here](/repositories/import).
 2. Log into your account and navigate to [*Account > Profile*](https://www.borgbase.com/account?tab=6). Then click *Remove Account*
 
 ## Is there a maintenance window?

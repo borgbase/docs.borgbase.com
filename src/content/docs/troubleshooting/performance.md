@@ -3,7 +3,6 @@ title: "Backup Performance"
 description: "Find the bottleneck behind slow backups and avoid unnecessary repository checks."
 sidebar:
   label: "Performance"
-  order: 2
 ---
 
 ## Why is my backup process so slow?

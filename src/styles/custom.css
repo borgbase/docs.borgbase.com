@@ -74,3 +74,16 @@ figcaption {
 .site-title img {
 	height: 1.75rem;
 }
+
+/* Link cards and buttons pointing to another site get an up-right arrow. */
+.sl-link-card:has(a[href^='http']) .icon,
+.sl-link-button[href^='http'] svg {
+	transform: rotate(-45deg);
+}
+
+/* Tip asides are green. */
+.starlight-aside--tip {
+	--sl-color-asides-text-accent: var(--sl-color-green-high);
+	--sl-color-asides-border: var(--sl-color-green);
+	background-color: var(--sl-color-green-low);
+}

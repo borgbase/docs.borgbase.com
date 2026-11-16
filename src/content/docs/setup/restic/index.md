@@ -2,8 +2,10 @@
 title: "Setting up Backups with Restic"
 sidebar:
   label: "Restic"
-  order: 4
+description: "Initialize a Restic repository on BorgBase and take a first snapshot."
 ---
+
+Restic sends backups to BorgBase over HTTPS and authenticates with a username and password, which are part of the repository URL. Before you start, [create a repository](/setup#next-steps) with the Restic format and copy its URL from the BorgBase control panel. It starts with `rest:https://`.
 
 ## Step 1 - Initialize Repository
 
@@ -30,6 +32,11 @@ Verify our snapshot is there:
 ```
 $ restic snapshots
 ```
+
+## Next steps
+
+- [Verify](/verify) that your backups are working.
+- Try a [test restore](/restore/restic).
 
 ## Further reading
 

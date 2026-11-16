@@ -1,9 +1,8 @@
 ---
-title: "How to Import or Export Existing Repositories"
-description: "How can I import or export existing repository data into BorgBase?"
+title: "How to Import, Export or Migrate Existing Repositories"
+description: "Import or export existing Borg repositories using SFTP or rclone, or use our free migration service."
 sidebar:
   label: "Import and Export"
-  order: 7
 ---
 
 _Reviewed in November 2026_
@@ -13,6 +12,8 @@ If you have an existing Borg repository, you can import it into *BorgBase* using
 :::note
 For Restic repositories, you can use the `restic copy` feature to copy all snapshots to a different repository. More [here](https://restic.readthedocs.io/en/latest/045_working_with_repos.html#copying-snapshots-between-repositories)
 :::
+
+If you can't transfer the repository yourself, we also offer a free [migration service](#migration-service).
 
 ## Import Existing Repository
 
@@ -76,3 +77,11 @@ To download a repository from BorgBase:
 ```
 $ rclone sync -v borgbase:repo local-repo
 ```
+
+## Migration Service
+
+We offer free migration services for both, incoming and outgoing transfers. Currently this is done manually. To start a transfer follow these steps:
+
+1. For incoming transfers, create an empty repo in your BorgBase account.
+2. Make sure your old repo data is accessible from the internet somehow, e.g. via SSH, FTP or HTTP. For SSH we will provide you with a one-time public key to use.
+3. Contact our support and provide the BorgBase repo ID and the login details of the transfer source or target.

@@ -1,0 +1,58 @@
+---
+title: "Choose a Backup Tool"
+description: "Compare Borg, Restic and Vykar, create a repository on BorgBase and start your first backup."
+tableOfContents: false
+---
+
+import { CardGrid, LinkCard, Steps } from '@astrojs/starlight/components';
+
+BorgBase supports three backup tools: Borg, Restic and Vykar. Choosing the right one depends on your specific situation.
+
+## Which One Should I Use?
+
+- If you already use Borg and are happy with it, there's no need to switch.
+- If you need the lowest memory consumption (like on a small VPS), use Borg.
+- If you need a desktop GUI for macOS or Gnome, use Borg with Vorta.
+- If you already have Restic scripts and workflows in place, Restic will continue to work well.
+- If you want the fastest backups with built-in scheduling and a friendly YAML configuration, use Vykar. It is a new tool, first released in 2026.
+- If you need to back up a Windows machine, use Vykar or Restic.
+
+Borg is the most mature and memory-efficient tool. Restic is well-established with a large community. Vykar is the fastest in both backup and restore with the lowest CPU cost, and includes built-in scheduling and configuration. See [here](https://vykar.borgbase.com/#benchmarks) for an in-depth benchmark.
+
+## Comparison
+
+| | Borg | Restic | Vykar |
+| -- | -- | -- | -- |
+| **Initial Release** | 2010 | 2015 | 2026 |
+| **Platforms** | Linux, macOS, BSD | Linux, macOS, Windows, BSD | Linux, macOS, Windows |
+| **Deduplication** | Yes | Yes | Yes |
+| **Compression** | Yes, different algorithms | Yes, Zstandard only | Yes, LZ4 or Zstandard |
+| **Encryption** | Yes, optional | Yes, always | Yes, always (AES-256-GCM or ChaCha20, auto-selected) |
+| **Transport protocol** | SSH | HTTP/2 | HTTP/2 (REST) |
+| **Transport authentication** | SSH keypair | Username and password | Access token |
+| **Programming language** | Python/C/Cython | Go | Rust |
+| **Multi-threaded** | No (planned) | Yes | Yes |
+| **Configuration** | Via wrappers (e.g. Borgmatic) | Via wrappers (e.g. Autorestic) | Built-in YAML configuration |
+| **Scheduling** | External (cron/systemd) | External (cron/systemd) | Built-in daemon scheduler |
+| **Installation** | Included in many Linux distros, single PyInstaller binary available, or with `pip` | Single Go binaries for many platforms available | Single binary for Linux, macOS, and Windows |
+| **Desktop GUIs** | Yes, [Vorta](https://github.com/borgbase/vorta) and [Pika Backup](https://github.com/pika-backup/pika-backup) | Yes, [BackRest](https://github.com/garethgeorge/backrest) | Yes, built-in |
+| **Related projects and tools** | Many community projects with additional tools, e.g. Borgmatic | Some, but not as many as Borg | Built by BorgBase, no wrappers needed |
+
+## Next Steps
+
+<Steps>
+
+1. **Create a repository.** Log into your account, go to the [Repositories page](https://www.borgbase.com/repositories) and click _Add Repo_. Pick a name, region and the format for your tool. Borg repositories also need an [SSH key](/setup/borg/ssh-keys) assigned. All options are described under [Repository Settings](/repositories/settings).
+
+2. **Set up your backup tool.** The [Setup page](https://www.borgbase.com/setup) in the control panel shows copy & paste commands for the repository you just created. For more details, follow the guide for your tool:
+
+   <CardGrid>
+   	<LinkCard title="Borg" href="/setup/borg" description="Command line with Borgmatic, desktop clients, Synology, Ansible and more." />
+   	<LinkCard title="Restic" href="/setup/restic" description="Initialize a repository and take a first snapshot with the Restic CLI." />
+   	<LinkCard title="Vykar" href="https://vykar.borgbase.com/" description="Opens the Vykar documentation." />
+   	<LinkCard title="Existing Borg Repository" href="/repositories/import" description="Import a repository you already have using SFTP or rclone." />
+   </CardGrid>
+
+3. **Verify and test.** Once backups are running, go through the [verification checklist](/verify) and try a [test restore](/restore).
+
+</Steps>

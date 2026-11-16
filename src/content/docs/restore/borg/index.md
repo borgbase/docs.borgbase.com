@@ -2,7 +2,7 @@
 title: "Restoring Files from a Borg Backup"
 sidebar:
   label: "Overview"
-  order: 0
+description: "What you need to restore a Borg backup and which restore method to choose."
 ---
 
 If you need to restore your data to a new machine, you will need the following:
@@ -14,9 +14,11 @@ You do **not** need a backup of the SSH key used. It's only used for authenticat
 
 So after preparing the passphrase or keyfile, generate a new SSH key on the replacement machine, add it to the repo and you are ready to restore your data. Here an overview of how restoring works with different clients:
 
-* [**Restore with Borg CLI**](/restore/borg/cli) - Use the Borg CLI directly to extract a full or partial backup archive.
-* [**Restore with Borgmatic**](/restore/borg/borgmatic) - Use the [Borgmatic](https://torsion.org/borgmatic/) CLI wrapper.
-* [**Restore with Vorta**](https://vorta.borgbase.com/usage/restore/) (link to Vorta documentation) - Use our Borg desktop client, Vorta to restore backups. Recommended for users not used to the command line.
-* [**Mounting and Browsing**](/restore/borg/mount) - Mount and browse an archive and copy the files you need from it.
+| Situation | Method |
+| -- | -- |
+| Restore a full archive or many files, including all metadata | [**Restore with Borg CLI**](/restore/borg/cli) using `borg extract` |
+| Find and copy a few files, or compare several archives | [**Mount and browse**](/restore/borg/mount) using `borg mount` |
+| Backups are already managed with [Borgmatic](https://torsion.org/borgmatic/) | [**Restore with Borgmatic**](/restore/borg/borgmatic) |
+| You prefer a graphical client over the command line | [**Restore with Vorta**](https://vorta.borgbase.com/usage/restore/) (link to Vorta documentation) |
 
 All of these solutions work well, but care should be used with each one.  Borg is a powerful program, but the wrong syntax, incorrect command, or extracting into the wrong directory can lead to accidental overwriting of your current files, or even destruction of your current backups.

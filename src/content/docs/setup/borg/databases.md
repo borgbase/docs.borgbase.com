@@ -3,7 +3,6 @@ title: "How to back up MySQL, MariaDB or Postgres"
 description: "How to back up MySQL, MariaDB or Postgres using Borg Backup?"
 sidebar:
   label: "Databases"
-  order: 8
 ---
 
 _Reviewed in November 2026_

@@ -3,13 +3,12 @@ title: "Restoring Files by Mounting and Browsing a Borg Archive"
 description: "Mount and Browse Archive"
 sidebar:
   label: "Mount and Browse Archives"
-  order: 2
 ---
 
 _Reviewed in November 2026_
 
 :::note
-You should be comfortable using the command line. If you prefer a graphical client, look into our [Vorta Tutorial](/setup/borg/vorta) instead. These instructions should work on macOS and popular Linux flavors, like Debian, Ubuntu, as well as Red Hat, Fedora and CentOS.
+You should be comfortable using the command line. If you prefer a graphical client, see [restoring with Vorta](https://vorta.borgbase.com/usage/restore/) instead. These instructions should work on macOS and popular Linux flavors, like Debian, Ubuntu, as well as Red Hat, Fedora and CentOS.
 :::
 
 :::note
@@ -18,7 +17,7 @@ The commands on this page use Borg 1.x syntax. Borg 2 takes the repository via `
 
 ## Goals
 
-This article assumes that you have set up a backup workflow to a local or remote Borg repository. Now you would like to restore files from it. Borg offers two different ways to restore files. The `borg mount` command allows you to browse multiple archives and find exactly the file you are looking for. Due to some overhead from the FUSE mount library, the speed can be slower when restoring a large number of files. This is where `borg extract` comes in. If you already know which files you need, it can quickly restore large quantities of data including all metadata.
+This article assumes that you have set up a backup workflow to a local or remote Borg repository. Now you would like to restore files from it. Borg offers two different ways to restore files. The `borg mount` command allows you to browse multiple archives and find exactly the file you are looking for. Due to some overhead from the FUSE mount library, the speed can be slower when restoring a large number of files. This is where [`borg extract`](/restore/borg/cli) comes in. If you already know which files you need, it can quickly restore large quantities of data including all metadata.
 
 ## Prerequisites
 

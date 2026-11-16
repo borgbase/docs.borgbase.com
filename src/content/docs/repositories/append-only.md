@@ -3,10 +3,9 @@ title: "Append-Only Mode and Storage Use"
 description: "How append-only mode works on BorgBase, when disk space is freed and why reported sizes can differ."
 sidebar:
   label: "Append-Only and Storage Use"
-  order: 3
 ---
 
-Also called "delayed deletion". In this mode, Borg will never remove old segments and instead add a new transaction for any change in a transaction log. The result is that no data is ever deleted and operations (like archive prunes or deletions) can be undone. This is useful if the client machine shouldn't get full access to its own backups to e.g. prevent a hacker from deleting backups after taking over a client machine. For full details and instruction on how to roll back, see the official [Borg docs](https://borgbackup.readthedocs.io/en/stable/usage/notes.html#append-only-mode).
+Append-only mode, also called "delayed deletion", protects existing backups from being changed or removed by the client. You enable it per SSH key when [assigning keys to a repository](/repositories/settings#access-and-ssh-keys). In this mode, Borg will never remove old segments and instead add a new transaction for any change in a transaction log. The result is that no data is ever deleted and operations (like archive prunes or deletions) can be undone. This is useful if the client machine shouldn't get full access to its own backups to e.g. prevent a hacker from deleting backups after taking over a client machine. For full details and instruction on how to roll back, see the official [Borg docs](https://borgbackup.readthedocs.io/en/stable/usage/notes.html#append-only-mode).
 
 :::note
 This page describes append-only mode as implemented in Borg 1.x.
@@ -20,7 +19,7 @@ As a result, all high level operations still work, but old data isn't deleted (d
 
 With append-only mode enabled, the repository will have a timestamped transaction log. This [allows going back](https://borgbackup.readthedocs.io/en/stable/usage/notes.html#append-only-mode) to previous states, even if prune- or delete-commands were issued by the backup client.
 
-If you need to restore an older repo version, you can use [SFTP mode](/setup/import) to make the necessary edits or, preferably, download a backup copy of the whole repo before doing any edits.
+If you need to restore an older repo version, you can use [SFTP mode](/repositories/import) to make the necessary edits or, preferably, download a backup copy of the whole repo before doing any edits.
 
 ## How can I prune append-only repositories?
 

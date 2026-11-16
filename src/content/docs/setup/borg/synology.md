@@ -3,7 +3,6 @@ title: "Set up Borg Backup on Synology DiskStation"
 description: "Set up Borg Backup on Synology DiskStation"
 sidebar:
   label: "Synology NAS"
-  order: 5
 ---
 
 It's possible to install Borg Backup on a Synology NAS device and use it for offsite backups to [BorgBase.com](https://www.borgbase.com). The following steps don't require terminal access and will set up a new regular task in the DSM web interface.
